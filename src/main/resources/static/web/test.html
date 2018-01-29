@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+<link href="../css/dashboard.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+
+<style>
+    .menu_box {
+
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        user-select: none;
+    }
+</style>
+
+
+<script>
+    function changeActive(e) {
+        $('.menu_btn').removeClass('active');
+        $(e).addClass('active');
+    };
+
+</script>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><span>系统</span></a>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar main_menu1">
+                <li class="menu_btn" onclick="changeActive(this)"  id="allGoods" ui-sref="allGoods"><span class="glyphicon glyphicon-barcode"style="margin-right: 20px;"></span><span>全部商品</span></li>
+                <li class="menu_btn" onclick="changeActive(this)"  id="allOrder" ui-sref="allOrder"><span class="glyphicon glyphicon-time"style="margin-right: 20px;margin-left: 20px;"></span><span>待处理订单</span></li>
+                <li class="menu_btn" onclick="changeActive(this)"  id="allOrder2" ui-sref="allOrder2"><span class="glyphicon glyphicon-ok"style="margin-right: 20px;margin-left: 20px;"></span><span>已完成订单</span></li>
+                <li class="menu_btn" onclick="changeActive(this)"  id="allUser" ui-sref="allUser"><span class="glyphicon glyphicon-user"style="margin-right: 20px;"></span><span>全部用户</span></li>
+                <li class="menu_btn" onclick="changeActive(this)"  id="news" ui-sref="news"><span class="glyphicon glyphicon-th-list"style="margin-right: 20px;"></span><span>新闻中心</span></li>
+                <li class="menu_btn" onclick="changeActive(this)"  id="about" ui-sref="about"><span class="glyphicon glyphicon-pencil"style="margin-right: 20px;"></span><span>关于超市</span></li>
+                <li class="menu_btn" onclick="changeActive(this)"  id="loginLog" ui-sref="loginLog"><span class="glyphicon glyphicon-list-alt"style="margin-right: 20px;"></span><span>登录日志</span></li>
+                <!-- <li class="menu_lj">累计访问人数：<span>556</span></li>
+                <li class="menu_lj">累计交易额度：<span>556</span></li> -->
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="test">
+    <input type="text" v-model="name"/>{{name}}
+    <input type="text" v-model="space.title"/>{{space.name}}
+    <input type="text" v-model="space.href"/>
+    <input type="text" v-model="space.source"/>
+    <input type="text" v-model="space.content"/>
+    <input type="text" v-model="space.a"/>
+    <button v-on:click="save">ok</button>
+
+</div>
+</body>
+<script>
+    var vm = new Vue({
+                         el:'#test',
+                         data:{
+                             space:{
+                                 name:""
+                             },
+                            name:"",
+                         },
+
+                         methods:{
+                             save:function () {
+                                 console.log("ok");
+                                 console.log(vm.space);
+                                 console.log(JSON.stringify(vm.space));
+                                 $.ajax({
+                                            type : "post",
+                                            url : "/testC/getAjax",
+                                            data :JSON.stringify(vm.space),
+                                            datatype : 'json',
+                                            contentType:"application/json",
+                                            success : function(data) {
+
+                                                vm.parent = data;
+                                                vm.isTest = data.success;
+                                                //console.log(vm.parent.success);
+                                                //console.log(vm.isTest);
+                                            },
+                                            error : function() {
+                                                alert("请求失败");
+                                            }
+                                        });
+                             }
+
+                         }
+                     })
+
+</script>
+</html>
