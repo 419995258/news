@@ -7,6 +7,7 @@ import com.pb.news.dao.NewsMapper;
 import com.pb.news.entity.News;
 import com.pb.news.entity.VO.Message;
 import com.pb.news.entity.VO.UserTest;
+import com.pb.news.services.vo.RedisService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,9 @@ public class testController {
 
     @Autowired
     private NewsMapper newsMapper;
+
+    @Autowired
+    private RedisService redisService;
 
     @RequestMapping("/index")
     public Message index(){
@@ -75,6 +79,17 @@ public class testController {
     @RequestMapping(value="/login3",method = RequestMethod.POST)
     public  void login3(@RequestJson(value = "name") String name,@RequestJson(value = "pwd") String pwd){
         System.out.println("ok");
+    }
+
+    @RequestMapping(value="/testRedis",method = RequestMethod.POST)
+    @ResponseBody
+    public  void testRedis(){
+        String testRedis = "testRedis";
+        Integer testRedis2 = 2;
+        redisService.setStr("testRedis",testRedis);
+        System.out.println(redisService.getStr(testRedis));
+        redisService.setObj(testRedis2,testRedis2);
+        System.out.println(redisService.getObj(testRedis2));
     }
 
 }
