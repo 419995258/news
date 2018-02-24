@@ -1,9 +1,9 @@
 angular.module('phonecatFilters', ['ngCookies', 'pascalprecht.translate']);
 
-var systemIndexApp=angular.module('systemIndexApp', ['ui.router','ui.bootstrap','phonecatFilters','tm.pagination','ngCookies','pascalprecht.translate','allGoodsApp','allOrderApp','allOrder2App','allUserApp','loginLogApp','aboutApp','newsApp'
+var systemIndexApp=angular.module('systemIndexApp', ['ui.router','ui.bootstrap','phonecatFilters','tm.pagination','ngCookies','pascalprecht.translate','allGoodsApp','allOrderApp','allOrder2App','allUserApp','loginLogApp','aboutApp','newsApp','showChartsApp'
 ]).config(
 		function($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise('/allGoods');
+			$urlRouterProvider.otherwise('/showCharts');
 			$stateProvider.state('allGoods', {//全部商品
 				url : '/allGoods',
 				templateUrl : '002_allGoods.html',
@@ -40,12 +40,18 @@ var systemIndexApp=angular.module('systemIndexApp', ['ui.router','ui.bootstrap',
 				cache:'false',
 				controller: 'aboutController'
 			})
-			.state('news', {//新闻编辑
+			.state('news', {//新闻编辑showCharts
 				url : '/news',
 				templateUrl : '007_news.html',
 				cache:'false',
 				controller: 'newsController'
-			});
+			})
+			.state('showCharts', {//显示图表
+                url : '/showCharts',
+                templateUrl : 'showCharts.html',
+                cache:'false',
+                controller: 'showChartsController'
+            });
 		})
 
 	.factory('DataInfo', function() {

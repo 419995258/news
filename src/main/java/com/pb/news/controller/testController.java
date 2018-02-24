@@ -67,6 +67,8 @@ public class testController {
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
     public  void login(@RequestParam(value = "name" , required = false) String name,String pwd){
+        System.out.println(name);
+        System.out.println(pwd);
         System.out.println("ok");
     }
 
@@ -78,6 +80,8 @@ public class testController {
 
     @RequestMapping(value="/login3",method = RequestMethod.POST)
     public  void login3(@RequestJson(value = "name") String name,@RequestJson(value = "pwd") String pwd){
+        System.out.println(name);
+        System.out.println(pwd);
         System.out.println("ok");
     }
 

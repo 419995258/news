@@ -95,12 +95,12 @@
         var admin = {};
         admin.name = username;
         admin.pwd = password;
-        admin.id = "1";
+//        admin.id = "1";
         console.log(admin);
         console.log(JSON.stringify(admin))
         $.ajax({
-                   url : "/testC/login",
-                   data : admin,
+                   url : "/testC/login2",
+                   data : JSON.stringify(admin),
                    dataType : 'json',
                    cache : false,
                    type : 'POST',
