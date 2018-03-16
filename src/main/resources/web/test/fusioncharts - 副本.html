@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+
+  
+
+  
+  
+  
+ 
+
+  
+    
+      <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    
+  
+    
+
+    
+  
+
+  <style type="text/css">
+    
+  </style>
+
+  <title>FusionCharts - Configuring transparency of data plot/series in JavaScript charts</title>
+
+  
+    
+
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+window.onload=function(){
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'mscolumn2d',
+        renderAt: 'chart-container',
+        width: '500',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Comparison of Quarterly Revenue",
+                    "subCaption": "Harry's SuperMart",
+                    "xAxisname": "Quarter",
+                    "yAxisName": "Revenues (In USD)",
+                    "numberPrefix": "$",
+                    "plotFillAlpha":"90",
+                    "theme": "fint"
+            },
+                "categories": [{
+                "category": [{
+                    "label": "Q1"
+                }, {
+                    "label": "Q2"
+                }, {
+                    "label": "Q3"
+                }, {
+                    "label": "Q4"
+                }]
+            }],
+                "dataset": [{
+                "seriesname": "Previous Year",
+                    "alpha" : "30",
+                    "data": [{
+                    "value": "10000"
+                }, {
+                    "value": "11500"
+                }, {
+                    "value": "12500"
+                }, {
+                    "value": "15000"
+                }]
+            }, {
+                "seriesname": "Current Year",
+                    "data": [{
+                    "value": "25400"
+                }, {
+                    "value": "29800"
+                }, {
+                    "value": "21800"
+                }, {
+                    "value": "26800"
+                }]
+            }]
+        }
+    });
+
+    revenueChart.render();
+});
+}
+
+</script>
+
+  
+</head>
+
+<body>
+  <!-- Setting transparency for data plots (column, area etc.).  Can be useful for highlighting a specific data set
+    # plotFillAlpha - At chart level to control alpha of all series.
+    # Alpha - At dataset/data level, for specific series. Over-rides the value specified at chart level.
+ -->
+<div id="chart-container">FusionCharts will render here</div>
+  
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "None"
+    }], "*")
+  }
+</script>
+
+</body>
+
+</html>
+

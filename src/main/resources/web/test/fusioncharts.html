@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title></title>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<link href="" rel="stylesheet"/>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript" src="fusioncharts.js"></script>
+<!--
+<script type="text/javascript" src="fusioncharts_new2.js"></script>
+
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+-->
+<script type="text/javascript" src="html2canvas.min.js"></script>
+<script type="text/javascript" src="jquery.plugin.html2canvas.fix.js"></script>
+<script type="text/javascript" src="jspdf.min.js"></script>
+<script type="text/javascript" src="canvg.js"></script>
+<script type="text/javascript" src="rgbcolor.js"></script>
+<script type="text/javascript" src="StackBlur.js"></script>
+<script type="text/javascript" src="fusioncharts.theme.fint.js"></script>
+
+<style>
+ .demo li{line-height: 30px;border-bottom: 1px solid #000;}
+ .demo li a{padding: 0 20px;}
+</style>
+</head>
+
+<script type="text/javascript">
+
+var axax = "ok";
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'mscolumn2d',
+        renderAt: 'chart-container',
+        width: '500',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Comparison of Quarterly Revenue",
+                    "subCaption": "Harry's SuperMart",
+                    "xAxisname": "Quarter",
+                    "yAxisName": "Revenues (In USD)",
+                    "numberPrefix": "$",
+                    "plotFillAlpha":"90",
+                    "theme": "fint",
+					 //"exportEnabled": "1"
+            },
+                "categories": [{
+                "category": [{
+                    "label": "Q1"
+                }, {
+                    "label": "Q2"
+                }, {
+                    "label": "Q3"
+                }, {
+                    "label": "Q4"
+                }]
+            }],
+                "dataset": [{
+                "seriesname": "Previous Year",
+                    "alpha" : "30",
+                    "data": [{
+                    "value": "10000"
+                }, {
+                    "value": "11500"
+                }, {
+                    "value": "12500"
+                }, {
+                    "value": "15000"
+                }]
+            }, {
+                "seriesname": "Current Year",
+                    "data": [{
+                    "value": "25400"
+                }, {
+                    "value": "29800"
+                }, {
+                    "value": "21800"
+                }, {
+                    "value": "26800"
+                }]
+            }]
+        }
+    });
+
+    revenueChart.render();
+});
+
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'scrollColumn2d',
+        renderAt: 'chart-container2',
+        width: '550',
+        height: '350',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Sales Trends",
+                "subcaption": "FY 2012 - FY 2013",
+                "xaxisname": "Month",
+                "yaxisname": "Revenue",
+                "showvalues": "1",
+                "placeValuesInside" : "1",
+                "rotateValues": "1",
+                "valueFontColor" : "#ffffff",
+                "numberprefix": "$",
+                
+                //Cosmetics
+                "baseFontColor" : "#333333",
+                "baseFont" : "Helvetica Neue,Arial",
+                "captionFontSize" : "14",
+                "subcaptionFontSize" : "14",
+                "subcaptionFontBold" : "0",
+                "showborder": "0",
+                "paletteColors" : "#0075c2",
+                "bgcolor": "#FFFFFF",
+                "showalternatehgridcolor": "0",
+                "showplotborder": "0",
+                "labeldisplay": "WRAP",
+                "divlinecolor": "#CCCCCC",
+                "showcanvasborder": "0",
+                "linethickness": "3",
+                "plotfillalpha": "100",
+                "plotgradientcolor": "",
+                "numVisiblePlot" : "5",
+                "divlineAlpha" : "100",
+                "divlineColor" : "#999999",
+                "divlineThickness" : "1",
+                "divLineIsDashed" : "1",
+                "divLineDashLen" : "1",
+                "divLineGapLen" : "1",
+                "scrollheight" : "10",
+                "flatScrollBars" : "1",
+                "scrollShowButtons" : "0",
+                "scrollColor" : "#cccccc",
+                "showHoverEffect" : "1",
+            },
+            "categories": [ 
+                {
+                    "category": [
+                        { "label": "Jan 2012" },
+                        { "label": "Feb 2012" },
+                        { "label": "Mar 2012" },
+						{ "label": "Jan 2012" },
+                        { "label": "Feb 2012" },
+                        { "label": "Mar 2012" },
+                        
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "data": [
+                        { "value": "27400","toolText": "<b>$label</b></br>$value 人</br>占总人数的：100 %","color":"#66ccff"
+						},
+                        { "value": "29800" },
+                        { "value": "25800" },
+						 { "value": "27400","toolText": "<b>$label</b></br>$value 人</br>占总人数的：100 %","color":"#66ccff"
+						},
+                        { "value": "29800" },
+                        { "value": "25800" },
+                        
+                    ]
+                }
+            ]
+        }
+    });
+    
+    revenueChart.render();
+});
+
+
+
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'scrollColumn2d',
+        renderAt: 'chart-container4',
+        width: '1000',
+        height: '350',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+               
+                "xAxisName": "分类显示",
+                "yAxisName": "教师数量 (人)",
+                "paletteColors": "#0075c2",
+                "bgColor": "#ffffff",
+                "borderAlpha": "20",
+                "canvasBorderAlpha": "0",
+                "usePlotGradientColor": "0",
+                "plotBorderAlpha": "10",
+                //"plotTooltext": "<b>$label</b></br>$value人</br>占总人数的：$toolText " + value + "%",
+                "placevaluesInside": "1",
+                "rotatevalues": "1",
+                "valueFontColor": "#ffffff",                
+                "showXAxisLine": "1",
+                "xAxisLineColor": "#999999",
+                "divlineColor": "#999999",               
+                "divLineIsDashed": "1",
+                "showAlternateHGridColor": "0",
+                "subcaptionFontBold": "0",
+				"numVisiblePlot" : "12",
+                "subcaptionFontSize": "14"
+            }, 
+            "categories":[
+    {
+        "category": [
+            {
+                "label": "教职工总数"
+            },
+            {
+                "label": "教师岗位"
+            },
+            {
+                "label": "管理岗位"
+            },
+            {
+                "label": "无"
+            },
+            {
+                "label": "幼儿园教师资格"
+            },
+            {
+                "label": "小学教师资格"
+            },
+            {
+                "label": "初级中学教师资格"
+            },
+            {
+                "label": "高级中学教师资格"
+            },
+            {
+                "label": "中等职业学校教师资格"
+            },
+            {
+                "label": "中等职业学校实习指导教师资格"
+            },
+            {
+                "label": "高等学校教师资格"
+            },
+            {
+                "label": "未知"
+            },
+            {
+                "label": "未填报"
+            }
+        ]
+    }
+],
+            "dataset": [
+    {
+        "data": [
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的：100 %",
+                "color": "#66ccff",
+                "value": 419080
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的：86.383%",
+                "color": "#66ccff",
+                "value": 362013
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的：2.325%",
+                "color": "#66ccff",
+                "value": 9744
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 9.233%",
+                "countPer": "9.590",
+                "value": 38693
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 3.968%",
+                "countPer": "4.121",
+                "value": 16627
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 28.822%",
+                "countPer": "29.937",
+                "value": 120787
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 25.009%",
+                "countPer": "25.976",
+                "value": 104808
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 22.594%",
+                "countPer": "23.468",
+                "value": 94688
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 1.947%",
+                "countPer": "2.022",
+                "value": 8158
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 0.065%",
+                "countPer": "0.067",
+                "value": 271
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 4.606%",
+                "countPer": "4.784",
+                "value": 19304
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 0.000%",
+                "countPer": "0.000",
+                "value": 0
+            },
+            {
+                "toolText": "<b>$label</b></br>$value 人</br>占总人数的： 0.033%",
+                "countPer": "0.035",
+                "value": 140
+            }
+        ]
+    }
+]  //数据
+                    }
+ 
+    }).render();
+});
+function down(){
+  //l:横向， p：纵向； 单位： in:英寸，mm毫米；px：像素；  画布大小：默认是A4纸大小  
+    var pdf = new jsPDF('p', 'mm', [230, 250]); //230 x 250  
+   var str = $('#example-2');
+    html2canvas([str.get(0)], { 
+        scale: 2,
+        onrendered:function(canvas){  
+            var imgData=canvas.toDataURL();  
+            pdf.addImage(imgData, 'JPEG', 5, 5, 225 , 235); //第3、4个参数是位置（x,y），第5、6个参数是宽，高    
+            pdf.save(new Date().getTime()+'.pdf');  
+        }  
+    }); 
+
+}
+
+function down2(){
+   var str = $('#example-2');  
+//console.log(str);  
+html2canvas([str.get(0)], {
+	scale: 1,
+    onrendered: function (canvas) {  
+        var image = canvas.toDataURL("image/png");  
+		console.log(image);
+        var pHtml = "<img src="+image+" />";  
+        $('#pic').html(pHtml);  
+    }  
+});  
+
+}
+
+
+
+function exportPDF(){
+		$('#myCanvas01').show();
+		
+		var svgHtml = document.getElementById($("#chart-container")[0].id).innerHTML;
+		console.log(svgHtml)
+		canvg('myCanvas01',svgHtml);
+		
+			
+		var st = $(document).scrollTop();
+		$('#all').html2canvas({},function(imgData,w,h){
+			
+				$('#myCanvas01').hide();
+				
+				var pHtml = "<img src="+imgData+" />";  
+				$('#pic').html(pHtml);  
+			
+		});
+		return false;
+
+}
+
+
+
+</script>
+<body>
+  <!-- `greet` 是在下面定义的方法名 -->
+  <button v-on:click="greet">Greet</button>
+  <button onclick="down()">pdf</button>
+   <button onclick="down2()">ok</button>
+   <button onclick="exportPDF()">export</button>
+   <button onclick="showQRCode()">showQRCode</button>
+   
+	<div id="example-2">
+
+  <div id="chart-container">FusionCharts will render here</div>
+   <div id="chart-container2">FusionCharts will render here</div>
+   <div id="chart-container3">FusionCharts will render here</div>
+   <div id="chart-container4">FusionCharts will render here</div>
+   
+   
+   
+</div>
+
+<div id="all">
+<canvas id='myCanvas01' /></canvas>
+</div>
+
+<div id="pic">
+图片
+</div>
+<img src="" />
+</body>
+</html>
+
+
+
+<!--
+function createChart(data){
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'scrollColumn2d',
+        renderAt: 'chart-container',
+        width: '1000',
+        height: '350',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": data.groupName+"教师人数分布统计",
+                "subCaption": "按"+data.itemName,
+                "xAxisName": "分类显示",
+                "yAxisName": "教师数量 (人)",
+                "paletteColors": "#0075c2",
+                "bgColor": "#ffffff",
+                "borderAlpha": "20",
+                "canvasBorderAlpha": "0",
+                "usePlotGradientColor": "0",
+                "plotBorderAlpha": "10",
+                //"plotTooltext": "<b>$label</b></br>$value人</br>占总人数的：$toolText " + value + "%",
+                "placevaluesInside": "1",
+                "rotatevalues": "1",
+                "valueFontColor": "#ffffff",                
+                "showXAxisLine": "1",
+                "xAxisLineColor": "#999999",
+                "divlineColor": "#999999",               
+                "divLineIsDashed": "1",
+                "showAlternateHGridColor": "0",
+                "subcaptionFontBold": "0",
+                "subcaptionFontSize": "14"
+            }, 
+            "categories":data.categories,
+            "dataset": data.dataset  //数据
+                    }
+    }).render();
+});
+
+
+--!>
