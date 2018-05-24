@@ -1,10 +1,6 @@
 package com.pb.news.entity;
 
-import java.io.Serializable;
-
-public class News implements Serializable {
-    private static final long serialVersionUID = 1435515995276255188L;
-
+public class News {
     private Integer id;
 
     private String title;
@@ -13,11 +9,13 @@ public class News implements Serializable {
 
     private String source;
 
-    private String creTime;
+    private String cretime;
 
-    private Integer order;
+    private Integer orderSeq;
 
     private String content;
+
+    private Integer delFlag;
 
     public Integer getId() {
         return id;
@@ -43,28 +41,28 @@ public class News implements Serializable {
         this.href = href == null ? null : href.trim();
     }
 
-    public String getsource() {
+    public String getSource() {
         return source;
     }
 
-    public void setsource(String source) {
+    public void setSource(String source) {
         this.source = source == null ? null : source.trim();
     }
 
-    public String getCreTime() {
-        return creTime;
+    public String getCretime() {
+        return cretime;
     }
 
-    public void setCreTime(String creTime) {
-        this.creTime = creTime == null ? null : creTime.trim();
+    public void setCretime(String cretime) {
+        this.cretime = cretime == null ? null : cretime.trim();
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getOrderSeq() {
+        return orderSeq;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setOrderSeq(Integer orderSeq) {
+        this.orderSeq = orderSeq;
     }
 
     public String getContent() {
@@ -73,5 +71,13 @@ public class News implements Serializable {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 }

@@ -10,10 +10,10 @@ server:
 spring:
   # 数据库配置
   datasource:
-    url: jdbc:mysql://localhost:3306/news
+    url: jdbc:mysql://localhost:3306/news?serverTimezone=UTC
     username: root
     password: 123456
-    driver-class-name: org.gjt.mm.mysql.Driver
+    driver-class-name: com.mysql.jdbc.Driver
 
 
 
@@ -29,7 +29,7 @@ mybatis:
 redis:
   #redis配置
   spring.redis.database: 1
-  spring.redis.host: 127.0.0.1
+  spring.redis.host: 192.168.3.123
   spring.redis.port: 6379
 #  spring.redis.password：
   spring.redis.pool.max-idle: 8
@@ -38,3 +38,20 @@ redis:
   spring.redis.pool.max-wait: -1
   spring.redis.timeout: 5000
 
+
+#配置日志
+logging:
+  #配置日志文件路径
+  level:
+    com.pb.news: debug #不同目录下的日志可配置不同级别
+    org.springfromework.web: info
+    org.mybatis: error
+  #采用相对路径方式将日志文件输出到【log\myspringboot.log】
+  file: log\myspringboot.log
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

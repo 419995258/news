@@ -16,8 +16,10 @@ public class webConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //配置模板资源路径
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/");
-        registry.addResourceHandler("/static").addResourceLocations("classpath:/static");
+        //registry.addResourceHandler("/**").addResourceLocations("classpath:/");  //这个就全局了
+        registry.addResourceHandler("/web/**").addResourceLocations("classpath:/web/"); //只有web路径会选择
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/"); //只有static路径会选择
+        registry.addResourceHandler("/img/**").addResourceLocations("file:/G:/AllWorkspace/IDEA/mine/news/target/classes");  //本机图片路径
     }
 
 
