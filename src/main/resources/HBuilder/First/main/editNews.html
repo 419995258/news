@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>编辑新闻</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link rel="stylesheet" href="static/Mui/css/mui.min.css">
+	<!--App自定义的css-->
+	<link rel="stylesheet" type="text/css" href="static/Mui/css/app.css" />
+	<!--<script src="static/Mui/js/jquery-1.7.1.min.js"></script>-->
+	<script src="static/Mui/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="static/Mui/js/mui.min.js"></script>
+
+	<!--picker-->
+	<link href="static/Mui/css/mui.picker.css" rel="stylesheet" />
+	<link href="static/Mui/css/mui.poppicker.css" rel="stylesheet" />
+	<script src="static/Mui/js/mui.picker.js"></script>
+	<script src="static/Mui/js/mui.poppicker.js"></script>
+	<script src="static/Mui/js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="static/Mui/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	
+	<!--全局属性-->
+	<script src="static/Mui/js/property.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">编辑新闻</h1>
+</header>
+
+
+
+<div class="mui-content"  id="news">
+	<h5 class="mui-content-padded" style="padding: 0px;width: 50%;float: left;left: 25%;">添加新闻</h5>
+	
+	<div class="mui-input-row">
+		<button type="button" class="mui-btn mui-btn-green" style="padding: 0px;width: 25%;float: left;left: 37.5%;" @click="addNew()">添加</button>
+	</div>
+	
+	<h5 class="mui-content-padded" style="margin: 15px 10px;">搜索新闻</h5>
+
+
+	<form class="mui-input-group">
+		<div class="mui-input-row">
+			<label>新闻标题</label>
+			<input type="text" v-model="query.title" class="mui-input-clear" placeholder="请输入新闻标题">
+		</div>
+		
+		<div class="mui-input-row">
+			<label>是否删除:</label>
+			<label>
+				<p style="margin-top:0.2em" v-if="query.isDeleted === '1'">删除</p>
+				<p style="margin-top:0.2em" v-else-if="query.isDeleted === '0'">未删除</p>
+			</label>
+			<div class="mui-switch " id="isDeleted">
+				<!--class添加mui-active则是默认打开-->
+				<div  class="mui-switch-handle"></div>
+			</div>
+		</div>
+		
+		
+		<div class="mui-button-row">
+			<button id='showUserPicker' style="padding: 0px;width: 50%;float: left;left: 25%;" class="mui-btn mui-btn-block mui-btn-royal" type='button'>作者</button>
+		</div>
+		 
+		
+		
+		<div class="mui-button-row">
+			<button type="button" class="mui-btn mui-btn-primary mui-icon mui-icon-search"  @click="sub(query)">确认</button>&nbsp;&nbsp;
+			<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+		</div>
+		
+		
+		<h5 class="mui-content-padded" style="margin: 15px 10px;">以下是展示</h5>
+		<div class="mui-input-row mui-radio">
+			<label>全部</label>
+			<input name="radio1" type="radio" checked>
+		</div>
+		<div class="mui-input-row mui-radio">
+			<label>删除</label>
+			<input name="radio1" type="radio" checked>
+		</div>
+		<div class="mui-input-row mui-radio">
+			<label>未删除</label>
+			<input name="radio1" type="radio">
+		</div>
+	</form>
+	
+	
+
+	<h5 class="mui-content-padded" style="margin: 15px 10px;">所有的新闻</h5>
+
+
+	<!--列表信息流 开始-->
+	<div id="list" class="mui-scroll-wrapper">
+		<ul id="OA_task_1" class="mui-table-view">
+			<li class="mui-table-view-cell" v-for="item in items">
+				<div class="mui-slider-right mui-disabled">
+					<a class="mui-btn mui-btn-red" :id="item.id">删除</a>
+				</div>
+				<div class="mui-slider-handle mui-table">
+					<div class="mui-table-cell">
+						<a href="javascript:;" :data-guid="item.id" @tap="">
+							<div class="mui-media-body">
+								<div class="mui-ellipsis-2" style="float: left;">{{item.title}}</div>
+								<div class="mui-ellipsis-2" style="float: right;padding-right: 1rem;">{{item.id}}</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+    var lastId = '',
+        minId = ''; //最新新闻的id
+    var webview_detail = null; //详情页webview
+    var titleNView = { //详情页原生导航配置
+        backgroundColor: '#f7f7f7', //导航栏背景色
+        titleText: '', //导航栏标题
+        titleColor: '#000000', //文字颜色
+        type: 'transparent', //透明渐变样式
+        autoBackButton: true, //自动绘制返回箭头
+        splitLine: { //底部分割线
+            color: '#cccccc'
+        }
+    }
+    var page = {
+        pageNum:0,
+        pageSize:10
+    };
+
+    var news = new Vue({
+                           el: '#news',
+                           data: {
+                           		query:{
+                           			title:'',
+                           			isDeleted:'0',
+                           			source:''
+                           		},
+                                items: [] //列表信息流数据
+                           },
+                           methods : {
+                           		sub:function(query){
+                           			mui.toast('点击了确认');
+                           			queryNews();
+                           		},
+                           		addNew:function(){
+                           			console.log("添加新闻");
+                           			//触发子窗口变更新闻详情
+                           			var webview_detail = null; //详情页webview
+                           			var addNewStyle = { //详情页原生导航配置
+										backgroundColor: '#f7f7f7', //导航栏背景色
+										titleText: '', //导航栏标题
+										titleColor: '#000000', //文字颜色
+										type: 'transparent', //透明渐变样式
+										autoBackButton: false, //自动绘制返回箭头
+										splitLine: { //底部分割线
+											color: '#cccccc'
+										}
+									}
+//                         			webview_detail = mui.preload({
+//									url: 'addNew.html',
+//									id: 'news',
+//									styles: {
+//											"render": "always",
+//											"popGesture": "hide",
+//											"bouncne": "vertical",
+//											"bounceBackground": "#efeff4",
+//											"top":'145px',//mui标题栏默认高度为45px；
+//      									"bottom":'0px',//默认为0px，可不定义；
+//											"titleNView": titleNView
+//										}
+//									});
+					
+									//更改详情页原生导航条信息
+									titleNView.titleText = '新页面';
+//									webview_detail.setStyle({
+//										"titleNView": addNewStyle
+//									});
+//									
+//									mui.fire(webview_detail, 'get_detail', {
+//										"titleNView": addNewStyle
+//									});
+									
+									mui.openWindow({
+								    url: 'addNew.html',
+									id: 'news',
+									styles: {
+											"render": "always",
+											"popGesture": "close",
+											"bounce": "vertical",
+											"bounceBackground": "#efeff4",
+											"top":'55px',//mui标题栏默认高度为45px；
+        									"bottom":'0px',//默认为0px，可不定义；
+											//"titleNView": addNewStyle
+									},
+								  	});
+								  	
+									
+//									setTimeout(function() {
+//										webview_detail.show("slide-in-right", 300);
+//									}, 150);
+                           			
+                           			
+                           		}
+                           		
+                           }
+                       });
+
+    //mui初始化，配置下拉刷新
+    mui.init({
+                 pullRefresh: {
+                     container: '#list',
+                     down: {
+                         style: 'circle',
+                         offset: '0px',
+                         auto: true,
+                         callback: pulldownRefresh
+                     },
+                     up: {
+                         contentrefresh: '正在加载...',
+                         callback: pullupRefresh
+                     }
+                 },
+                 swipeBack:true
+             }
+    );
+    
+    window.addEventListener('refresh', function(e){//执行刷新
+	    location.reload();
+	});
+
+    /**
+     *  下拉刷新获取最新列表
+     */
+    function pulldownRefresh() {
+
+        if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+            plus.nativeUI.toast('似乎已断开与互联网的连接', {
+                verticalAlign: 'top'
+            });
+            return;
+        }
+
+        var data = {};
+
+        if(lastId) { //说明已有数据，目前处于下拉刷新，增加时间戳，触发服务端立即刷新，返回最新数据
+            data.id = lastId;
+            data.time = new Date().getTime() + "";
+        }
+
+
+        mui.ajax(mainUrl + '/newsC/getNews',{
+            data:{
+                pageNum:1,
+                pageSize:10,
+                query:news.query
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:100000,//超时时间设置为100秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                mui('#list').pullRefresh().endPulldownToRefresh();
+                if(data.rows && data.rows.length > 0) {
+                    lastId = data.rows[0].id; //保存最新消息的id，方便下拉刷新时使用
+                    if(!minId) {//首次拉取列表时保存最后一条消息的id，方便上拉加载时使用
+                        minId = data.rows[data.rows.length - 1].id;
+                        //页面的分页数据
+                        page.pageNum = 1;
+                        page.pageSize = 10;
+                    }
+                    //news.items = data.rows.concat(news.items);
+                    news.items = data.rows;
+
+
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+
+    }
+    
+    /**
+     *  下拉刷新获取最新列表
+     */
+    function queryNews() {
+
+        if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+            plus.nativeUI.toast('似乎已断开与互联网的连接', {
+                verticalAlign: 'top'
+            });
+            return;
+        }
+
+        var data = {};
+
+        if(lastId) { //说明已有数据，目前处于下拉刷新，增加时间戳，触发服务端立即刷新，返回最新数据
+            data.id = lastId;
+            data.time = new Date().getTime() + "";
+        }
+
+
+        mui.ajax(mainUrl + '/newsC/getNews',{
+            data:{
+                pageNum:1,
+                pageSize:10,
+                query:news.query
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:100000,//超时时间设置为100秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                mui('#list').pullRefresh().endPulldownToRefresh();
+                if(data.rows && data.rows.length > 0) {
+                    lastId = data.rows[0].id; //保存最新消息的id，方便下拉刷新时使用
+                    if(!minId) {//首次拉取列表时保存最后一条消息的id，方便上拉加载时使用
+                        minId = data.rows[data.rows.length - 1].id;
+                        //页面的分页数据
+                        page.pageNum = 1;
+                        page.pageSize = 10;
+                    }
+                    news.items = data.rows;
+
+
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+
+    }
+
+    /**
+     * 上拉加载拉取历史列表
+     */
+    function pullupRefresh() {
+        var data = {
+            column: "id,title,source_name,href,published_at" //需要的字段名
+        };
+
+        if(minId) { //说明已有数据，目前处于上拉加载，传递当前minId 返回历史数据
+            data.minId = minId;
+            data.time = new Date().getTime() + "";
+            data.pageSize = 10;
+        }
+        //请求历史列表信息流
+        page.pageNum = Number(page.pageNum) + Number(1);
+        mui.ajax(mainUrl + '/newsC/getNews',{
+            data:{
+            	pageNum:page.pageNum,
+                pageSize:page.pageSize,
+                query:news.query
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:100000,//超时时间设置为100秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                mui('#list').pullRefresh().endPullupToRefresh();
+                if(data.rows && data.rows.length > 0) {
+                    minId = data.rows[data.rows.length - 1].id; //保存最后一条消息的id，上拉加载时使用
+                    //页面的分页数据
+                    news.items = news.items.concat(data.rows);
+                    page.pageNum = data.pageNum;
+                    page.pageSize = data.pageSize;
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    }
+
+    (function($) {
+        //$.swipeoutOpen(el,direction)//打开指定列的滑动菜单，el:指定列的dom对象，direction：取值left|right，指定打开的是左侧或右侧滑动菜单
+        //$.swipeoutClose(el);//关闭指定列的滑动菜单，el:指定列的dom对象
+        //				setTimeout(function() {
+        //					$.swipeoutOpen(document.getElementById("OA_task_1").querySelector('li:last-child'), 'left');
+        //					setTimeout(function() {
+        //						$.swipeoutClose(document.getElementById("OA_task_1").querySelector('li:last-child'));
+        //					}, 1000);
+        //				}, 1000);
+        //第一个demo，拖拽后显示操作图标，点击操作图标删除元素；
+        $('#OA_task_1').on('tap', '.mui-btn', function(event) {
+            var elem = this;
+            var li = elem.parentNode.parentNode;
+            var id = this.getAttribute('id');
+            
+            mui.confirm('确认删除该条记录？', '删除！', btnArray, function(e) {
+                if (e.index == 0) {
+                    
+                    //删除数据
+					mui.ajax(mainUrl + '/newsC/delNews',{
+					            data:{
+					            	id:id
+					            },
+					            dataType:'json',//服务器返回json格式数据
+					            type:'post',//HTTP请求类型
+					            timeout:100000,//超时时间设置为100秒；
+					            headers:{'Content-Type':'application/json'},
+					            success:function(data){
+					                li.parentNode.removeChild(li);
+					                mui.toast(data.message);
+					            },
+					            error:function(xhr,type,errorThrown){
+					                //异常处理；
+					                mui.toast("删除失败");
+					            }
+					        });
+                    
+                } else {
+                    setTimeout(function() {
+                        $.swipeoutClose(li);
+                    }, 0);
+                }
+            });
+        });
+        var btnArray = ['确认', '取消'];
+        
+        
+        //初始化pick
+        $.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'source85',
+						text: 'source85'
+					}, {
+						value: 'source84',
+						text: 'source84'
+					}, {
+						value: 'source83',
+						text: 'source83'
+					}, {
+						value: 'source82',
+						text: 'source82'
+					}, {
+						value: 'source81',
+						text: 'source81'
+					}, {
+						value: 'source80',
+						text: 'source80'
+					}, {
+						value: 'source79',
+						text: 'source79'
+					}, {
+						value: 'source78',
+						text: 'source78'
+					}, {
+						value: 'source77',
+						text: 'source77'
+					}]);
+					
+					//显示下拉框
+					var showUserPickerButton = document.getElementById('showUserPicker');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							news.query.source = items[0].value;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					//-----------------------------------------
+       	});
+    })(mui);
+    
+    
+	/**
+	 * toggle 事件监听
+	 */
+	document.getElementById("isDeleted").addEventListener('toggle', function(event) {
+	    //获取id
+        //判断开关的选中状态
+        var isActive = document.getElementById("isDeleted").classList.contains("mui-active");
+		if(isActive){
+		  news.query.isDeleted='1';
+		}else{
+		  news.query.isDeleted='0';
+		}
+	}) 
+	 
+	
+	
+	 
+</script>
+</body>
+
+</html>
