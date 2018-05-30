@@ -1,5 +1,6 @@
 package com.pb.news.entity.VO;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Message {
@@ -7,6 +8,7 @@ public class Message {
     private String message;
     private Boolean success =false;
     private Map<String,Object> context;
+    private Map result = new HashMap(0); //返回对象
 
     public String getMessage() {
         return message;
@@ -30,5 +32,14 @@ public class Message {
 
     public void setContext(Map<String, Object> context) {
         this.context = context;
+    }
+
+
+    public Map getResult() {
+        return result;
+    }
+
+    public void setResult(Map result) {
+        this.result = result;
     }
 }

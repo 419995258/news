@@ -3,13 +3,19 @@ package com.pb.news;
 
 import com.pb.news.annotation.RequestJsonHandlerMethodArgumentResolver;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
 
+@EnableWebMvc
 @Configuration
 public class webConfig extends WebMvcConfigurerAdapter {
     /*配置模板资源路径*/
@@ -27,6 +33,17 @@ public class webConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers){
         argumentResolvers.add(new RequestJsonHandlerMethodArgumentResolver());
+    }
+
+    @Bean(name = "multipartResolver")
+    public MultipartResolver multipartResolver() throws Exception {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("UTF-8");
+        //resolver.setResolveLazily(true);//resolveLazily属性启用是为了推迟文件解析，以在在UploadAction中捕获文件大小异常
+        resolver.setMaxInMemorySize(1);
+        resolver.setMaxUploadSize(50 * 1024 * 1024);//上传文件大小 50M 5*1024*1024
+        resolver.setUploadTempDir(new FileSystemResource("/tmp/"));
+        return resolver;
     }
 
 }

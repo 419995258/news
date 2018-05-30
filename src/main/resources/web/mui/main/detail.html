@@ -8,6 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="/static/Mui/css/list-to-detail.css" />
 		<script src="/static/Mui/js/mui.min.js"></script>
 		<script src="/static/Mui/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--全局属性-->
+		<script src="/static/Mui/js/property.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
@@ -16,7 +19,7 @@
 			<!--顶部banner图 开始-->
 			<div id="kr-article-banner" class="kr-article-banner">
 				<div id="kr-article-href" class="kr-article-href">
-					<img :src="href">
+					<img :src="'http:192.168.3.118:8090'+href">
 				</div>
 				<h2 id="kr-article-title" class="kr-article-title">{{title}}</h2>
 			</div>

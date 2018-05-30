@@ -15,7 +15,16 @@ public class ResultVo {
 	private String records; // jqgrid总记录数
 	private String page;// 当前页码
 
+	private Object other;
 
+
+	public Object getOther() {
+		return other;
+	}
+
+	public void setOther(Object other) {
+		this.other = other;
+	}
 
 	public String getCurrentpage() {
 		return currentpage;

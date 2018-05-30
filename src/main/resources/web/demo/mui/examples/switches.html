@@ -83,6 +83,7 @@
 				 * toggle 事件监听
 				 */
 				this.addEventListener('toggle', function(event) {
+				    console.log(event)
 					//event.detail.isActive 可直接获取当前状态
 					this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
 				});
