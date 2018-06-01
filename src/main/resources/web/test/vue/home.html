@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src="/static/vue/vue.min.js"></script>
+<script src="/static/vue/vue-router.js"></script>
+
+
+<script src="home.js"></script>
+<body>
+
+
+<div id="app">
+    <h1>Hello App!</h1>
+    <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
+        <router-link to="/page01">Go to page01</router-link>
+    </p>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+</div>
+
+
+<script>
+
+
+    /**
+     * Created by pb on 2018/5/31.
+     */
+// 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
+
+
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+                            router
+                        }).$mount('#app')
+
+    // 现在，应用已经启动了！
+
+
+
+</script>
+
+</body>
+</html>
