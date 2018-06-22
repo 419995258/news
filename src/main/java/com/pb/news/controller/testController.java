@@ -6,23 +6,15 @@ import com.pb.news.annotation.RequestJson;
 import com.pb.news.dao.NewsMapper;
 import com.pb.news.entity.News;
 import com.pb.news.entity.VO.Message;
-import com.pb.news.entity.VO.UserTest;
 import com.pb.news.services.vo.RedisService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController  //代表controller
 @RequestMapping("/testC")
@@ -33,6 +25,7 @@ public class testController {
 
     @Autowired
     private RedisService redisService;
+
 
     @RequestMapping("/index")
     public Message index(){
@@ -95,5 +88,9 @@ public class testController {
         redisService.setObj(testRedis2,testRedis2);
         System.out.println(redisService.getObj(testRedis2));
     }
+
+
+
+
 
 }
