@@ -1,15 +1,12 @@
 package com.pb.news.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.pb.news.annotation.RequestJson;
-import com.pb.news.dao.NewsMapper;
 import com.pb.news.entity.News;
-import com.pb.news.entity.VO.Message;
-import com.pb.news.entity.VO.ResultVo;
-import com.pb.news.services.INewsService;
-import com.pb.news.services.impl.NewsServiceImpl;
+import com.pb.news.entity.vo.Message;
+import com.pb.news.entity.vo.ResultVo;
+import com.pb.news.services.NewsService;
 import com.pb.news.services.vo.RedisService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,7 @@ import java.util.Map;
 public class NewsController {
 
     @Autowired
-    private INewsService newsService;
+    private NewsService newsService;
 
     @Autowired
     private RedisService redisService;
@@ -89,6 +86,8 @@ public class NewsController {
     public void getAjax(@RequestBody News news, @RequestParam(value = "a",required = false) String a){
         System.out.println("ok");
     }
+
+
 
 
     @RequestMapping(value="/login",method = RequestMethod.POST)

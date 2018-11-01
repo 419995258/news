@@ -1,4 +1,4 @@
-package com.pb.news;
+package com.pb.news.config;
 
 
 import com.pb.news.annotation.RequestJsonHandlerMethodArgumentResolver;
@@ -26,6 +26,7 @@ public class webConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/web/**").addResourceLocations("classpath:/web/"); //只有web路径会选择
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/"); //只有static路径会选择
         registry.addResourceHandler("/img/**").addResourceLocations("file:/G:/AllWorkspace/IDEA/mine/news/target/classes");  //本机图片路径
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/").setCachePeriod(0);
     }
 
 

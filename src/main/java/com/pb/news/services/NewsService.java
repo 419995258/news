@@ -1,15 +1,15 @@
 package com.pb.news.services;
 
 import com.pb.news.entity.News;
-import com.pb.news.entity.VO.Message;
-import com.pb.news.entity.VO.ResultVo;
+import com.pb.news.entity.vo.Message;
+import com.pb.news.entity.vo.ResultVo;
 
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by pb on 2018/5/22.
  */
-public interface INewsService {
+public interface NewsService {
 
 
     /**
@@ -18,7 +18,7 @@ public interface INewsService {
      * @return
      * @throws Exception
      */
-    public Message saveTempFiles(MultipartFile[] file) throws Exception;
+    Message saveTempFiles(MultipartFile[] file) throws Exception;
 
     /**
      *
@@ -29,7 +29,7 @@ public interface INewsService {
      * @author pengbin <pengbin>
      * 2018/5/22 17:13
      */
-    public ResultVo queryNews(ResultVo param) throws Exception;
+    ResultVo queryNews(ResultVo param) throws Exception;
 
 
     /**
@@ -41,7 +41,7 @@ public interface INewsService {
      * @author pengbin <pengbin>
      * 2018/5/28 18:19
      */
-    public Message saveNews(News news) throws Exception;
+    Message saveNews(News news) throws Exception;
 
     /**
      *
@@ -52,7 +52,7 @@ public interface INewsService {
      * @author pengbin <pengbin>
      * 2018/5/28 18:19
      */
-    public Message delNews(News news) throws Exception;
+    Message delNews(News news) throws Exception;
 
 
 }

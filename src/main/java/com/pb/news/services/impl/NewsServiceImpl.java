@@ -1,17 +1,14 @@
 package com.pb.news.services.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import com.pb.news.dao.NewsMapper;
 import com.pb.news.entity.News;
 import com.pb.news.entity.NewsExample;
-import com.pb.news.entity.VO.Message;
-import com.pb.news.entity.VO.ResultVo;
-import com.pb.news.services.INewsService;
+import com.pb.news.entity.vo.Message;
+import com.pb.news.entity.vo.ResultVo;
+import com.pb.news.services.NewsService;
 import com.pb.news.services.vo.RedisService;
 import com.pb.news.util.FengYeBasic;
 import com.pb.news.util.FileOperationUtil;
-import com.pb.news.util.ObjectUtil;
 import com.pb.news.util.StringContentUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +31,7 @@ import java.util.Map;
  */
 
 @Service
-public class NewsServiceImpl  extends FengYeBasic implements INewsService{
+public class NewsServiceImpl  extends FengYeBasic implements NewsService {
 
 
     @Autowired

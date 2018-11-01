@@ -3,7 +3,7 @@ package com.pb.news.util;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.pb.news.entity.VO.ResultVo;
+import com.pb.news.entity.vo.ResultVo;
 
 import java.util.List;
 

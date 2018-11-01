@@ -1,6 +1,4 @@
-package com.pb.news.entity.VO;
-
-import java.io.Serializable;
+package com.pb.news.entity.vo;
 
 public class UserTest {
     private String name;

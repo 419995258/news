@@ -1,6 +1,4 @@
-package com.pb.news.entity.VO;
-
-import com.pb.news.util.StringContentUtil;
+package com.pb.news.entity.vo;
 
 import java.util.List;
 

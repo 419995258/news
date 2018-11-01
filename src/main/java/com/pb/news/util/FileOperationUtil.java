@@ -1,6 +1,6 @@
 package com.pb.news.util;
 
-import com.pb.news.entity.VO.Message;
+import com.pb.news.entity.vo.Message;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

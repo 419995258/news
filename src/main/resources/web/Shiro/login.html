@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>vueJs.html</title>
+
+  <meta name="keywords" content="keyword1,keyword2,keyword3">
+  <meta name="description" content="this is my page">
+  <meta name="content-type" content="text/html; charset=UTF-8">
+  <script type="text/javascript" src="/static/js/lib/vue.js"></script>
+  <script src="/static/js/lib/jquery/jquery-2.1.4.min.js"></script>
+  <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+</head>
+
+<body>
+<div id="test">
+  <form>
+    登录:<input v-model="user.username" /> <br /> 密码:<input
+          v-model="user.password" /> <br />
+  </form>
+  <button v-on:click="test(user)">login</button>
+</div>
+</body>
+<script type="text/javascript">
+
+    Vue.config.debug = true;//开启vue的debug模式
+    var vm = new Vue({
+                         el:"#test",
+                         data : {
+                             user : {}
+
+
+
+                         },
+                         methods : {
+                             test : function(user) {
+                                 console.log("点击了登录");
+                                 console.log(user);
+                                 console.log(JSON.stringify(user));
+                                 $.ajax({
+                                            type : "post",
+                                            url : "/userC/userLogin",
+                                            data : JSON.stringify(user),
+                                            datatype : 'json',
+                                            contentType:"application/json",
+                                            success : function(data) {
+
+                                                console.log(data);
+//                                                vm.parent = data;
+//                                                vm.isTest = data.success
+                                                //console.log(vm.parent.success);
+                                                //console.log(vm.isTest);
+                                            },
+                                            error : function() {
+                                                alert("请求失败");
+                                            }
+                                        });
+                             }
+                         }
+                     });
+
+</script>
+</html>

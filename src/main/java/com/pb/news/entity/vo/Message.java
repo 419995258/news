@@ -1,4 +1,4 @@
-package com.pb.news.entity.VO;
+package com.pb.news.entity.vo;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.pb.news.annotation.RequestJson;
 import com.pb.news.dao.NewsMapper;
 import com.pb.news.entity.News;
-import com.pb.news.entity.VO.Message;
+import com.pb.news.entity.vo.Message;
 import com.pb.news.services.vo.RedisService;
 
 import org.springframework.beans.factory.annotation.Autowired;
