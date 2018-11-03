@@ -3,6 +3,8 @@ package com.pb.news.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.pb.news.entity.User;
+import com.pb.news.entity.vo.Message;
+import com.pb.news.entity.vo.ResultVo;
 import com.pb.news.services.UserService;
 import com.pb.news.services.vo.RedisService;
 
@@ -42,7 +44,7 @@ public class UserController {
 
 
 
-    @RequestMapping(value="/userLogin",method = RequestMethod.POST)
+    @RequestMapping(value="/userLoginShiro",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "用户进行shiro登录")
     //@ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string")
@@ -52,7 +54,7 @@ public class UserController {
     })
     /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
                            @RequestParam(value = "password" , required = false) String password)*/
-    public  void userLogin(@RequestBody JSONObject json){
+    public  void userLoginShiro(@RequestBody JSONObject json){
         System.out.println("ok");
         User user = new User();
         user.setUsername(json.getString("username"));
@@ -88,5 +90,36 @@ public class UserController {
     }
 
 
+
+    @RequestMapping(value="/userLogin",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "用户进行登录")
+    //@ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string"),
+            @ApiImplicitParam(paramType = "query",name= "password" ,value = "密码",dataType = "string")
+    })
+    /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
+                           @RequestParam(value = "password" , required = false) String password)*/
+    public Message userLogin(@RequestBody JSONObject json){
+        Message message = new Message();
+
+        User user = new User();
+        user.setUsername(json.getString("username"));
+        user.setPassword(json.getString("password"));
+        List<User> userList = new ArrayList<>();
+        userList = userService.getUserList(user);
+        if(userList.size() == 1){
+            user = userList.get(0);
+            message.setSuccess(true);
+            message.setMessage("登录成功");
+        }else{
+            message.setMessage("账号或密码错误！");
+        }
+
+
+        return message;
+
+    }
 
 }
