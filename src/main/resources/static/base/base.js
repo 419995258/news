@@ -1,3 +1,4 @@
+/*
 var token = localStorage.getItem("token");
 console.log(token);
 if(token != null && token != ''){
@@ -22,3 +23,4 @@ if(token != null && token != ''){
 }else{
     location.href="../login.html";
 }
+*/
