@@ -19,6 +19,8 @@
     <script type="text/javascript" src="/static/vue/vue.min.js"></script>
     <script src="/static/js/lib/jquery/jquery-2.1.4.min.js"></script>
 
+    <script src="/static/base/base.js"></script>
+
 
 <style type="text/css">
 body {
@@ -133,8 +135,8 @@ body {
                                                 success : function(data) {
                                                     //console.log(vm.parent.success);
                                                     //console.log(vm.isTest);
-                                                    localStorage.setItem("token", data.result.token);
-                                                    console.log(localStorage.getItem("token"));
+                                                    console.log(JSON.stringify(data.result));
+                                                    token = data.result.token;
                                                 },
                                                 error : function() {
                                                     alert("请求失败");

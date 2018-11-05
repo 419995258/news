@@ -4,7 +4,6 @@ package com.pb.news.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.pb.news.entity.User;
 import com.pb.news.entity.vo.Message;
-import com.pb.news.entity.vo.ResultVo;
 import com.pb.news.services.UserService;
 import com.pb.news.services.vo.RedisService;
 
@@ -21,7 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,9 +44,6 @@ public class UserController {
 
     @Autowired
     private RedisService redisService;
-
-
-
 
 
     @RequestMapping(value="/userLoginShiro",method = RequestMethod.POST)
@@ -101,7 +103,7 @@ public class UserController {
     })
     /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
                            @RequestParam(value = "password" , required = false) String password)*/
-    public Message userLogin(@RequestBody JSONObject json){
+    public Message userLogin(@RequestBody JSONObject json,HttpServletRequest request){
         Message message = new Message();
 
         User user = new User();
@@ -113,10 +115,41 @@ public class UserController {
             user = userList.get(0);
             message.setSuccess(true);
             message.setMessage("登录成功");
+
+            //保存session
+            String token = UUID.randomUUID().toString();
+            request.getSession().setAttribute(token,user);
+            Map<String,Object> map = new HashMap<>();
+            map.put("token",token);
+            message.setResult(map);
+
         }else{
             message.setMessage("账号或密码错误！");
         }
 
+
+
+        return message;
+
+    }
+
+
+    @RequestMapping(value="/validateUserLogin",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "验证用户登录")
+    @ApiImplicitParam(paramType = "query",name= "token" ,value = "token",dataType = "string")
+    public Message validateUserLogin(@RequestParam(value = "token" , required = true)String token,HttpServletRequest request){
+        Message message = new Message();
+        if(!"first".equals(token)){
+            Object user = request.getSession().getAttribute(token);
+            if(user != null){
+                message.setSuccess(true);
+            }else{
+                message.setSuccess(false);
+            }
+        }else{
+            message.setSuccess(true);
+        }
 
         return message;
 
