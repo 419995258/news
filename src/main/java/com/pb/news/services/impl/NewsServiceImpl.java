@@ -7,18 +7,16 @@ import com.pb.news.entity.vo.Message;
 import com.pb.news.entity.vo.ResultVo;
 import com.pb.news.services.NewsService;
 import com.pb.news.services.vo.RedisService;
-import com.pb.news.util.FengYeBasic;
+import com.pb.news.util.Basic;
 import com.pb.news.util.FileOperationUtil;
 import com.pb.news.util.StringContentUtil;
 
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.web.multipart.MultipartFile;
-
-import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,12 +24,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//import org.springframework.web.multipart.MultipartFile;
+
 /**
  * Created by pb on 2018/5/22.
  */
 
 @Service
-public class NewsServiceImpl  extends FengYeBasic implements NewsService {
+public class NewsServiceImpl  extends Basic implements NewsService {
 
 
     @Autowired

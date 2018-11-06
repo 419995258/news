@@ -9,6 +9,15 @@ public class Message {
     private Boolean success =false;
     private Map<String,Object> context;
     private Map result = new HashMap(0); //返回对象
+    private Object obj;
+
+    public Object getObj() {
+        return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
+    }
 
     public String getMessage() {
         return message;

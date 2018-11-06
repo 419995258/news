@@ -4,7 +4,7 @@ import com.pb.news.dao.RoleMapper;
 import com.pb.news.dao.vo.UserMapperExt;
 import com.pb.news.services.RoleService;
 import com.pb.news.services.vo.RedisService;
-import com.pb.news.util.FengYeBasic;
+import com.pb.news.util.Basic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 
 @Service
-public class RoleServiceImpl extends FengYeBasic implements RoleService {
+public class RoleServiceImpl extends Basic implements RoleService {
 
 
     @Autowired

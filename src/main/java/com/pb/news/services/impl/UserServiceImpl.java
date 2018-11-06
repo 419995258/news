@@ -6,7 +6,7 @@ import com.pb.news.entity.User;
 import com.pb.news.entity.UserExample;
 import com.pb.news.services.UserService;
 import com.pb.news.services.vo.RedisService;
-import com.pb.news.util.FengYeBasic;
+import com.pb.news.util.Basic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 
 @Service
-public class UserServiceImpl extends FengYeBasic implements UserService {
+public class UserServiceImpl extends Basic implements UserService {
 
 
     @Autowired

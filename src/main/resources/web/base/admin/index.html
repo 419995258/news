@@ -36,11 +36,11 @@
     <div class="mdui-collapse-item mdui-collapse-item-open">
       <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
         <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">near_me</i>
-        <div class="mdui-list-item-content">参数管理</div>
+        <div class="mdui-list-item-content">后台管理</div>
         <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
       </div>
       <div class="mdui-collapse-item-body mdui-list">
-        <a href="download.html" class="mdui-list-item mdui-ripple mdui-list-item-active">属性管理</a>
+        <a href="index.html" class="mdui-list-item mdui-ripple mdui-list-item-active">属性管理</a>
         <a href="compatibility.html" class="mdui-list-item mdui-ripple ">兼容性</a>
         <a href="jq.html" class="mdui-list-item mdui-ripple ">JavaScript 工具库</a>
         <a href="global.html" class="mdui-list-item mdui-ripple ">JavaScript 全局方法</a>
@@ -89,5 +89,128 @@
 
 <div class="mdui-container doc-container doc-no-cover">
   <h1 class="doc-title mdui-text-color-theme">属性管理</h1>
+
+    <div class="mdui-row" id="property">
+        <div class="mdui-col-xs-3">
+            <ul class="mdui-list">
+                <ul class="mdui-list" v-for="(propertyGroup,index) in propertyGroupList">
+                    <li class="mdui-list-item mdui-ripple"
+                        v-on:click="getProperty(index,propertyGroup.gid)"
+                        v-bind:class="{'mdui-list-item-active':index==active}"
+                       >
+                        {{propertyGroup.groupName}}
+                    </li>
+                    <li class="mdui-divider"></li>
+                </ul>
+            </ul>
+        </div>
+        <div class="mdui-col-xs-9">
+            <ul class="mdui-list">
+                <li class="mdui-list-item mdui-ripple">Inbox</li>
+                <li class="mdui-list-item mdui-ripple">Starred</li>
+                <li class="mdui-list-item mdui-ripple">Send mail</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
+
+<script>
+
+    Vue.config.debug = true;//开启vue的debug模式
+    var vm = new Vue({
+                         el:"#property",
+                         data : {
+                             propertyGroup : {
+                                 gid:'',
+                                 groupCode:'',
+                                 groupKey:'',
+                                 groupName:''
+                             },
+                             propertyGroupList:[],
+                             property : {
+                                 gid:'',
+                                 propertyKey:'',
+                                 propertyName:'',
+                                 groupKey:'',
+                             },
+                             propertyList:[],
+                             active:'-1'
+
+
+                         },
+                         // 初始化执行
+                         mounted(){
+                             this.queryPropertyGroup()
+                         },
+                         methods : {
+
+                             queryPropertyGroup: function () {
+                                 $.ajax({
+                                            type : "post",
+                                            url : "/adminC/queryPropertyGroup",
+                                            //data : JSON.stringify(test3.page),
+                                            datatype : 'json',
+                                            contentType:"application/json",
+                                            success : function(data) {
+                                                console.log(JSON.stringify(data))
+                                                if(data.success == true){
+                                                    vm.propertyGroupList = data.obj;
+                                                }else{
+                                                    mdui.alert(data.message);
+                                                }
+                                            },
+                                            error : function() {
+                                                mdui.alert("请求失败");
+                                            }
+                                        });
+                             },
+                             getProperty: function (index,gid) {
+                                 //console.log(event.currentTarget);
+                                 //添加选中状态
+                                 this.active=index;
+
+                                 //通过id查询属性
+                                 $.ajax({
+                                            type : "post",
+                                            url : "/adminC/queryPropertyGroup",
+                                            data : "id="+gid,
+                                            success : function(data) {
+                                                //console.log(vm.parent.success);
+                                                //console.log(vm.isTest);
+                                                if(data.success == true){
+                                                    propertyList = data.obj;
+                                                }else{
+                                                    mdui.alert(data.message);
+                                                }
+                                            },
+                                            error : function() {
+                                                console.log("请求失败");
+                                            }
+                                        });
+                             }
+                         }
+                     });
+
+
+
+
+    /*$(function(){
+        $.ajax({
+                   type : "post",
+                   url : "/userC/validateUserLogin",
+                   data : "token="+token,
+                   success : function(data) {
+                       //console.log(vm.parent.success);
+                       //console.log(vm.isTest);
+                       if(data.success != true){
+                           location.href = "../login.html";
+                       }
+                   },
+                   error : function() {
+                       console.log("请求失败");
+                   }
+               });
+    });*/
+
+</script>

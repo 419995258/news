@@ -19,6 +19,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -52,10 +53,12 @@ public class ShiroRealm extends AuthorizingRealm {
 
 
         //获取role
-        List<Map<String,Object>> roleList = roleService.getRolesByUser(user.getId());
+        List<Map<String,Object>> roleList = new ArrayList<>();
+        roleList = roleService.getRolesByUser(user.getId());
 
         //获取permission
-        List<Map<String,Object>> permissionList = roleService.getRolesPermissionByUser(user.getId());
+        List<Map<String,Object>> permissionList = new ArrayList<>();
+        permissionList = roleService.getRolesPermissionByUser(user.getId());
 
         //把principals放session中 key=userId value=principals
         SecurityUtils.getSubject().getSession().setAttribute(String.valueOf(user.getId()),SecurityUtils.getSubject().getPrincipals());

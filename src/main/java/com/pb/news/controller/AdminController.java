@@ -1,95 +1,96 @@
 package com.pb.news.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.pb.news.entity.User;
+import com.pb.news.entity.Property;
+import com.pb.news.entity.PropertyGroup;
 import com.pb.news.entity.vo.Message;
-import com.pb.news.services.UserService;
+import com.pb.news.services.AdminService;
 import com.pb.news.services.vo.RedisService;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @RestController  //代表controller
 @RequestMapping("/adminC")
-@Api(value = "用户的处理")
+@Api(value = "admin的处理")
 public class AdminController {
 
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private AdminService adminService;
 
 
 
 
 
-    @RequestMapping(value="/userLogin",method = RequestMethod.POST)
+    /**
+     *
+     * @Description: TODO 查询项目属性组
+     * @param
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/6 14:48
+     */
+    @RequestMapping(value="/queryPropertyGroup",method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "用户进行登录")
+    @ApiOperation(value = "查询项目属性组")
     //@ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string")
-    @ApiImplicitParams({
+    /*@ApiImplicitParams({
             @ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string"),
             @ApiImplicitParam(paramType = "query",name= "password" ,value = "密码",dataType = "string")
-    })
+    })*/
     /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
                            @RequestParam(value = "password" , required = false) String password)*/
-    public Message userLogin(@RequestBody JSONObject json,HttpServletRequest request){
+    public Message queryPropertyGroup(){
         Message message = new Message();
-
-        User user = new User();
-        user.setUsername(json.getString("username"));
-        user.setPassword(json.getString("password"));
-        List<User> userList = new ArrayList<>();
-        userList = userService.getUserList(user);
-        if(userList.size() == 1){
-            user = userList.get(0);
-            message.setSuccess(true);
-            message.setMessage("登录成功");
-
-            //保存session
-            String token = UUID.randomUUID().toString();
-            request.getSession().setAttribute(token,user);
-            Map<String,Object> map = new HashMap<>();
-            map.put("token",token);
-            message.setResult(map);
-
-        }else{
-            message.setMessage("账号或密码错误！");
-        }
-
-
-
+        List<PropertyGroup> propertyGroupList = adminService.selectAllPropertyGroup();
+        message.setSuccess(true);
+        message.setObj(propertyGroupList);
         return message;
 
     }
 
 
+    /**
+     *
+     * @Description: TODO 通过属性组id查询属性
+     * @param
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/6 14:51
+     */
+    @RequestMapping(value="/queryProperty",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiImplicitParam(paramType = "query",name= "id" ,value = "属性组id",dataType = "string")
+    public Message queryProperty(@RequestParam(value = "id" , required = true) String id){
+        Message message = new Message();
+        if(StringUtils.isNoneBlank(id)){
 
+            List<Property> propertyList = adminService.selectPropertyByPropertyGroupId(id);
+            message.setSuccess(true);
+            message.setObj(propertyList);
+
+        }else{
+            message.setMessage("id不能为空");
+        }
+        return message;
+
+    }
 
 }

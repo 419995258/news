@@ -1,6 +1,7 @@
 package com.pb.news.services;
 
-import com.pb.news.entity.User;
+import com.pb.news.entity.Property;
+import com.pb.news.entity.PropertyGroup;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ import java.util.List;
  */
 public interface AdminService {
 
+    List<PropertyGroup> selectAllPropertyGroup();
 
+    List<Property> selectPropertyByPropertyGroupId(String id);
 
 }
