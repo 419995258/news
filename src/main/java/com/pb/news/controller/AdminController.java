@@ -77,6 +77,7 @@ public class AdminController {
      */
     @RequestMapping(value="/queryProperty",method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value = "查询属性")
     @ApiImplicitParam(paramType = "query",name= "id" ,value = "属性组id",dataType = "string")
     public Message queryProperty(@RequestParam(value = "id" , required = true) String id){
         Message message = new Message();
@@ -85,6 +86,28 @@ public class AdminController {
             List<Property> propertyList = adminService.selectPropertyByPropertyGroupId(id);
             message.setSuccess(true);
             message.setObj(propertyList);
+
+        }else{
+            message.setMessage("id不能为空");
+        }
+        return message;
+
+    }
+
+    @RequestMapping(value="/delProperty",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "删除属性")
+    @ApiImplicitParam(paramType = "query",name= "id" ,value = "属性组id",dataType = "string")
+    public Message delProperty(@RequestParam(value = "id" , required = true) String id){
+        Message message = new Message();
+        if(StringUtils.isNoneBlank(id)){
+
+            Integer success = adminService.delPropertyById(id);
+            if(success == 1){
+                message.setSuccess(true);
+            }else{
+                message.setMessage("删除失败");
+            }
 
         }else{
             message.setMessage("id不能为空");

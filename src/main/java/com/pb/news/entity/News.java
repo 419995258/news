@@ -1,20 +1,28 @@
 package com.pb.news.entity;
 
 public class News {
+    /* id*/
     private Integer id;
 
+    /* 标题*/
     private String title;
 
+    /* 链接*/
     private String href;
 
+    /* 来源*/
     private String source;
 
+    /* 创建时间*/
     private String cretime;
 
+    /* 排序*/
     private Integer orderSeq;
 
+    /* 内容*/
     private String content;
 
+    /* 删除标记*/
     private Integer delFlag;
 
     public Integer getId() {
@@ -30,7 +38,7 @@ public class News {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getHref() {
@@ -38,7 +46,7 @@ public class News {
     }
 
     public void setHref(String href) {
-        this.href = href == null ? null : href.trim();
+        this.href = href;
     }
 
     public String getSource() {
@@ -46,7 +54,7 @@ public class News {
     }
 
     public void setSource(String source) {
-        this.source = source == null ? null : source.trim();
+        this.source = source;
     }
 
     public String getCretime() {
@@ -54,7 +62,7 @@ public class News {
     }
 
     public void setCretime(String cretime) {
-        this.cretime = cretime == null ? null : cretime.trim();
+        this.cretime = cretime;
     }
 
     public Integer getOrderSeq() {
@@ -70,7 +78,7 @@ public class News {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public Integer getDelFlag() {

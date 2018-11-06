@@ -66,4 +66,23 @@ public class AdminServiceImpl extends Basic implements AdminService {
         List<Property> propertyList = propertyMapper.selectByExample(propertyExample);
         return propertyList;
     }
+
+    /**
+     *
+     * @Description: TODO 通过id删除某个属性
+     * @param Integer
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/6 17:09
+     */
+    @Override
+    public Integer delPropertyById(String id) {
+       /* PropertyExample propertyExample = new PropertyExample();
+        propertyExample.createCriteria().andDelFlagEqualTo(0).andGroupKeyEqualTo(id);*/
+        Property property = new Property();
+        property.setGid(id);
+        property.setDelFlag(1);
+        return propertyMapper.updateByPrimaryKeySelective(property);
+    }
 }

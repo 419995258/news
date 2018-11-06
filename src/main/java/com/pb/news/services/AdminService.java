@@ -14,4 +14,6 @@ public interface AdminService {
 
     List<Property> selectPropertyByPropertyGroupId(String id);
 
+    Integer delPropertyById(String id);
+
 }

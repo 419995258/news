@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface NewsMapper {
+    long countByExample(NewsExample example);
+
     int deleteByExample(NewsExample example);
 
     int deleteByPrimaryKey(Integer id);
@@ -25,5 +27,4 @@ public interface NewsMapper {
     int updateByPrimaryKeySelective(News record);
 
     int updateByPrimaryKey(News record);
-
 }
