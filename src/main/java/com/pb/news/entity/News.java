@@ -1,6 +1,8 @@
 package com.pb.news.entity;
 
-public class News {
+import java.io.Serializable;
+
+public class News implements Serializable {
     /* id*/
     private Integer id;
 
@@ -24,6 +26,8 @@ public class News {
 
     /* 删除标记*/
     private Integer delFlag;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

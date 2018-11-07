@@ -13,8 +13,10 @@ public class RedisService {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
+
     @Resource(name = "stringRedisTemplate")
     ValueOperations<String, String> valOpsStr;
+
 
     @Autowired
     RedisTemplate<Object, Object> redisTemplate;
@@ -45,7 +47,7 @@ public class RedisService {
      * 删除指定key
      * @param key
      */
-    public void del(String key){
+    public void delStr(String key){
         stringRedisTemplate.delete(key);
     }
 
@@ -55,7 +57,9 @@ public class RedisService {
      * @return
      */
     public Object getObj(Object o){
+
         return valOpsObj.get(o);
+        //return redisTemplate.opsForValue().get(o);
     }
 
     /**
@@ -65,7 +69,10 @@ public class RedisService {
      */
     public void setObj(Object key, Object value){
         valOpsObj.set(key, value);
+       // redisTemplate.opsForValue().set(key, value);
     }
+
+
 
     /**
      * 删除Obj缓存
@@ -74,4 +81,37 @@ public class RedisService {
     public void delObj(Object o){
         redisTemplate.delete(o);
     }
+
+
+    /**
+     * 根据指定o获取Object
+     * @param o
+     * @return
+     */
+    public Object get(String str){
+
+        return valOpsObj.get(str);
+        //return redisTemplate.opsForValue().get(o);
+    }
+
+    /**
+     * 设置obj缓存
+     * @param key
+     * @param value
+     */
+    public void set(String key, Object value){
+        valOpsObj.set(key, value);
+        // redisTemplate.opsForValue().set(key, value);
+    }
+
+
+
+    /**
+     * 删除Obj缓存
+     * @param o
+     */
+    public void del(String str){
+        redisTemplate.delete(str);
+    }
+
 }

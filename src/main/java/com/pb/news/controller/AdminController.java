@@ -9,6 +9,7 @@ import com.pb.news.services.vo.RedisService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,31 +79,40 @@ public class AdminController {
     @RequestMapping(value="/queryProperty",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询属性")
-    @ApiImplicitParam(paramType = "query",name= "id" ,value = "属性组id",dataType = "string")
-    public Message queryProperty(@RequestParam(value = "id" , required = true) String id){
+    @ApiImplicitParam(paramType = "query",name= "groupKey" ,value = "属性组groupKey",dataType = "string")
+    public Message queryProperty(@RequestParam(value = "groupKey" , required = true) String groupKey){
         Message message = new Message();
-        if(StringUtils.isNoneBlank(id)){
+        if(StringUtils.isNoneBlank(groupKey)){
 
-            List<Property> propertyList = adminService.selectPropertyByPropertyGroupId(id);
+            List<Property> propertyList = adminService.selectPropertyByPropertyGroupId(groupKey);
             message.setSuccess(true);
             message.setObj(propertyList);
 
         }else{
-            message.setMessage("id不能为空");
+            message.setMessage("groupKey不能为空");
         }
         return message;
 
     }
 
+    /**
+     *
+     * @Description: TODO 通过属性id删除某个属性（dle_flag = 1）
+     * @param
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/7 10:50
+     */
     @RequestMapping(value="/delProperty",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "删除属性")
-    @ApiImplicitParam(paramType = "query",name= "id" ,value = "属性组id",dataType = "string")
-    public Message delProperty(@RequestParam(value = "id" , required = true) String id){
+    @ApiImplicitParam(paramType = "query",name= "gid" ,value = "属性id",dataType = "string")
+    public Message delProperty(@RequestParam(value = "gid" , required = true) String gid){
         Message message = new Message();
-        if(StringUtils.isNoneBlank(id)){
+        if(StringUtils.isNoneBlank(gid)){
 
-            Integer success = adminService.delPropertyById(id);
+            Integer success = adminService.delPropertyById(gid);
             if(success == 1){
                 message.setSuccess(true);
             }else{
@@ -112,6 +122,78 @@ public class AdminController {
         }else{
             message.setMessage("id不能为空");
         }
+        return message;
+
+    }
+
+
+    /**
+     *
+     * @Description: TODO 添加或修改属性
+     * @param
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/7 17:39
+     */
+    @RequestMapping(value="/addorUpdateProperty",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "添加或修改属性")
+    public Message addorUpdateProperty(@RequestBody Property property){
+        Message message = new Message();
+        message = adminService.addorUpdateProperty(property);
+        return message;
+
+    }
+
+
+
+    /**
+     *
+     * @Description: TODO 删除属性组
+     * @param
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/7 17:40
+     */
+    @RequestMapping(value="/delPropertyGroup",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "删除属性组")
+    public Message delPropertyGroup(@RequestBody PropertyGroup PropertyGroup){
+        Message message = new Message();
+        message = adminService.delPropertyGroup(PropertyGroup);
+        return message;
+
+    }
+
+
+    /**
+     *
+     * @Description: TODO 添加或修改属性组
+     * @param
+     * @return
+     * @throws
+     * @author pengbin <pengbin>
+     * 2018/11/7 17:39
+     */
+    @RequestMapping(value="/addorUpdatePropertyGroup",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "添加或修改属性组")
+    public Message addorUpdatePropertyGroup(@RequestBody PropertyGroup propertyGroup){
+        Message message = new Message();
+        message = adminService.addorUpdatePropertyGroup(propertyGroup);
+        return message;
+
+    }
+
+
+    @RequestMapping(value="/setPropertyRedis",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "重置属性的redis缓存")
+    public Message setPropertyRedis(){
+        Message message = new Message();
+        message = adminService.setPropertyRedis();
         return message;
 
     }

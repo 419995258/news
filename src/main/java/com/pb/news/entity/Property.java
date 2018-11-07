@@ -1,25 +1,37 @@
 package com.pb.news.entity;
 
-public class Property {
+
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="Property属性",description="Property属性")
+public class Property implements Serializable {
     /* gid*/
     private String gid;
 
     /* 属性Key（如：teach.subject）*/
+    @ApiModelProperty(value="属性key",name="propertyKey")
     private String propertyKey;
 
     /* 属性名称*/
+    @ApiModelProperty(value="属性名",name="propertyName")
     private String propertyName;
 
     /* 属性描述*/
+    @ApiModelProperty(value="属性描述",name="propertyDes",required=false)
     private String propertyDesc;
 
     /* 属性组*/
+    @ApiModelProperty(value="归属的属性组key",name="groupKey")
     private String groupKey;
 
     /* 父节点代码(根节点：-1)*/
     private String parCode;
 
     /* 排序*/
+    @ApiModelProperty(value="排序",name="seqNo",required=false)
     private Integer seqNo;
 
     /* 其他属性1*/

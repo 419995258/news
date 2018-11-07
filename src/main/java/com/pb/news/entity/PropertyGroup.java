@@ -1,6 +1,8 @@
 package com.pb.news.entity;
 
-public class PropertyGroup {
+import java.io.Serializable;
+
+public class PropertyGroup implements Serializable {
     /* gid*/
     private String gid;
 
