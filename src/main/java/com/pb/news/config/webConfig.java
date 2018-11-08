@@ -10,6 +10,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -45,6 +46,21 @@ public class webConfig extends WebMvcConfigurerAdapter {
         resolver.setMaxUploadSize(50 * 1024 * 1024);//上传文件大小 50M 5*1024*1024
         resolver.setUploadTempDir(new FileSystemResource("/tmp/"));
         return resolver;
+    }
+
+
+    // 拦截器
+    // addPathPatterns 用于添加拦截规则
+    // excludePathPatterns 用户排除拦截
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //注册自定义拦截器，添加拦截路径和排除拦截路径
+        registry.addInterceptor(new InterceptorConfig()).addPathPatterns("/**")
+                .excludePathPatterns("/userC/userLogin")
+                .excludePathPatterns("/userC/validateUserLogin")
+                .excludePathPatterns("/static/**")
+                .excludePathPatterns("/img/**")
+                .excludePathPatterns("/web/base/login.html");
     }
 
 }

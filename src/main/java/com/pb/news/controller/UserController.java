@@ -119,6 +119,7 @@ public class UserController {
             //保存session
             String token = UUID.randomUUID().toString();
             request.getSession().setAttribute(token,user);
+            request.getSession().setAttribute("username",user.getUsername());
             Map<String,Object> map = new HashMap<>();
             map.put("token",token);
             message.setResult(map);
