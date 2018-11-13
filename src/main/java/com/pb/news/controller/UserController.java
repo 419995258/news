@@ -4,6 +4,7 @@ package com.pb.news.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.pb.news.entity.User;
 import com.pb.news.entity.vo.Message;
+import com.pb.news.services.RoleService;
 import com.pb.news.services.UserService;
 import com.pb.news.services.vo.RedisService;
 
@@ -26,7 +27,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -42,8 +42,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    @Autowired
+    private RoleService roleService;
+
     @Autowired
     private RedisService redisService;
+
+
 
 
     @RequestMapping(value="/userLoginShiro",method = RequestMethod.POST)
@@ -124,6 +130,26 @@ public class UserController {
             map.put("token",token);
             message.setResult(map);
 
+
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken shiroToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+            // Boolean rememberMe = true;   //是否记住
+            shiroToken.setRememberMe(true);
+
+            try {
+                subject.login(shiroToken);
+               // Object name = SecurityUtils.getSubject().getPrincipals();
+               // System.out.println(name);
+                // 获取role,并且存储session
+                List<Map<String,Object>> roleList = new ArrayList<>();
+                roleList = roleService.getRolesByUser(user.getId());
+                request.getSession().setAttribute("roleList",roleList);
+
+            } catch (AuthenticationException e) {
+                e.printStackTrace();
+//            rediect.addFlashAttribute("errorText", "您的账号或密码输入错误!");
+            }
+
         }else{
             message.setMessage("账号或密码错误！");
         }
@@ -155,5 +181,7 @@ public class UserController {
         return message;
 
     }
+
+
 
 }

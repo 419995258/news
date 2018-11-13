@@ -21,7 +21,7 @@
       tu.username,
       tur.role_id,
       tr.id,
-      tr.name as rname
+      tr.role_name as rname
       FROM
       USER tu
       LEFT JOIN user_role tur
@@ -36,7 +36,7 @@
       SELECT
       tu.username,
       tur.role_id,
-      tr.name as rname,
+      tr.role_name as rname,
       tp.name as pname
       FROM
       USER tu

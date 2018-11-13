@@ -60,7 +60,8 @@ public class webConfig extends WebMvcConfigurerAdapter {
                 .excludePathPatterns("/userC/validateUserLogin")
                 .excludePathPatterns("/static/**")
                 .excludePathPatterns("/img/**")
-                .excludePathPatterns("/web/base/login.html");
+                .excludePathPatterns("/web/base/login.html")
+                .excludePathPatterns("/newsC/**");
     }
 
 }

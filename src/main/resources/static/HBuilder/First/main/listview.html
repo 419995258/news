@@ -186,6 +186,7 @@
                     timeout:100000,//超时时间设置为100秒；
                     headers:{'Content-Type':'application/json'},
                     success:function(data){
+                    	console.log(JSON.stringify(data));
                         //服务器返回响应，根据响应结果，分析是否登录成功；
                         news.banner = {
                             id: data.rows[0].id,

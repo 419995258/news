@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PermissionMapper {
+    long countByExample(PermissionExample example);
+
     int deleteByExample(PermissionExample example);
 
     int deleteByPrimaryKey(Integer id);

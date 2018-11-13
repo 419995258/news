@@ -20,9 +20,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by cdyoue on 2016/10/21.
@@ -49,12 +51,12 @@ public class ShiroRealm extends AuthorizingRealm {
         User user = userService.getUserByUserName((String) principalCollection.getPrimaryPrincipal());
 
         User test2 = userMapperExt.test2();
-        List<Map<String,Object>> test = userMapperExt.test();
+        //List<Map<String,Object>> test = userMapperExt.test();
 
 
         //获取role
         List<Map<String,Object>> roleList = new ArrayList<>();
-        roleList = roleService.getRolesByUser(user.getId());
+        //roleList = roleService.getRolesByUser(user.getId());
 
         //获取permission
         List<Map<String,Object>> permissionList = new ArrayList<>();
@@ -65,7 +67,8 @@ public class ShiroRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //赋予角色
-        if(roleList.size() > 0){
+        //Set<String> roleNameSet = new HashSet<>();
+        /*if(roleList.size() > 0){
             for (Iterator<Map<String, Object>> iterator = roleList.iterator(); iterator.hasNext(); ) {
                 Map<String, Object> next = iterator.next();
                 String roleName = (String) next.get("rname");
@@ -73,13 +76,17 @@ public class ShiroRealm extends AuthorizingRealm {
                     info.addRole(roleName);
                 }
             }
-        }
+        }*/
 
-        //赋予权限
+        //赋予权限和角色
         if(permissionList.size() > 0){
             for (Iterator<Map<String, Object>> iterator = permissionList.iterator(); iterator.hasNext(); ) {
                 Map<String, Object> next = iterator.next();
+                String roleName = (String) next.get("rname");
                 String pname = (String) next.get("pname");
+                if(StringUtils.isNoneBlank(roleName)){
+                    info.addRole(roleName);
+                }
                 if(StringUtils.isNoneBlank(pname)){
                     info.addStringPermission(pname);
                 }

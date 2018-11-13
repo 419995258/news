@@ -462,7 +462,7 @@
                                  mdui.confirm('确认删除？！', function(){
                                      $.AMUI.progress.start();
                                      //通过id删除属性
-                                     /*$.ajax({
+                                     $.ajax({
                                                 type : "post",
                                                 url : "/adminC/delPropertyGroup",
                                                 data : JSON.stringify(propertyGroup),
@@ -481,14 +481,14 @@
                                                     mdui.alert("请求失败");
                                                     $.AMUI.progress.done();
                                                 }
-                                            });*/
+                                            });
                                  });
 
 
 
                              },
                              addPropertyGroup:function(){
-                                 /*var inst = new mdui.Dialog('#addPropertyGroup');
+                                 var inst = new mdui.Dialog('#addPropertyGroup');
                                  //不为空验证
                                  if(vm.propertyGroup.groupKey == ''){
                                      return
@@ -519,13 +519,13 @@
                                             error : function() {
                                                 mdui.alert("请求失败");
                                             }
-                                        });*/
+                                        });
                              },
                              editPropertyGroup:function(propertyGroup){
                                  vm.propertyGroup = propertyGroup;
                              },
                              setPropertyRedis:function(){
-                                 /*$.ajax({
+                                 $.ajax({
                                             type : "post",
                                             url : "/adminC/setPropertyRedis",
                                             //data : JSON.stringify(vm.propertyGroup),
@@ -540,7 +540,7 @@
                                             error : function() {
                                                 mdui.alert("请求失败");
                                             }
-                                        });*/
+                                        });
                              },
                          }
                      });

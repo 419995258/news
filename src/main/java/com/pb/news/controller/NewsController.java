@@ -3,6 +3,7 @@ package com.pb.news.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.pb.news.annotation.RequestJson;
+import com.pb.news.config.JedisConfig;
 import com.pb.news.entity.News;
 import com.pb.news.entity.vo.Message;
 import com.pb.news.entity.vo.ResultVo;
@@ -31,6 +32,8 @@ public class NewsController {
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private JedisConfig jedisConfig;
 
 
     /**
@@ -61,6 +64,7 @@ public class NewsController {
     @RequestMapping("/index")
     public Message index(){
         Message message = new Message();
+        System.out.println(jedisConfig);
        /* Student student = new Student();
         student.setName("a");
         student.setAge(11);

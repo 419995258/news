@@ -1,40 +1,56 @@
 package com.pb.news.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
+@ApiModel(value="PropertyGroup",description = "属性组")
 public class PropertyGroup implements Serializable {
     /* gid*/
+    @ApiModelProperty(value="gid")
     private String gid;
 
     /* 属性组编码（如：001，001001）*/
+    @ApiModelProperty(value="属性组编码（如：001，001001）")
     private String groupCode;
 
     /* 属性组Key（如：teach.subject）*/
+    @ApiModelProperty(value="属性组Key（如：teach.subject）")
     private String groupKey;
 
     /* 属性组名称*/
+    @ApiModelProperty(value="属性组名称")
     private String groupName;
 
     /* 父节点代码(根节点：-1)*/
+    @ApiModelProperty(value="父节点代码(根节点：-1)")
     private String parCode;
 
     /* 排序*/
+    @ApiModelProperty(value="排序")
     private Integer seqNo;
 
     /* 创建人*/
+    @ApiModelProperty(value="创建人")
     private String creUser;
 
     /* 创建时间*/
+    @ApiModelProperty(value="创建时间")
     private String creTime;
 
     /* 修改人*/
+    @ApiModelProperty(value="修改人")
     private String modUser;
 
     /* 修改时间*/
+    @ApiModelProperty(value="修改时间")
     private String modTime;
 
     /* 是否删除：1：删除*/
+    @ApiModelProperty(value="是否删除：1：删除")
     private Integer delFlag;
+
+    private static final long serialVersionUID = 1L;
 
     public String getGid() {
         return gid;

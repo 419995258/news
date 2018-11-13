@@ -3,13 +3,11 @@ package com.pb.news.dao;
 import com.pb.news.entity.Role;
 import com.pb.news.entity.RoleExample;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface RoleMapper {
+    long countByExample(RoleExample example);
+
     int deleteByExample(RoleExample example);
 
     int deleteByPrimaryKey(Integer id);
@@ -29,5 +27,4 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
-
 }

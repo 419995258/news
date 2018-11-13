@@ -35,6 +35,8 @@ public class InterceptorConfig  implements HandlerInterceptor {
             return true;
         }
         else{
+            httpServletResponse.setCharacterEncoding("UTF-8");
+            httpServletResponse.setContentType("application/json; charset=utf-8");
             PrintWriter printWriter = httpServletResponse.getWriter();
             JSONObject json = new JSONObject();
             json.put("success",false);

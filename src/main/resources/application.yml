@@ -2,7 +2,7 @@
 server:
   port: 8090
   session-timeout: 30
-  tomcat.max-threads: 0
+  tomcat.max-threads: 20
   tomcat.uri-encoding: UTF-8
   spring.session.store-type: none
 
@@ -14,7 +14,11 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-
+#  redis:
+#    database: 1
+#    host: 192.168.3.124
+#    port: 6379
+#    timeout: 5000
 
 #  http:
 #    multipart:
@@ -40,17 +44,25 @@ mybatis:
        - mapping/vo/*.xml
 #      - mapping/vo/*.xml
 
+#redis:
+#  #redis配置
+#  spring.redis.database: 1
+#  spring.redis.host: 192.168.3.124
+#  spring.redis.port: 6379
+##  spring.redis.password：
+#  spring.redis.pool.max-idle: 8
+#  spring.redis.pool.min-idle: 0
+#  spring.redis.pool.max-active: 8
+#  spring.redis.pool.max-wait: -1
+#  spring.redis.timeout: 5000
+
 redis:
-  #redis配置
-  spring.redis.database: 1
-  spring.redis.host: 192.168.3.124
-  spring.redis.port: 6379
-#  spring.redis.password：
-  spring.redis.pool.max-idle: 8
-  spring.redis.pool.min-idle: 0
-  spring.redis.pool.max-active: 8
-  spring.redis.pool.max-wait: -1
-  spring.redis.timeout: 5000
+  spring:
+    redis:
+      database: 1
+      host: 192.168.3.124
+      port: 6379
+      timeout: 5000
 
 
 #配置日志
@@ -69,3 +81,18 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+myYml:
+  simpleProp: simplePropValue
+  arrayProps: 1,2,3,4,5
+  listProp1:
+  - name: abc
+    value: abcValue
+  - name: efg
+    value: efgValue
+  listProp2:
+  - config2Value1
+  - config2Vavlue2
+  mapProps:
+    key1: value1
+    key2: value2

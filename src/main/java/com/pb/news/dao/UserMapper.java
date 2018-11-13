@@ -2,14 +2,12 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.User;
 import com.pb.news.entity.UserExample;
-import java.util.List;
-import java.util.Map;
-
+import java.util.List;import java.util.Map;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface UserMapper {
+    long countByExample(UserExample example);
+
     int deleteByExample(UserExample example);
 
     int deleteByPrimaryKey(Integer id);
@@ -30,14 +28,10 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    List<Map<String, Object>> selectRoleByUserId(Integer id);
 
+    List<Map<String, Object>> selectRolePermissionByUserId(Integer id);
 
-    List<Map<String,Object>> selectRoleByUserId(Integer id);
+    List<Map<String, Object>> test();
 
-    List<Map<String,Object>> selectRolePermissionByUserId(Integer id);
-
-
-    List<Map<String,Object>> test();
-
-    User test2();
 }

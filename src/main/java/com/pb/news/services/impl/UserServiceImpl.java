@@ -43,11 +43,6 @@ public class UserServiceImpl extends Basic implements UserService {
                 .andPasswordEqualTo(user.getPassword());
         userList = userMapper.selectByExample(userExample);
 
-        User test = new User();
-        test = userMapper.test2();
-
-        List<Map<String,Object>> test1 = new ArrayList<Map<String,Object>>();
-        test1 = userMapperExt.test();
         //test1 = userMapper.test();
 
         //test1 = userMapper.selectRoleByUserId(1);
