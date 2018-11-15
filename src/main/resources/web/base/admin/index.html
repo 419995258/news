@@ -143,7 +143,7 @@
             </div>
            <!-- <ul class="mdui-list" v-for="(property,index) in propertyList">
                 <li class="mdui-list-item mdui-ripple">
-                    {{property.propertyName}}
+                    {{property.propertyValue}}
                 </li>
                 <li class="mdui-divider"></li>
             </ul>-->
@@ -153,7 +153,7 @@
                     <tr>
                         <th>序号</th>
                         <th>属性code</th>
-                        <th>属性名</th>
+                        <th>属性value</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -161,7 +161,7 @@
                     <tr v-for="(property,index) in propertyList" >
                         <td>{{index+1}}</td>
                         <td>{{property.propertyKey}}</td>
-                        <td>{{property.propertyName}}</td>
+                        <td>{{property.propertyValue}}</td>
                         <td>
 
                             <button class="mdui-btn mdui-btn-dense mdui-btn-raised mdui-ripple mdui-color-theme-accent"
@@ -202,10 +202,10 @@
                     <input class="mdui-textfield-input" placeholder="属性key" v-model="property.propertyKey" required/>
                     <div class="mdui-textfield-error">属性key不能为空</div>
                 </div>
-                <div class="mdui-textfield " v-bind:class="property.propertyName==''?'mdui-textfield-invalid':''">
+                <div class="mdui-textfield " v-bind:class="property.propertyValue==''?'mdui-textfield-invalid':''">
                     <label class="mdui-textfield-label">property_name</label>
-                    <input class="mdui-textfield-input" placeholder="属性名" v-model="property.propertyName" required/>
-                    <div class="mdui-textfield-error">属性名不能为空</div>
+                    <input class="mdui-textfield-input" placeholder="属性value" v-model="property.propertyValue" required/>
+                    <div class="mdui-textfield-error">属性value不能为空</div>
                 </div>
                 <!--浮动标签-->
                 <div class="mdui-textfield ">
@@ -299,7 +299,7 @@
                              property : {
                                  gid:'',
                                  propertyKey:'',
-                                 propertyName:'',
+                                 propertyValue:'',
                                  propertyDesc:'',
                                  extra1:'',
                                  extra2:'',
@@ -423,7 +423,7 @@
                                      alert("发生错误！");
                                      return
                                  }
-                                 if(vm.property.propertyName == ''){
+                                 if(vm.property.propertyValue == ''){
                                      return
                                  }
                                  if(vm.property.propertyKey == ''){

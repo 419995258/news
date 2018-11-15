@@ -1,65 +1,76 @@
 package com.pb.news.entity;
 
-
-import java.io.Serializable;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
-@ApiModel(value="Property属性",description="Property属性")
+@ApiModel(value="com.pb.news.entity.Property")
 public class Property implements Serializable {
     /* gid*/
+    @ApiModelProperty(value="gid")
     private String gid;
 
     /* 属性Key（如：teach.subject）*/
-    @ApiModelProperty(value="属性key",name="propertyKey")
+    @ApiModelProperty(value="属性Key（如：teach.subject）")
     private String propertyKey;
 
-    /* 属性名称*/
-    @ApiModelProperty(value="属性名",name="propertyName")
-    private String propertyName;
+    /* 属性值*/
+    @ApiModelProperty(value="属性值")
+    private String propertyValue;
 
     /* 属性描述*/
-    @ApiModelProperty(value="属性描述",name="propertyDes",required=false)
+    @ApiModelProperty(value="属性描述")
     private String propertyDesc;
 
     /* 属性组*/
-    @ApiModelProperty(value="归属的属性组key",name="groupKey")
+    @ApiModelProperty(value="属性组")
     private String groupKey;
 
     /* 父节点代码(根节点：-1)*/
+    @ApiModelProperty(value="父节点代码(根节点：-1)")
     private String parCode;
 
     /* 排序*/
-    @ApiModelProperty(value="排序",name="seqNo",required=false)
+    @ApiModelProperty(value="排序")
     private Integer seqNo;
 
     /* 其他属性1*/
+    @ApiModelProperty(value="其他属性1")
     private String extra1;
 
     /* 其他属性2*/
+    @ApiModelProperty(value="其他属性2")
     private String extra2;
 
     /* 其他属性3*/
+    @ApiModelProperty(value="其他属性3")
     private String extra3;
 
     /* 其他属性4*/
+    @ApiModelProperty(value="其他属性4")
     private String extra4;
 
     /* 创建人*/
+    @ApiModelProperty(value="创建人")
     private String creUser;
 
     /* 创建时间*/
+    @ApiModelProperty(value="创建时间")
     private String creTime;
 
     /* 修改人*/
+    @ApiModelProperty(value="修改人")
     private String modUser;
 
     /* 修改时间*/
+    @ApiModelProperty(value="修改时间")
     private String modTime;
 
     /* 是否删除：1：删除*/
+    @ApiModelProperty(value="是否删除：1：删除")
     private Integer delFlag;
+
+    private static final long serialVersionUID = 1L;
 
     public String getGid() {
         return gid;
@@ -77,12 +88,12 @@ public class Property implements Serializable {
         this.propertyKey = propertyKey;
     }
 
-    public String getPropertyName() {
-        return propertyName;
+    public String getPropertyValue() {
+        return propertyValue;
     }
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
+    public void setPropertyValue(String propertyValue) {
+        this.propertyValue = propertyValue;
     }
 
     public String getPropertyDesc() {

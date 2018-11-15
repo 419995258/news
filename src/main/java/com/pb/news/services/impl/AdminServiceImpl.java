@@ -104,8 +104,8 @@ public class AdminServiceImpl extends Basic implements AdminService {
             message.setMessage("属性key不能为空");
             return message;
         }
-        if(StringUtils.isBlank(property.getPropertyName())){
-            message.setMessage("属性name不能为空");
+        if(StringUtils.isBlank(property.getPropertyValue())){
+            message.setMessage("属性value不能为空");
             return message;
         }
         if(StringUtils.isBlank(property.getGroupKey())){
