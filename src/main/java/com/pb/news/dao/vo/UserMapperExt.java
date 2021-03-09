@@ -1,8 +1,6 @@
 package com.pb.news.dao.vo;
 
 
-import com.pb.news.entity.User;
-
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,5 +16,4 @@ public interface UserMapperExt {
 
     List<Map<String, Object>> test();
 
-    User test2();
 }
