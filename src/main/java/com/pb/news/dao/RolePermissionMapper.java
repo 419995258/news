@@ -2,7 +2,9 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.RolePermission;
 import com.pb.news.entity.RolePermissionExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RolePermissionMapper {

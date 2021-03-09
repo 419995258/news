@@ -52,13 +52,11 @@ public class UserServiceImpl extends Basic implements UserService {
     }
 
     /**
-     * 
-     * @Description: TODO
-     * @param    
-     * @return 
+     * @param
+     * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/10/31 14:15
+     * @Description: TODO
+     * @author pengbin <pengbin> 2018/10/31 14:15
      */
     @Override
     public User getUser(User user) throws Exception {
@@ -69,9 +67,9 @@ public class UserServiceImpl extends Basic implements UserService {
         List<User> userList = new ArrayList<>();
         userList = userMapper.selectByExample(userExample);
 
-        if(userList.size() > 0){
+        if (userList.size() > 0) {
             user = userList.get(0);
-        }else{
+        } else {
             user = new User();
         }
 
@@ -79,18 +77,17 @@ public class UserServiceImpl extends Basic implements UserService {
     }
 
 
-
     /**
      * 获取user通过username
-     * @Description: TODO
-     * @param    
-     * @return 
+     *
+     * @param
+     * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/10/31 14:26
+     * @Description: TODO
+     * @author pengbin <pengbin> 2018/10/31 14:26
      */
     @Override
-    public User getUserByUserName(String userName)  {
+    public User getUserByUserName(String userName) {
         User user = new User();
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(userName);
@@ -98,9 +95,9 @@ public class UserServiceImpl extends Basic implements UserService {
         List<User> userList = new ArrayList<>();
         userList = userMapper.selectByExample(userExample);
 
-        if(userList.size() > 0){
+        if (userList.size() > 0) {
             user = userList.get(0);
-        }else{
+        } else {
             user = new User();
         }
 

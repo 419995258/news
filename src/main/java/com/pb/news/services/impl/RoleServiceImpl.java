@@ -33,14 +33,14 @@ public class RoleServiceImpl extends Basic implements RoleService {
 
 
     @Override
-    public List<Map<String,Object>> getRolesByUser(Integer userId) {
-        List<Map<String,Object>> roleList = userMapperExt.selectRoleByUserId(userId);
+    public List<Map<String, Object>> getRolesByUser(Integer userId) {
+        List<Map<String, Object>> roleList = userMapperExt.selectRoleByUserId(userId);
         return roleList;
     }
 
     @Override
     public List<Map<String, Object>> getRolesPermissionByUser(Integer userId) {
-        List<Map<String,Object>> permissionList = userMapperExt.selectRolePermissionByUserId(userId);
+        List<Map<String, Object>> permissionList = userMapperExt.selectRolePermissionByUserId(userId);
         return permissionList;
     }
 }

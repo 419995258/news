@@ -12,7 +12,7 @@ import java.util.Map;
 public interface RoleService {
 
 
-    List<Map<String,Object>> getRolesByUser(Integer userId);
+    List<Map<String, Object>> getRolesByUser(Integer userId);
 
-    List<Map<String,Object>> getRolesPermissionByUser(Integer userId);
+    List<Map<String, Object>> getRolesPermissionByUser(Integer userId);
 }

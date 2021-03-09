@@ -1,9 +1,9 @@
-.container{
-    border-bottom:#ccc 1px solid;
-    padding:10px 0;
+.container {
+    border-bottom: #ccc 1px solid;
+    padding: 10px 0;
 }
 
-.captureResult{
+.captureResult {
     margin: 0;
 }
 
@@ -12,17 +12,17 @@ img {
     border: 1px solid #999;
     border-radius: 10px;
     -moz-box-shadow: 0 0 15px 5px #888;
-    -webkit-box-shadow: 0 0 15px 5px#888;
+    -webkit-box-shadow: 0 0 15px 5px #888;
     box-shadow: 0 0 15px 5px #888;
 }
 
-.captureResult img{
-    margin:10px 0 0 0;
+.captureResult img {
+    margin: 10px 0 0 0;
     -moz-box-shadow: 0 0 15px 5px #888;
-    -webkit-box-shadow: 0 0 15px 5px#888;
+    -webkit-box-shadow: 0 0 15px 5px #888;
     box-shadow: 0 0 15px 5px #888;
 }
 
-.hidden{
+.hidden {
     display: none;
 }

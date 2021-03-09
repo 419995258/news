@@ -6,32 +6,32 @@ function Color(value) {
     this.b = 0;
     this.a = null;
     var result = this.fromArray(value) ||
-        this.namedColor(value) ||
-        this.rgb(value) ||
-        this.rgba(value) ||
-        this.hex6(value) ||
-        this.hex3(value);
+                 this.namedColor(value) ||
+                 this.rgb(value) ||
+                 this.rgba(value) ||
+                 this.hex6(value) ||
+                 this.hex3(value);
 }
 
-Color.prototype.darken = function(amount) {
+Color.prototype.darken = function (amount) {
     var a = 1 - amount;
-    return  new Color([
-        Math.round(this.r * a),
-        Math.round(this.g * a),
-        Math.round(this.b * a),
-        this.a
-    ]);
+    return new Color([
+                         Math.round(this.r * a),
+                         Math.round(this.g * a),
+                         Math.round(this.b * a),
+                         this.a
+                     ]);
 };
 
-Color.prototype.isTransparent = function() {
+Color.prototype.isTransparent = function () {
     return this.a === 0;
 };
 
-Color.prototype.isBlack = function() {
+Color.prototype.isBlack = function () {
     return this.r === 0 && this.g === 0 && this.b === 0;
 };
 
-Color.prototype.fromArray = function(array) {
+Color.prototype.fromArray = function (array) {
     if (Array.isArray(array)) {
         this.r = Math.min(array[0], 255);
         this.g = Math.min(array[1], 255);
@@ -46,7 +46,7 @@ Color.prototype.fromArray = function(array) {
 
 var _hex3 = /^#([a-f0-9]{3})$/i;
 
-Color.prototype.hex3 = function(value) {
+Color.prototype.hex3 = function (value) {
     var match = null;
     if ((match = value.match(_hex3)) !== null) {
         this.r = parseInt(match[1][0] + match[1][0], 16);
@@ -58,7 +58,7 @@ Color.prototype.hex3 = function(value) {
 
 var _hex6 = /^#([a-f0-9]{6})$/i;
 
-Color.prototype.hex6 = function(value) {
+Color.prototype.hex6 = function (value) {
     var match = null;
     if ((match = value.match(_hex6)) !== null) {
         this.r = parseInt(match[1].substring(0, 2), 16);
@@ -68,10 +68,9 @@ Color.prototype.hex6 = function(value) {
     return match !== null;
 };
 
-
 var _rgb = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/;
 
-Color.prototype.rgb = function(value) {
+Color.prototype.rgb = function (value) {
     var match = null;
     if ((match = value.match(_rgb)) !== null) {
         this.r = Number(match[1]);
@@ -83,7 +82,7 @@ Color.prototype.rgb = function(value) {
 
 var _rgba = /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d?\.?\d+)\s*\)$/;
 
-Color.prototype.rgba = function(value) {
+Color.prototype.rgba = function (value) {
     var match = null;
     if ((match = value.match(_rgba)) !== null) {
         this.r = Number(match[1]);
@@ -94,13 +93,13 @@ Color.prototype.rgba = function(value) {
     return match !== null;
 };
 
-Color.prototype.toString = function() {
+Color.prototype.toString = function () {
     return this.a !== null && this.a !== 1 ?
-    "rgba(" + [this.r, this.g, this.b, this.a].join(",") + ")" :
-    "rgb(" + [this.r, this.g, this.b].join(",") + ")";
+           "rgba(" + [this.r, this.g, this.b, this.a].join(",") + ")" :
+           "rgb(" + [this.r, this.g, this.b].join(",") + ")";
 };
 
-Color.prototype.namedColor = function(value) {
+Color.prototype.namedColor = function (value) {
     value = value.toLowerCase();
     var color = colors[value];
     if (color) {
@@ -117,7 +116,9 @@ Color.prototype.namedColor = function(value) {
 
 Color.prototype.isColor = true;
 
-// JSON.stringify([].slice.call($$('.named-color-table tr'), 1).map(function(row) { return [row.childNodes[3].textContent, row.childNodes[5].textContent.trim().split(",").map(Number)] }).reduce(function(data, row) {data[row[0]] = row[1]; return data}, {}))
+// JSON.stringify([].slice.call($$('.named-color-table tr'), 1).map(function(row) { return
+// [row.childNodes[3].textContent, row.childNodes[5].textContent.trim().split(",").map(Number)]
+// }).reduce(function(data, row) {data[row[0]] = row[1]; return data}, {}))
 var colors = {
     "aliceblue": [240, 248, 255],
     "antiquewhite": [250, 235, 215],

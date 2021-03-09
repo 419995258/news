@@ -55,15 +55,15 @@ public class ShiroRealm extends AuthorizingRealm {
 
 
         //获取role
-        List<Map<String,Object>> roleList = new ArrayList<>();
+        List<Map<String, Object>> roleList = new ArrayList<>();
         //roleList = roleService.getRolesByUser(user.getId());
 
         //获取permission
-        List<Map<String,Object>> permissionList = new ArrayList<>();
+        List<Map<String, Object>> permissionList = new ArrayList<>();
         permissionList = roleService.getRolesPermissionByUser(user.getId());
 
         //把principals放session中 key=userId value=principals
-        SecurityUtils.getSubject().getSession().setAttribute(String.valueOf(user.getId()),SecurityUtils.getSubject().getPrincipals());
+        SecurityUtils.getSubject().getSession().setAttribute(String.valueOf(user.getId()), SecurityUtils.getSubject().getPrincipals());
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //赋予角色
@@ -79,15 +79,15 @@ public class ShiroRealm extends AuthorizingRealm {
         }*/
 
         //赋予权限和角色
-        if(permissionList.size() > 0){
+        if (permissionList.size() > 0) {
             for (Iterator<Map<String, Object>> iterator = permissionList.iterator(); iterator.hasNext(); ) {
                 Map<String, Object> next = iterator.next();
                 String roleName = (String) next.get("rname");
                 String pname = (String) next.get("pname");
-                if(StringUtils.isNoneBlank(roleName)){
+                if (StringUtils.isNoneBlank(roleName)) {
                     info.addRole(roleName);
                 }
-                if(StringUtils.isNoneBlank(pname)){
+                if (StringUtils.isNoneBlank(pname)) {
                     info.addStringPermission(pname);
                 }
             }
@@ -107,8 +107,8 @@ public class ShiroRealm extends AuthorizingRealm {
         //logger.info("doGetAuthenticationInfo +"  + authenticationToken.toString());
 
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        String userName=token.getUsername();
-       // logger.info(userName+token.getPassword());
+        String userName = token.getUsername();
+        // logger.info(userName+token.getPassword());
 
         User user = userService.getUserByUserName(token.getUsername());
         if (user != null) {
@@ -117,7 +117,7 @@ public class ShiroRealm extends AuthorizingRealm {
             //设置用户session
             Session session = SecurityUtils.getSubject().getSession();
             session.setAttribute("user", user);
-            return new SimpleAuthenticationInfo(userName,user.getPassword(),getName());
+            return new SimpleAuthenticationInfo(userName, user.getPassword(), getName());
         } else {
             return null;
         }

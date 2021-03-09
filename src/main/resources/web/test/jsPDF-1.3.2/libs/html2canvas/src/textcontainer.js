@@ -6,13 +6,13 @@ function TextContainer(node, parent) {
 
 TextContainer.prototype = Object.create(NodeContainer.prototype);
 
-TextContainer.prototype.applyTextTransform = function() {
+TextContainer.prototype.applyTextTransform = function () {
     this.node.data = this.transform(this.parent.css("textTransform"));
 };
 
-TextContainer.prototype.transform = function(transform) {
+TextContainer.prototype.transform = function (transform) {
     var text = this.node.data;
-    switch(transform){
+    switch (transform) {
         case "lowercase":
             return text.toLowerCase();
         case "capitalize":

@@ -1,8 +1,6 @@
 var homeAppmodule = angular.module('placeApp', []);
 
-homeAppmodule.controller('placeController', function($scope, $http, $rootScope, $stateParams, $state) {
-	
+homeAppmodule.controller('placeController',
+                         function ($scope, $http, $rootScope, $stateParams, $state) {
 
-
-	
-});
+                         });

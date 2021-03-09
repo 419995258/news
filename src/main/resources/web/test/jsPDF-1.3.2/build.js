@@ -5,9 +5,9 @@ var babel = require('rollup-plugin-babel');
 var execSync = require('child_process').execSync;
 
 bundle({
-    minified: 'dist/jspdf.min.js',
-    debug: 'dist/jspdf.debug.js'
-});
+           minified: 'dist/jspdf.min.js',
+           debug: 'dist/jspdf.debug.js'
+       });
 
 // Monkey patching adler32 and filesaver
 function monkeyPatch() {
@@ -32,9 +32,12 @@ function rawjs(opts) {
     return {
         transform: function (code, id) {
             var variable = opts[id.split('/').pop()];
-            if (!variable) return code;
+            if (!variable) {
+                return code;
+            }
 
-            var keepStr = '/*rollup-keeper-start*/window.tmp=' + variable + ';/*rollup-keeper-end*/';
+            var keepStr = '/*rollup-keeper-start*/window.tmp=' + variable
+                          + ';/*rollup-keeper-end*/';
             return code + keepStr;
         },
         transformBundle: function (code) {
@@ -50,29 +53,34 @@ function rawjs(opts) {
 
 function bundle(paths) {
     rollup.rollup({
-        entry: './main.js',
-        plugins: [
-            monkeyPatch(),
-            rawjs({
-                'jspdf.js': 'jsPDF',
-                'filesaver.tmp.js': 'saveAs',
-                'deflate.js': 'Deflater',
-                'zlib.js': 'FlateStream',
-                'css_colors.js': 'CssColors',
-                'html2pdf.js': 'html2pdf'
-            }),
-            babel({
-                presets: ['es2015-rollup'],
-                exclude: ['node_modules/**', 'libs/**']
-            })
-        ]
-    }).then(function (bundle) {
+                      entry: './main.js',
+                      plugins: [
+                          monkeyPatch(),
+                          rawjs({
+                                    'jspdf.js': 'jsPDF',
+                                    'filesaver.tmp.js': 'saveAs',
+                                    'deflate.js': 'Deflater',
+                                    'zlib.js': 'FlateStream',
+                                    'css_colors.js': 'CssColors',
+                                    'html2pdf.js': 'html2pdf'
+                                }),
+                          babel({
+                                    presets: ['es2015-rollup'],
+                                    exclude: ['node_modules/**', 'libs/**']
+                                })
+                      ]
+                  }).then(function (bundle) {
         var code = bundle.generate({format: 'umd', moduleName: 'jspdf'}).code;
-        code = code.replace(/Permission\s+is\s+hereby\s+granted[\S\s]+?IN\s+THE\s+SOFTWARE\./, 'Licensed under the MIT License');
+        code =
+            code.replace(/Permission\s+is\s+hereby\s+granted[\S\s]+?IN\s+THE\s+SOFTWARE\./,
+                         'Licensed under the MIT License');
         code = code.replace(/Permission\s+is\s+hereby\s+granted[\S\s]+?IN\s+THE\s+SOFTWARE\./g, '');
         fs.writeFileSync(paths.debug, renew(code));
 
-        var minified = uglify.minify(code, {fromString: true, output: {comments: /@preserve|@license|copyright/i}});
+        var minified = uglify.minify(code, {
+            fromString: true,
+            output: {comments: /@preserve|@license|copyright/i}
+        });
         fs.writeFileSync(paths.minified, renew(minified.code));
     }).catch(function (err) {
         console.error(err);

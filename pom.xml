@@ -221,6 +221,12 @@
 		</dependency>
 
 
+<!--		引入自定义的start-->
+		<dependency>
+			<groupId>com.pb</groupId>
+			<artifactId>springboot-start</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 
 
 	</dependencies>

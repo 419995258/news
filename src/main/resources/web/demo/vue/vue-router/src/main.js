@@ -6,12 +6,12 @@ Vue.config.productionTip = false
 
 // 路由跳转
 Vue.prototype.$goRoute = function (index) {
-  this.$router.push(index)
+    this.$router.push(index)
 }
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
-})
+            el: '#app',
+            router,
+            render: h => h(App)
+        })

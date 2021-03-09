@@ -2,7 +2,9 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.PropertyGroup;
 import com.pb.news.entity.PropertyGroupExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PropertyGroupMapper {

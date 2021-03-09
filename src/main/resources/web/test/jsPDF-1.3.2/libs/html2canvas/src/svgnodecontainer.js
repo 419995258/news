@@ -5,7 +5,7 @@ function SVGNodeContainer(node, _native) {
     this.image = null;
     var self = this;
 
-    this.promise = _native ? new Promise(function(resolve, reject) {
+    this.promise = _native ? new Promise(function (resolve, reject) {
         self.image = new Image();
         self.image.onload = resolve;
         self.image.onerror = reject;
@@ -13,9 +13,10 @@ function SVGNodeContainer(node, _native) {
         if (self.image.complete === true) {
             resolve(self.image);
         }
-    }) : this.hasFabric().then(function() {
-        return new Promise(function(resolve) {
-            window.html2canvas.svg.fabric.parseSVGDocument(node, self.createCanvas.call(self, resolve));
+    }) : this.hasFabric().then(function () {
+        return new Promise(function (resolve) {
+            window.html2canvas.svg.fabric.parseSVGDocument(node,
+                                                           self.createCanvas.call(self, resolve));
         });
     });
 }

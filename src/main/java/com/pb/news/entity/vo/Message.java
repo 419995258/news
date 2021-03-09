@@ -6,8 +6,8 @@ import java.util.Map;
 public class Message {
 
     private String message;
-    private Boolean success =false;
-    private Map<String,Object> context;
+    private Boolean success = false;
+    private Map<String, Object> context;
     private Map result = new HashMap(0); //返回对象
     private Object obj;
 

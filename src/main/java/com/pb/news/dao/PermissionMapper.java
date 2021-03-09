@@ -2,7 +2,9 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.Permission;
 import com.pb.news.entity.PermissionExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PermissionMapper {

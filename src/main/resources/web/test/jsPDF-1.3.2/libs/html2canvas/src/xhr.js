@@ -1,9 +1,9 @@
 function XHR(url) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url);
 
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status === 200) {
                 resolve(xhr.responseText);
             } else {
@@ -11,7 +11,7 @@ function XHR(url) {
             }
         };
 
-        xhr.onerror = function() {
+        xhr.onerror = function () {
             reject(new Error("Network Error"));
         };
 

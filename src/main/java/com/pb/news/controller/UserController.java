@@ -50,26 +50,24 @@ public class UserController {
     private RedisService redisService;
 
 
-
-
-    @RequestMapping(value="/userLoginShiro",method = RequestMethod.POST)
+    @RequestMapping(value = "/userLoginShiro", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "用户进行shiro登录")
     //@ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string"),
-            @ApiImplicitParam(paramType = "query",name= "password" ,value = "密码",dataType = "string")
+            @ApiImplicitParam(paramType = "query", name = "username", value = "用户名", dataType = "string"),
+            @ApiImplicitParam(paramType = "query", name = "password", value = "密码", dataType = "string")
     })
     /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
                            @RequestParam(value = "password" , required = false) String password)*/
-    public  void userLoginShiro(@RequestBody JSONObject json){
+    public void userLoginShiro(@RequestBody JSONObject json) {
         System.out.println("ok");
         User user = new User();
         user.setUsername(json.getString("username"));
         user.setPassword(json.getString("password"));
         List<User> userList = new ArrayList<>();
         userList = userService.getUserList(user);
-        if(userList.size() == 1){
+        if (userList.size() == 1) {
             user = userList.get(0);
         }
 
@@ -83,7 +81,7 @@ public class UserController {
             Object name = SecurityUtils.getSubject().getPrincipals();
             System.out.println(name);
 
-            if(subject.hasRole("admin")){
+            if (subject.hasRole("admin")) {
                 System.out.println("11111");
             }
         } catch (AuthenticationException e) {
@@ -92,24 +90,20 @@ public class UserController {
         }
 
 
-
-
-
     }
 
 
-
-    @RequestMapping(value="/userLogin",method = RequestMethod.POST)
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "用户进行登录")
     //@ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string"),
-            @ApiImplicitParam(paramType = "query",name= "password" ,value = "密码",dataType = "string")
+            @ApiImplicitParam(paramType = "query", name = "username", value = "用户名", dataType = "string"),
+            @ApiImplicitParam(paramType = "query", name = "password", value = "密码", dataType = "string")
     })
     /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
                            @RequestParam(value = "password" , required = false) String password)*/
-    public Message userLogin(@RequestBody JSONObject json,HttpServletRequest request){
+    public Message userLogin(@RequestBody JSONObject json, HttpServletRequest request) {
         Message message = new Message();
 
         User user = new User();
@@ -117,17 +111,17 @@ public class UserController {
         user.setPassword(json.getString("password"));
         List<User> userList = new ArrayList<>();
         userList = userService.getUserList(user);
-        if(userList.size() == 1){
+        if (userList.size() == 1) {
             user = userList.get(0);
             message.setSuccess(true);
             message.setMessage("登录成功");
 
             //保存session
             String token = UUID.randomUUID().toString();
-            request.getSession().setAttribute(token,user);
-            request.getSession().setAttribute("username",user.getUsername());
-            Map<String,Object> map = new HashMap<>();
-            map.put("token",token);
+            request.getSession().setAttribute(token, user);
+            request.getSession().setAttribute("username", user.getUsername());
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", token);
             message.setResult(map);
 
 
@@ -138,22 +132,21 @@ public class UserController {
 
             try {
                 subject.login(shiroToken);
-               // Object name = SecurityUtils.getSubject().getPrincipals();
-               // System.out.println(name);
+                // Object name = SecurityUtils.getSubject().getPrincipals();
+                // System.out.println(name);
                 // 获取role,并且存储session
-                List<Map<String,Object>> roleList = new ArrayList<>();
+                List<Map<String, Object>> roleList = new ArrayList<>();
                 roleList = roleService.getRolesByUser(user.getId());
-                request.getSession().setAttribute("roleList",roleList);
+                request.getSession().setAttribute("roleList", roleList);
 
             } catch (AuthenticationException e) {
                 e.printStackTrace();
 //            rediect.addFlashAttribute("errorText", "您的账号或密码输入错误!");
             }
 
-        }else{
+        } else {
             message.setMessage("账号或密码错误！");
         }
-
 
 
         return message;
@@ -161,27 +154,26 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/validateUserLogin",method = RequestMethod.POST)
+    @RequestMapping(value = "/validateUserLogin", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "验证用户登录")
-    @ApiImplicitParam(paramType = "query",name= "token" ,value = "token",dataType = "string")
-    public Message validateUserLogin(@RequestParam(value = "token" , required = true)String token,HttpServletRequest request){
+    @ApiImplicitParam(paramType = "query", name = "token", value = "token", dataType = "string")
+    public Message validateUserLogin(@RequestParam(value = "token", required = true) String token, HttpServletRequest request) {
         Message message = new Message();
-        if(!"first".equals(token)){
+        if (!"first".equals(token)) {
             Object user = request.getSession().getAttribute(token);
-            if(user != null){
+            if (user != null) {
                 message.setSuccess(true);
-            }else{
+            } else {
                 message.setSuccess(false);
             }
-        }else{
+        } else {
             message.setSuccess(true);
         }
 
         return message;
 
     }
-
 
 
 }

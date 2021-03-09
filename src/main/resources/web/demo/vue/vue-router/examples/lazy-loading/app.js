@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const Home = { template: '<div>home</div>' }
+const Home = {template: '<div>home</div>'}
 
 // In Webpack we can use special require syntax to signify a "split point"
 // Webpack will automatically split and lazy-load the split modules.
@@ -37,25 +37,26 @@ const Bar = () => import(/* webpackChunkName: "bar" */ './Bar.vue')
 const Baz = () => import(/* webpackChunkName: "bar" */ './Baz.vue')
 
 const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
-  routes: [
-    { path: '/', component: Home },
-    // Just use them normally in the route config
-    { path: '/foo', component: Foo },
-    // Bar and Baz belong to the same root route
-    // and grouped in the same async chunk.
-    { path: '/bar', component: Bar,
-      children: [
-        { path: 'baz', component: Baz }
-      ]
-    }
-  ]
-})
+                                 mode: 'history',
+                                 base: __dirname,
+                                 routes: [
+                                     {path: '/', component: Home},
+                                     // Just use them normally in the route config
+                                     {path: '/foo', component: Foo},
+                                     // Bar and Baz belong to the same root route
+                                     // and grouped in the same async chunk.
+                                     {
+                                         path: '/bar', component: Bar,
+                                         children: [
+                                             {path: 'baz', component: Baz}
+                                         ]
+                                     }
+                                 ]
+                             })
 
 new Vue({
-  router,
-  template: `
+            router,
+            template: `
     <div id="app">
       <h1>Basic</h1>
       <ul>
@@ -67,4 +68,4 @@ new Vue({
       <router-view class="view"></router-view>
     </div>
   `
-}).$mount('#app')
+        }).$mount('#app')

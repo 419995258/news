@@ -33,7 +33,7 @@ public class webConfig extends WebMvcConfigurerAdapter {
 
     /*配置自定义接受参数的方法*/
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers){
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new RequestJsonHandlerMethodArgumentResolver());
     }
 

@@ -2,7 +2,9 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.Property;
 import com.pb.news.entity.PropertyExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PropertyMapper {

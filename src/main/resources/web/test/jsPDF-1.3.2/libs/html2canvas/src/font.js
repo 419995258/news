@@ -40,7 +40,7 @@ function Font(family, size) {
     container.style.lineHeight = "normal";
     img.style.verticalAlign = "super";
 
-    middle = (img.offsetTop-container.offsetTop) + 1;
+    middle = (img.offsetTop - container.offsetTop) + 1;
 
     document.body.removeChild(container);
 

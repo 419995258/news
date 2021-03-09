@@ -2,7 +2,9 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.Role;
 import com.pb.news.entity.RoleExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleMapper {

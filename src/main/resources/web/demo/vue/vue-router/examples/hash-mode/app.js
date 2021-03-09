@@ -7,27 +7,28 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // 2. Define route components
-const Home = { template: '<div>home</div>' }
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+const Home = {template: '<div>home</div>'}
+const Foo = {template: '<div>foo</div>'}
+const Bar = {template: '<div>bar</div>'}
 
 // 3. Create the router
 const router = new VueRouter({
-  mode: 'hash',
-  base: __dirname,
-  routes: [
-    { path: '/', component: Home }, // all paths are defined without the hash.
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
-  ]
-})
+                                 mode: 'hash',
+                                 base: __dirname,
+                                 routes: [
+                                     {path: '/', component: Home}, // all paths are defined without
+                                                                   // the hash.
+                                     {path: '/foo', component: Foo},
+                                     {path: '/bar', component: Bar}
+                                 ]
+                             })
 
 // 4. Create and mount root instance.
 // Make sure to inject the router.
 // Route components will be rendered inside <router-view>.
 new Vue({
-  router,
-  template: `
+            router,
+            template: `
     <div id="app">
       <h1>Basic</h1>
       <ul>
@@ -39,4 +40,4 @@ new Vue({
       <router-view class="view"></router-view>
     </div>
   `
-}).$mount('#app')
+        }).$mount('#app')

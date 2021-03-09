@@ -28,7 +28,7 @@ public class testController {
 
 
     @RequestMapping("/index")
-    public Message index(){
+    public Message index() {
         Message message = new Message();
        /* Student student = new Student();
         student.setName("a");
@@ -50,47 +50,44 @@ public class testController {
         return  student;
     }*/
 
-    @RequestMapping(value="/getAjax",method = RequestMethod.POST)
+    @RequestMapping(value = "/getAjax", method = RequestMethod.POST)
     @ResponseBody
-    public void getAjax(@RequestBody News news, @RequestParam(value = "a",required = false) String a){
+    public void getAjax(@RequestBody News news, @RequestParam(value = "a", required = false) String a) {
         System.out.println("ok");
     }
 
 
-    @RequestMapping(value="/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public  void login(@RequestParam(value = "name" , required = false) String name,String pwd){
+    public void login(@RequestParam(value = "name", required = false) String name, String pwd) {
         System.out.println(name);
         System.out.println(pwd);
         System.out.println("ok");
     }
 
-    @RequestMapping(value="/login2",method = RequestMethod.POST)
+    @RequestMapping(value = "/login2", method = RequestMethod.POST)
     @ResponseBody
-    public  void login2(@RequestBody JSONObject jsonObject){
+    public void login2(@RequestBody JSONObject jsonObject) {
         System.out.println("ok");
     }
 
-    @RequestMapping(value="/login3",method = RequestMethod.POST)
-    public  void login3(@RequestJson(value = "name") String name,@RequestJson(value = "pwd") String pwd){
+    @RequestMapping(value = "/login3", method = RequestMethod.POST)
+    public void login3(@RequestJson(value = "name") String name, @RequestJson(value = "pwd") String pwd) {
         System.out.println(name);
         System.out.println(pwd);
         System.out.println("ok");
     }
 
-    @RequestMapping(value="/testRedis",method = RequestMethod.POST)
+    @RequestMapping(value = "/testRedis", method = RequestMethod.POST)
     @ResponseBody
-    public  void testRedis(){
+    public void testRedis() {
         String testRedis = "testRedis";
         Integer testRedis2 = 2;
-        redisService.setStr("testRedis",testRedis);
+        redisService.setStr("testRedis", testRedis);
         System.out.println(redisService.getStr(testRedis));
-        redisService.setObj(testRedis2,testRedis2);
+        redisService.setObj(testRedis2, testRedis2);
         System.out.println(redisService.getObj(testRedis2));
     }
-
-
-
 
 
 }

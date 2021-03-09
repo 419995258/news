@@ -2,7 +2,10 @@ package com.pb.news.dao;
 
 import com.pb.news.entity.User;
 import com.pb.news.entity.UserExample;
-import java.util.List;import java.util.Map;
+
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {

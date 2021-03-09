@@ -4,7 +4,7 @@ function Support(document) {
     this.svg = this.testSVG();
 }
 
-Support.prototype.testRangeBounds = function(document) {
+Support.prototype.testRangeBounds = function (document) {
     var range, testElement, rangeBounds, rangeHeight, support = false;
 
     if (document.createRange) {
@@ -29,20 +29,20 @@ Support.prototype.testRangeBounds = function(document) {
     return support;
 };
 
-Support.prototype.testCORS = function() {
-    return typeof((new Image()).crossOrigin) !== "undefined";
+Support.prototype.testCORS = function () {
+    return typeof ((new Image()).crossOrigin) !== "undefined";
 };
 
-Support.prototype.testSVG = function() {
+Support.prototype.testSVG = function () {
     var img = new Image();
     var canvas = document.createElement("canvas");
-    var ctx =  canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");
     img.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'></svg>";
 
     try {
         ctx.drawImage(img, 0, 0);
         canvas.toDataURL();
-    } catch(e) {
+    } catch (e) {
         return false;
     }
     return true;

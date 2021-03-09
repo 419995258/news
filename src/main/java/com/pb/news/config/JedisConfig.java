@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JedisConfig{
+public class JedisConfig {
 
 
     @Value("${redis.spring.redis.host}")

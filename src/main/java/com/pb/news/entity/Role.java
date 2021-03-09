@@ -2,48 +2,49 @@ package com.pb.news.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
-@ApiModel(value="com.pb.news.entity.Role")
+@ApiModel(value = "com.pb.news.entity.Role")
 public class Role implements Serializable {
     /* */
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value = "")
     private Integer id;
 
     /* 角色名*/
-    @ApiModelProperty(value="角色名")
+    @ApiModelProperty(value = "角色名")
     private String roleName;
 
     /* 角色code*/
-    @ApiModelProperty(value="角色code")
+    @ApiModelProperty(value = "角色code")
     private String roleCode;
 
     /* 角色描述*/
-    @ApiModelProperty(value="角色描述")
+    @ApiModelProperty(value = "角色描述")
     private String roleDesc;
 
     /* 该身份登陆后的默认url*/
-    @ApiModelProperty(value="该身份登陆后的默认url")
+    @ApiModelProperty(value = "该身份登陆后的默认url")
     private String defaultUrl;
 
     /* 创建人*/
-    @ApiModelProperty(value="创建人")
+    @ApiModelProperty(value = "创建人")
     private String creUser;
 
     /* 创建时间*/
-    @ApiModelProperty(value="创建时间")
+    @ApiModelProperty(value = "创建时间")
     private String creTime;
 
     /* 修改人*/
-    @ApiModelProperty(value="修改人")
+    @ApiModelProperty(value = "修改人")
     private String modUser;
 
     /* 修改时间*/
-    @ApiModelProperty(value="修改时间")
+    @ApiModelProperty(value = "修改时间")
     private String modTime;
 
     /* 是否删除：1：删除*/
-    @ApiModelProperty(value="是否删除：1：删除")
+    @ApiModelProperty(value = "是否删除：1：删除")
     private Integer delFlag;
 
     private static final long serialVersionUID = 1L;

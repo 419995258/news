@@ -40,7 +40,8 @@ doc.text(10, 145, 'TextField:');
 var textField = new TextField();
 textField.Rect = [50, 140, 30, 10];
 textField.multiline = true;
-textField.V = "The quick brown fox ate the lazy mouse The quick brown fox ate the lazy mouse The quick brown fox ate the lazy mouse";//
+textField.V =
+    "The quick brown fox ate the lazy mouse The quick brown fox ate the lazy mouse The quick brown fox ate the lazy mouse";//
 textField.T = "TestTextBox";
 //textField.Q = 2; // Text-Alignment
 doc.addField(textField);

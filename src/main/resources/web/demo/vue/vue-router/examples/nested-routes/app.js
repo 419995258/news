@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 // A route component can also contain <router-view> to render
 // nested children route components
 const Parent = {
-  template: `
+    template: `
     <div class="parent">
       <h2>Parent</h2>
       <router-view class="child"></router-view>
@@ -14,13 +14,13 @@ const Parent = {
   `
 }
 
-const Default = { template: '<div>default</div>' }
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
-const Baz = { template: '<div>baz</div>' }
+const Default = {template: '<div>default</div>'}
+const Foo = {template: '<div>foo</div>'}
+const Bar = {template: '<div>bar</div>'}
+const Baz = {template: '<div>baz</div>'}
 
 const Qux = {
-  template: `
+    template: `
     <div class="nested-parent">
       <h3>qux</h3>
       <router-link :to="{ name: 'quux' }">/quux</router-link>
@@ -29,56 +29,64 @@ const Qux = {
   `
 }
 const Quy = {
-  template: `
+    template: `
     <div class="nested-parent-other">
       <h3>quy</h3>
       <pre>{{ JSON.stringify(Object.keys($route.params)) }}</pre>
     </div>
   `
 }
-const Quux = { template: '<div>quux</div>' }
-const Zap = { template: '<div><h3>zap</h3><pre>{{ $route.params.zapId }}</pre></div>' }
+const Quux = {template: '<div>quux</div>'}
+const Zap = {template: '<div><h3>zap</h3><pre>{{ $route.params.zapId }}</pre></div>'}
 
 const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
-  routes: [
-    { path: '/', redirect: '/parent' },
-    { path: '/parent', component: Parent,
-      children: [
-        // an empty path will be treated as the default, e.g.
-        // components rendered at /parent: Root -> Parent -> Default
-        { path: '', component: Default },
+                                 mode: 'history',
+                                 base: __dirname,
+                                 routes: [
+                                     {path: '/', redirect: '/parent'},
+                                     {
+                                         path: '/parent', component: Parent,
+                                         children: [
+                                             // an empty path will be treated as the default, e.g.
+                                             // components rendered at /parent: Root -> Parent ->
+                                             // Default
+                                             {path: '', component: Default},
 
-        // components rendered at /parent/foo: Root -> Parent -> Foo
-        { path: 'foo', component: Foo },
+                                             // components rendered at /parent/foo: Root -> Parent
+                                             // -> Foo
+                                             {path: 'foo', component: Foo},
 
-        // components rendered at /parent/bar: Root -> Parent -> Bar
-        { path: 'bar', component: Bar },
+                                             // components rendered at /parent/bar: Root -> Parent
+                                             // -> Bar
+                                             {path: 'bar', component: Bar},
 
-        // NOTE absolute path here!
-        // this allows you to leverage the component nesting without being
-        // limited to the nested URL.
-        // components rendered at /baz: Root -> Parent -> Baz
-        { path: '/baz', component: Baz },
+                                             // NOTE absolute path here!
+                                             // this allows you to leverage the component nesting
+                                             // without being limited to the nested URL. components
+                                             // rendered at /baz: Root -> Parent -> Baz
+                                             {path: '/baz', component: Baz},
 
-        {
-          path: 'qux/:quxId',
-          component: Qux,
-          children: [{ path: 'quux', name: 'quux', component: Quux }]
-        },
+                                             {
+                                                 path: 'qux/:quxId',
+                                                 component: Qux,
+                                                 children: [{
+                                                     path: 'quux',
+                                                     name: 'quux',
+                                                     component: Quux
+                                                 }]
+                                             },
 
-        { path: 'quy/:quyId', component: Quy },
+                                             {path: 'quy/:quyId', component: Quy},
 
-        { name: 'zap', path: 'zap/:zapId?', component: Zap }
-      ]
-    }
-  ]
-})
+                                             {name: 'zap', path: 'zap/:zapId?', component: Zap}
+                                         ]
+                                     }
+                                 ]
+                             })
 
 new Vue({
-  router,
-  template: `
+            router,
+            template: `
     <div id="app">
       <h1>Nested Routes</h1>
       <ul>
@@ -95,4 +103,4 @@ new Vue({
       <router-view class="view"></router-view>
     </div>
   `
-}).$mount('#app')
+        }).$mount('#app')

@@ -1,4 +1,9 @@
 {
-  "presets": ["env", "flow-vue"],
-  "plugins": ["syntax-dynamic-import"]
+  "presets": [
+    "env",
+    "flow-vue"
+  ],
+  "plugins": [
+    "syntax-dynamic-import"
+  ]
 }

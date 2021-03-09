@@ -23,14 +23,14 @@
     'use strict';
 
     jsPDFAPI.events.push([
-        'initialized', function () {
+                             'initialized', function () {
             this.context2d.pdf = this;
             this.context2d.internal.pdf = this;
             this.context2d.ctx = new context();
             this.context2d.ctxStack = [];
             this.context2d.path = [];
         }
-    ]);
+                         ]);
 
     jsPDFAPI.context2d = {
         pageWrapXEnabled: false,
@@ -65,10 +65,11 @@
         },
 
         /**
-         * We cannot clear PDF commands that were already written to PDF, so we use white instead. <br />
-         * As a special case, read a special flag (ignoreClearRect) and do nothing if it is set.
-         * This results in all calls to clearRect() to do nothing, and keep the canvas transparent.
-         * This flag is stored in the save/restore context and is managed the same way as other drawing states.
+         * We cannot clear PDF commands that were already written to PDF, so we use white instead.
+         * <br /> As a special case, read a special flag (ignoreClearRect) and do nothing if it is
+         * set. This results in all calls to clearRect() to do nothing, and keep the canvas
+         * transparent. This flag is stored in the save/restore context and is managed the same way
+         * as other drawing states.
          * @param x
          * @param y
          * @param w
@@ -124,8 +125,8 @@
 
         closePath: function () {
             this.path.push({
-                type: 'close'
-            });
+                               type: 'close'
+                           });
         },
 
         _getRgba: function (style) {
@@ -137,8 +138,7 @@
                 rgba.g = 0;
                 rgba.b = 0;
                 rgba.a = 0;
-            }
-            else {
+            } else {
                 var m = this.internal.rxRgb.exec(style);
                 if (m != null) {
                     rgba.r = parseInt(m[1]);
@@ -193,8 +193,7 @@
                 g = 0;
                 b = 0;
                 a = 0;
-            }
-            else {
+            } else {
                 var m = this.internal.rxRgb.exec(style);
                 if (m != null) {
                     r = parseInt(m[1]);
@@ -259,8 +258,7 @@
             //TODO jsPDF to handle rgba
             if (rgba.a === 0) {
                 this.pdf.setDrawColor(255, 255, 255);
-            }
-            else if (rgba.a === 1) {
+            } else if (rgba.a === 1) {
                 this.pdf.setDrawColor(rgba.r, rgba.g, rgba.b);
             } else {
                 //this.pdf.setDrawColor(rgba.r, rgba.g, rgba.b, {a: rgba.a});
@@ -281,12 +279,13 @@
             var rads = this._matrix_rotation(this.ctx._transform);
             var degs = rads * 57.2958;
 
-
             //TODO only push the clip if it has not been applied to the current PDF context
             if (this.ctx._clip_path.length > 0) {
                 var lines;
                 if (window.outIntercept) {
-                    lines = window.outIntercept.type === 'group' ? window.outIntercept.stream : window.outIntercept;
+                    lines =
+                        window.outIntercept.type === 'group' ? window.outIntercept.stream
+                                                             : window.outIntercept;
                 } else {
                     lines = this.pdf.internal.pages[1];
                 }
@@ -319,12 +318,13 @@
             var rads = this._matrix_rotation(this.ctx._transform);
             var degs = rads * 57.2958;
 
-
             //TODO only push the clip if it has not been applied to the current PDF context
             if (this.ctx._clip_path.length > 0) {
                 var lines;
                 if (window.outIntercept) {
-                    lines = window.outIntercept.type === 'group' ? window.outIntercept.stream : window.outIntercept;
+                    lines =
+                        window.outIntercept.type === 'group' ? window.outIntercept.stream
+                                                             : window.outIntercept;
                 } else {
                     lines = this.pdf.internal.pages[1];
                 }
@@ -388,43 +388,29 @@
 
                 if (parts.indexOf('arial') != -1) {
                     jsPdfFontName = 'Arial';
-                }
-                else if (parts.indexOf('verdana') != -1) {
+                } else if (parts.indexOf('verdana') != -1) {
                     jsPdfFontName = 'Verdana';
-                }
-                else if (parts.indexOf('helvetica') != -1) {
+                } else if (parts.indexOf('helvetica') != -1) {
                     jsPdfFontName = 'Helvetica';
-                }
-                else if (parts.indexOf('sans-serif') != -1) {
+                } else if (parts.indexOf('sans-serif') != -1) {
                     jsPdfFontName = 'sans-serif';
-                }
-
-                else if (parts.indexOf('fixed') != -1) {
+                } else if (parts.indexOf('fixed') != -1) {
                     jsPdfFontName = 'Fixed';
-                }
-                else if (parts.indexOf('monospace') != -1) {
+                } else if (parts.indexOf('monospace') != -1) {
                     jsPdfFontName = 'Monospace';
-                }
-                else if (parts.indexOf('terminal') != -1) {
+                } else if (parts.indexOf('terminal') != -1) {
                     jsPdfFontName = 'Terminal';
-                }
-                else if (parts.indexOf('courier') != -1) {
+                } else if (parts.indexOf('courier') != -1) {
                     jsPdfFontName = 'Courier';
-                }
-
-                else if (parts.indexOf('times') != -1) {
+                } else if (parts.indexOf('times') != -1) {
                     jsPdfFontName = 'Times';
-                }
-                else if (parts.indexOf('cursive') != -1) {
+                } else if (parts.indexOf('cursive') != -1) {
                     jsPdfFontName = 'Cursive';
-                }
-                else if (parts.indexOf('fantasy') != -1) {
+                } else if (parts.indexOf('fantasy') != -1) {
                     jsPdfFontName = 'Fantasy';
-                }
-                else if (parts.indexOf('serif') != -1) {
+                } else if (parts.indexOf('serif') != -1) {
                     jsPdfFontName = 'Serif';
-                }
-                else {
+                } else {
                     jsPdfFontName = 'Serif';
                 }
 
@@ -555,7 +541,8 @@
                         }
                         var spaceBetweenLastBreak = this.pageBreaks[i] - this.lastBreak;
                         this.lastBreak = this.pageBreaks[i];
-                        var pagesSinceLastBreak = Math.floor(spaceBetweenLastBreak / this.pageWrapY);
+                        var pagesSinceLastBreak = Math.floor(
+                            spaceBetweenLastBreak / this.pageWrapY);
                         autoBreaks += pagesSinceLastBreak;
                     }
                 }
@@ -607,7 +594,6 @@
             xpt = this._matrix_map_point(this.ctx._transform, [x2, y2]);
             x2 = xpt[0];
             y2 = xpt[1];
-
 
             var obj = {
                 type: 'bct',
@@ -810,7 +796,8 @@
         },
 
         rotate: function (angle) {
-            var matrix = [Math.cos(angle), Math.sin(angle), -Math.sin(angle), Math.cos(angle), 0.0, 0.0];
+            var matrix = [Math.cos(angle), Math.sin(angle), -Math.sin(angle), Math.cos(angle), 0.0,
+                          0.0];
             this.ctx._transform = this._matrix_multiply(this.ctx._transform, matrix);
         },
 
@@ -829,7 +816,9 @@
 
                 var lines;
                 if (window.outIntercept) {
-                    lines = window.outIntercept.type === 'group' ? window.outIntercept.stream : window.outIntercept;
+                    lines =
+                        window.outIntercept.type === 'group' ? window.outIntercept.stream
+                                                             : window.outIntercept;
                 } else {
                     lines = this.pdf.internal.pages[1];
                 }
@@ -923,7 +912,8 @@
                         var end = arc.endAngle * 360 / (2 * Math.PI);
                         var x = arc.x;
                         var y = arc.y;
-                        this.internal.arc2(this, x, y, arc.radius, start, end, arc.anticlockwise, style, isClip);
+                        this.internal.arc2(this, x, y, arc.radius, start, end, arc.anticlockwise,
+                                           style, isClip);
                     }
                 } else {
                     var x = moves[i].start.x;
@@ -951,7 +941,9 @@
 
                 var lines;
                 if (window.outIntercept) {
-                    lines = window.outIntercept.type === 'group' ? window.outIntercept.stream : window.outIntercept;
+                    lines =
+                        window.outIntercept.type === 'group' ? window.outIntercept.stream
+                                                             : window.outIntercept;
                 } else {
                     lines = this.pdf.internal.pages[1];
                 }
@@ -980,7 +972,9 @@
 
             var lines;
             if (window.outIntercept) {
-                lines = window.outIntercept.type === 'group' ? window.outIntercept.stream : window.outIntercept;
+                lines =
+                    window.outIntercept.type === 'group' ? window.outIntercept.stream
+                                                         : window.outIntercept;
             } else {
                 lines = this.pdf.internal.pages[1];
             }
@@ -1013,7 +1007,11 @@
                         // define a mask state
                         var obj2 = this.pdf.internal.newObject2();
                         obj2.push('<</Type /ExtGState');
-                        obj2.push('/SMask <</S /Alpha /G ' + obj.objId + ' 0 R>>'); // /S /Luminosity will need to define color space
+                        obj2.push('/SMask <</S /Alpha /G ' + obj.objId + ' 0 R>>'); // /S
+                                                                                    // /Luminosity
+                                                                                    // will need to
+                                                                                    // define color
+                                                                                    // space
                         obj2.push('>>');
 
                         // add mask to page resources
@@ -1029,7 +1027,8 @@
                         window.outIntercept = obj;
                         break;
                     default:
-                        var dictionaryEntry = '/' + this.pdf.internal.blendModeMap[this.ctx.globalCompositeOperation.toUpperCase()];
+                        var dictionaryEntry = '/'
+                                              + this.pdf.internal.blendModeMap[this.ctx.globalCompositeOperation.toUpperCase()];
                         if (dictionaryEntry) {
                             this.pdf.internal.out(dictionaryEntry + ' gs');
                         }
@@ -1137,7 +1136,8 @@
                             if (ii == 0) {
                                 this.internal.move2(this, x, y);
                             }
-                            this.internal.arc2(this, x, y, arc.radius, start, end, arc.anticlockwise, null, isClip);
+                            this.internal.arc2(this, x, y, arc.radius, start, end,
+                                               arc.anticlockwise, null, isClip);
                         } else {
                             this.internal.line2(c2d, arc.x, arc.y);
                         }
@@ -1150,8 +1150,7 @@
 
                     this.pdf.internal.out('h');
                     this.pdf.internal.out('f');
-                }
-                else {
+                } else {
                     var x = moves[i].start.x;
                     var y = moves[i].start.y;
                     if (!isClip) {
@@ -1184,7 +1183,8 @@
             // define a mask state
             var obj2 = this.pdf.internal.newObject2();
             obj2.push('<</Type /ExtGState');
-            obj2.push('/SMask <</S /Alpha /G ' + obj.objId + ' 0 R>>'); // /S /Luminosity will need to define color space
+            obj2.push('/SMask <</S /Alpha /G ' + obj.objId + ' 0 R>>'); // /S /Luminosity will need
+                                                                        // to define color space
             obj2.push('>>');
 
             // add mask to page resources
@@ -1212,7 +1212,8 @@
             return {
                 getWidth: function () {
                     var fontSize = pdf.internal.getFontSize();
-                    var txtWidth = pdf.getStringUnitWidth(text) * fontSize / pdf.internal.scaleFactor;
+                    var txtWidth = pdf.getStringUnitWidth(text) * fontSize
+                                   / pdf.internal.scaleFactor;
                     return txtWidth;
                 },
 
@@ -1351,7 +1352,8 @@
 
     c2d.internal.rxRgb = /rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/;
     c2d.internal.rxRgba = /rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d\.]+)\s*\)/;
-    c2d.internal.rxTransparent = /transparent|rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*0+\s*\)/;
+    c2d.internal.rxTransparent =
+        /transparent|rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*0+\s*\)/;
 
     // http://hansmuller-flex.blogspot.com/2011/10/more-about-approximating-circular-arcs.html
     c2d.internal.arc = function (c2d, xc, yc, r, a1, a2, anticlockwise, style) {
@@ -1370,18 +1372,33 @@
             var curve = curves[i];
             if (includeMove && i == 0) {
                 this.pdf.internal.out([
-                    f2((curve.x1 + xc) * k), f2((pageHeight - (curve.y1 + yc)) * k), 'm', f2((curve.x2 + xc) * k), f2((pageHeight - (curve.y2 + yc)) * k), f2((curve.x3 + xc) * k), f2((pageHeight - (curve.y3 + yc)) * k), f2((curve.x4 + xc) * k), f2((pageHeight - (curve.y4 + yc)) * k), 'c'
-                ].join(' '));
+                                          f2((curve.x1 + xc) * k),
+                                          f2((pageHeight - (curve.y1 + yc)) * k), 'm',
+                                          f2((curve.x2 + xc) * k),
+                                          f2((pageHeight - (curve.y2 + yc)) * k),
+                                          f2((curve.x3 + xc) * k),
+                                          f2((pageHeight - (curve.y3 + yc)) * k),
+                                          f2((curve.x4 + xc) * k),
+                                          f2((pageHeight - (curve.y4 + yc)) * k), 'c'
+                                      ].join(' '));
 
             } else {
                 this.pdf.internal.out([
-                    f2((curve.x2 + xc) * k), f2((pageHeight - (curve.y2 + yc)) * k), f2((curve.x3 + xc) * k), f2((pageHeight - (curve.y3 + yc)) * k), f2((curve.x4 + xc) * k), f2((pageHeight - (curve.y4 + yc)) * k), 'c'
-                ].join(' '));
+                                          f2((curve.x2 + xc) * k),
+                                          f2((pageHeight - (curve.y2 + yc)) * k),
+                                          f2((curve.x3 + xc) * k),
+                                          f2((pageHeight - (curve.y3 + yc)) * k),
+                                          f2((curve.x4 + xc) * k),
+                                          f2((pageHeight - (curve.y4 + yc)) * k), 'c'
+                                      ].join(' '));
             }
 
             //c2d._lastPoint = {x: curve.x1 + xc, y: curve.y1 + yc};
             c2d._lastPoint = {x: xc, y: yc};
-            // f2((curve.x1 + xc) * k), f2((pageHeight - (curve.y1 + yc)) * k), 'm', f2((curve.x2 + xc) * k), f2((pageHeight - (curve.y2 + yc)) * k), f2((curve.x3 + xc) * k), f2((pageHeight - (curve.y3 + yc)) * k), f2((curve.x4 + xc) * k), f2((pageHeight - (curve.y4 + yc)) * k), 'c'
+            // f2((curve.x1 + xc) * k), f2((pageHeight - (curve.y1 + yc)) * k), 'm', f2((curve.x2 +
+            // xc) * k), f2((pageHeight - (curve.y2 + yc)) * k), f2((curve.x3 + xc) * k),
+            // f2((pageHeight - (curve.y3 + yc)) * k), f2((curve.x4 + xc) * k), f2((pageHeight -
+            // (curve.y4 + yc)) * k), 'c'
         }
 
         if (style !== null) {
@@ -1418,8 +1435,8 @@
             };
 
             var pt2 = {
-                x: r * ( Math.cos(phi) + 4 / 3 * Math.tan(phi / 4) * Math.sin(phi) ),
-                y: r * ( Math.sin(phi) - 4 / 3 * Math.tan(phi / 4) * Math.cos(phi) )
+                x: r * (Math.cos(phi) + 4 / 3 * Math.tan(phi / 4) * Math.sin(phi)),
+                y: r * (Math.sin(phi) - 4 / 3 * Math.tan(phi / 4) * Math.cos(phi))
             };
 
             var end = {
@@ -1437,8 +1454,11 @@
             var pageHeight = this.pdf.internal.pageSize.height;
             var f2 = this.pdf.internal.f2;
             this.pdf.internal.out([
-                f2((start.x) * k), f2((pageHeight - (start.y)) * k), 'm', f2((pt1.x) * k), f2((pageHeight - (pt1.y)) * k), f2((pt2.x) * k), f2((pageHeight - (pt2.y)) * k), f2((end.x) * k), f2((pageHeight - (end.y)) * k), 'c'
-            ].join(' '));
+                                      f2((start.x) * k), f2((pageHeight - (start.y)) * k), 'm',
+                                      f2((pt1.x) * k), f2((pageHeight - (pt1.y)) * k),
+                                      f2((pt2.x) * k), f2((pageHeight - (pt2.y)) * k),
+                                      f2((end.x) * k), f2((pageHeight - (end.y)) * k), 'c'
+                                  ].join(' '));
             //this.pdf.internal.out('f');
             c2d._lastPoint = end;
             return;
@@ -1458,8 +1478,8 @@
         var f2 = this.pdf.internal.f2;
 
         this.pdf.internal.out([
-            f2((x) * k), f2((pageHeight - (y)) * k), 'm'
-        ].join(' '));
+                                  f2((x) * k), f2((pageHeight - (y)) * k), 'm'
+                              ].join(' '));
         c2d._lastPoint = {x: x, y: y};
     };
 
@@ -1472,17 +1492,19 @@
         var pt = {x: dx, y: dy};
 
         this.pdf.internal.out([
-            f2((pt.x) * k), f2((pageHeight - (pt.y)) * k), 'l'
-        ].join(' '));
+                                  f2((pt.x) * k), f2((pageHeight - (pt.y)) * k), 'l'
+                              ].join(' '));
         //this.pdf.internal.out('f');
         c2d._lastPoint = pt;
 
     };
 
     /**
-     * Return a array of objects that represent bezier curves which approximate the circular arc centered at the origin, from startAngle to endAngle (radians) with the specified radius.
+     * Return a array of objects that represent bezier curves which approximate the circular arc
+     * centered at the origin, from startAngle to endAngle (radians) with the specified radius.
      *
-     * Each bezier curve is an object with four points, where x1,y1 and x4,y4 are the arc's end points and x2,y2 and x3,y3 are the cubic bezier's control points.
+     * Each bezier curve is an object with four points, where x1,y1 and x4,y4 are the arc's end
+     * points and x2,y2 and x3,y3 are the cubic bezier's control points.
      */
 
     c2d.internal.createArc = function (radius, startAngle, endAngle, anticlockwise) {
@@ -1508,7 +1530,8 @@
         var sgn = anticlockwise ? -1 : +1;
 
         var a1 = startAngle;
-        for (var totalAngle = Math.min(twoPI, Math.abs(endAngleN - startAngleN)); totalAngle > EPSILON;) {
+        for (var totalAngle = Math.min(twoPI, Math.abs(endAngleN - startAngleN));
+             totalAngle > EPSILON;) {
             var a2 = a1 + sgn * Math.min(totalAngle, piOverTwo);
             curves.push(this.createSmallArc(radius, a1, a2));
             totalAngle -= Math.abs(a2 - a1);
@@ -1519,11 +1542,15 @@
     };
 
     /**
-     * Cubic bezier approximation of a circular arc centered at the origin, from (radians) a1 to a2, where a2-a1 < pi/2. The arc's radius is r.
+     * Cubic bezier approximation of a circular arc centered at the origin, from (radians) a1 to
+     * a2, where a2-a1 < pi/2. The arc's radius is r.
      *
-     * Returns an object with four points, where x1,y1 and x4,y4 are the arc's end points and x2,y2 and x3,y3 are the cubic bezier's control points.
+     * Returns an object with four points, where x1,y1 and x4,y4 are the arc's end points and x2,y2
+     * and x3,y3 are the cubic bezier's control points.
      *
-     * This algorithm is based on the approach described in: A. Riškus, "Approximation of a Cubic Bezier Curve by Circular Arcs and Vice Versa," Information Technology and Control, 35(4), 2006 pp. 371-378.
+     * This algorithm is based on the approach described in: A. Riškus, "Approximation of a Cubic
+     * Bezier Curve by Circular Arcs and Vice Versa," Information Technology and Control, 35(4),
+     * 2006 pp. 371-378.
      */
 
     c2d.internal.createSmallArc = function (r, a1, a2) {

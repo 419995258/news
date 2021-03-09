@@ -19,42 +19,44 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package web.test.jsPDF - 1.3 {
+package web.test.jsPDF
+-1.3
+{
+    import flexunit.framework.TestCase;
+    import flexunit.framework.TestSuite;
 
-	import flexunit.framework.TestCase;
-	import flexunit.framework.TestSuite;
-	import flash.utils.ByteArray;
+    import flash.utils.ByteArray;
 
-	import com.dynamicflash.util.Base64;
-	
-	public class Base64Test extends TestCase {
-		
-	    public function Base64Test(methodName:String = null) {
-			super(methodName);
+    import com.dynamicflash.util.Base64;
+
+    public class Base64Test extends TestCase {
+
+        public function Base64Test(methodName:String = null) {
+            super(methodName);
         }
-        
+
         public function testEncode():void {
-        	assertEquals("VGhpcyBpcyBhIHRlc3Q=",Base64.encode("This is a test"));
+            assertEquals("VGhpcyBpcyBhIHRlc3Q=", Base64.encode("This is a test"));
         }
-        
+
         public function testEncodeDecodeBytes():void {
-        	var obj:Object = {name:"Dynamic Flash", url:"http://dynamicflash.com"};
-        	var source:ByteArray = new ByteArray();
-        	source.writeObject(obj);
-        	var encoded:String = Base64.encodeByteArray(source);
-        	var decoded:ByteArray = Base64.decodeToByteArray(encoded);
-        	var obj2:Object = decoded.readObject();
-        	assertEquals(obj.name, obj2.name);
-        	assertEquals(obj.url, obj2.url);
+            var obj:Object = {name: "Dynamic Flash", url: "http://dynamicflash.com"};
+            var source:ByteArray = new ByteArray();
+            source.writeObject(obj);
+            var encoded:String = Base64.encodeByteArray(source);
+            var decoded:ByteArray = Base64.decodeToByteArray(encoded);
+            var obj2:Object = decoded.readObject();
+            assertEquals(obj.name, obj2.name);
+            assertEquals(obj.url, obj2.url);
         }
-        
+
         public function testDecode():void {
-        	assertEquals("This is a test",Base64.decode("VGhpcyBpcyBhIHRlc3Q="));
+            assertEquals("This is a test", Base64.decode("VGhpcyBpcyBhIHRlc3Q="));
         }
-        
+
         public function testEncodeDecode():void {
-        	var string:String = "The quick brown fox jumped over the lazy dogs";
-        	assertEquals(string, Base64.decode(Base64.encode(string)));
+            var string:String = "The quick brown fox jumped over the lazy dogs";
+            assertEquals(string, Base64.decode(Base64.encode(string)));
         }
-	}
+    }
 }

@@ -1,329 +1,337 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title>添加新闻</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<head>
+    <meta charset="utf-8">
+    <title>添加新闻</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		<!--标准mui.css-->
-		<link rel="stylesheet" href="/static/Mui/css/mui.min.css">
-		<!--App自定义的css-->
-		<link rel="stylesheet" type="text/css" href="/static/Mui/css/app.css" />
-		
-		<link rel="stylesheet" type="text/css" href="/static/Mui/css/mui.picker.min.css" />
-		
-		<script src="/static/Mui/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/static/Mui/js/mui.min.js"></script>
-		<script src="/static/Mui/js/mui.picker.min.js"></script>
-		
-		<!--全局属性-->
-		<script src="/static/Mui/js/property.js" type="text/javascript" charset="utf-8"></script>
-		
-		
-		<!-- 上传图片插件 -->
-		<link href="/static/Mui/fileInput/bootstrap.min.css" media="all"
-			rel="stylesheet" type="text/css" />
-		<link href="/static/Mui/fileInput/fileinput.css" media="all"
-			rel="stylesheet" type="text/css" />
-		<script src="/static/Mui/js/jquery-1.7.1.min.js"
-			type="text/javascript"></script>
-		<script src="/static/Mui/fileInput/fileinput.js"
-			type="text/javascript"></script>
-			
-		
-		<!--文件上传（原生）-->
-		<!--<script type="text/javascript" src="static/Mui/js/common.js"></script>-->
-		<link rel="stylesheet" href="/static/Mui/css/common.css" type="text/css" charset="utf-8"/>
-		
-		
-		<style>
-			h5 {
-				margin: 5px 7px;
-			}
-		</style>
-	</head>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="/static/Mui/css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" type="text/css" href="/static/Mui/css/app.css"/>
 
-	<body>
-		<!--<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">添加新闻</h1>
-		</header>-->
-		<div class="mui-content" id="news">
-			<div class="mui-content-padded" style="margin: 5px;">
-				
-				<form class="mui-input-group">
-					<div class="mui-input-row">
-						<label>新闻标题</label>
-						<input type="text" v-model="news.title" placeholder="请输入新闻标题">
-					</div>
-					<div class="mui-input-row">
-						<label>作者</label>
-						<input type="text" v-model="news.source" placeholder="作者">
-					</div>
-					<div class="mui-button-row">
-						<button id='cretime' data-options='{}' class="mui-btn">选择日期时间 ...</button>
-					</div>
-					
-					
-					
-				</form>
-				
-					<div class="mui-input-row" style="margin: 10px 5px;">
-						<textarea id="textarea" v-model="news.content" rows="5" placeholder="多行文本框"></textarea>
-					</div>
-				
-				
-				<h5 class="mui-content-padded" style="margin: 15px 10px;">上传图片</h5>
-				<div style="width:90%; margin-left:5%; margin-top:10px;">
-							<input id="file-6" class="file" type="file" multiple name="imgs"
-								data-preview-file-type="any"
-								data-upload-url="1"
-								data-preview-file-icon="">
-				</div>
-				
-				<div class="mui-button-row">
-					<button type="button" class="mui-btn mui-btn-primary" @click="save()">确认</button>&nbsp;&nbsp;
-					<button type="button" class="mui-btn mui-btn-danger mui-action-back" onclick="return false;">关闭</button>
-				</div>
-				
-				
-				<h5 class="mui-content-padded" style="margin: 15px 10px;">上传图片(原生)</h5>
-				
-				<p class="heading">上传文件列表：</p>
-				<ul id="files" style="text-align:left;">
-					<p id="empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
-				</ul>
-				<table style="width:100%;">
-					<tbody>
-						<tr>
-							<td style="width:40%"><div class="button button-select" onclick="appendByCamera()">拍照</div></td>
-							<td style="width:40%"><div class="button button-select" onclick="appendByGallery()">相册选取</div></td>
-						</tr>
-					</tbody>
-				</table>
-				<br/>
-				<div class="button" onclick="upload()">上 传</div>
-				<br/>
-				
-				<div id='result' class="ui-alert">
-				</div>
-				
-			</div>
-		</div>
-		
-		
-		
-		<script>
-			
-			
-			mui.init({
-				swipeBack: true, //启用右滑关闭功能
-				beforeback: function() {//返回刷新，关闭页面操作
-			　　　　    //获得父页面的webview
-			         var list = plus.webview.currentWebview().opener();
-			　　　　    //触发父页面的自定义事件(refresh),从而进行刷新
-			         mui.fire(list, 'refresh');
-			         //返回true,继续页面关闭逻辑
-			         return true;
-		        }
-				/*subpages:[{
-		        //id:'addNew.html',
-		        styles:{
-			        top:'45px',//mui标题栏默认高度为45px；
-			        bottom:'0px'//默认为0px，可不定义；
-		        }
-		    }]*/
-			});
-			
-			//关闭页面操作
-			//备份mui.back，mui.back已将窗口关闭逻辑封装的比较完善（预加载及父子窗口），因此最好复用mui.back
-			var old_back = mui.back;
-			mui.back = function(){
-			  var btn = ["确定","取消"];
-			  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
-			    if(e.index==0){
-			    	//执行mui封装好的窗口关闭逻辑；
-			    	old_back();
-			    }
-			  });
-			}
-			
-			var vm = new Vue({
-                           el: '#news',
-                           data: {
-                           		news:{}
-                           },
-                           methods : {
-                           		save:function(){
-                           			console.log(vm.news);
-                           			
-                           			mui.ajax(mainUrl + '/newsC/saveNews',{
-				                    data:vm.news,
-				                    dataType:'json',//服务器返回json格式数据
-				                    type:'post',//HTTP请求类型
-				                    timeout:100000,//超时时间设置为100秒；
-				                    headers:{'Content-Type':'application/json'},
-				                    success:function(data){
-				                        mui.toast(data.message);
-				                        mui.back();
-				                    },
-				                    error:function(xhr,type,errorThrown){
-				                        //异常处理；
-				                        console.log(type);
-				                    }
+    <link rel="stylesheet" type="text/css" href="/static/Mui/css/mui.picker.min.css"/>
+
+    <script src="/static/Mui/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/Mui/js/mui.min.js"></script>
+    <script src="/static/Mui/js/mui.picker.min.js"></script>
+
+    <!--全局属性-->
+    <script src="/static/Mui/js/property.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <!-- 上传图片插件 -->
+    <link href="/static/Mui/fileInput/bootstrap.min.css" media="all"
+          rel="stylesheet" type="text/css"/>
+    <link href="/static/Mui/fileInput/fileinput.css" media="all"
+          rel="stylesheet" type="text/css"/>
+    <script src="/static/Mui/js/jquery-1.7.1.min.js"
+            type="text/javascript"></script>
+    <script src="/static/Mui/fileInput/fileinput.js"
+            type="text/javascript"></script>
+
+
+    <!--文件上传（原生）-->
+    <!--<script type="text/javascript" src="static/Mui/js/common.js"></script>-->
+    <link rel="stylesheet" href="/static/Mui/css/common.css" type="text/css" charset="utf-8"/>
+
+
+    <style>
+        h5 {
+            margin: 5px 7px;
+        }
+    </style>
+</head>
+
+<body>
+<!--<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">添加新闻</h1>
+</header>-->
+<div class="mui-content" id="news">
+    <div class="mui-content-padded" style="margin: 5px;">
+
+        <form class="mui-input-group">
+            <div class="mui-input-row">
+                <label>新闻标题</label>
+                <input type="text" v-model="news.title" placeholder="请输入新闻标题">
+            </div>
+            <div class="mui-input-row">
+                <label>作者</label>
+                <input type="text" v-model="news.source" placeholder="作者">
+            </div>
+            <div class="mui-button-row">
+                <button id='cretime' data-options='{}' class="mui-btn">选择日期时间 ...</button>
+            </div>
+
+
+        </form>
+
+        <div class="mui-input-row" style="margin: 10px 5px;">
+            <textarea id="textarea" v-model="news.content" rows="5" placeholder="多行文本框"></textarea>
+        </div>
+
+
+        <h5 class="mui-content-padded" style="margin: 15px 10px;">上传图片</h5>
+        <div style="width:90%; margin-left:5%; margin-top:10px;">
+            <input id="file-6" class="file" type="file" multiple name="imgs"
+                   data-preview-file-type="any"
+                   data-upload-url="1"
+                   data-preview-file-icon="">
+        </div>
+
+        <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-primary" @click="save()">确认</button>&nbsp;&nbsp;
+            <button type="button" class="mui-btn mui-btn-danger mui-action-back"
+                    onclick="return false;">关闭
+            </button>
+        </div>
+
+
+        <h5 class="mui-content-padded" style="margin: 15px 10px;">上传图片(原生)</h5>
+
+        <p class="heading">上传文件列表：</p>
+        <ul id="files" style="text-align:left;">
+            <p id="empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+        </ul>
+        <table style="width:100%;">
+            <tbody>
+            <tr>
+                <td style="width:40%">
+                    <div class="button button-select" onclick="appendByCamera()">拍照</div>
+                </td>
+                <td style="width:40%">
+                    <div class="button button-select" onclick="appendByGallery()">相册选取</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        <div class="button" onclick="upload()">上 传</div>
+        <br/>
+
+        <div id='result' class="ui-alert">
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+    mui.init({
+                 swipeBack: true, //启用右滑关闭功能
+                 beforeback: function () {//返回刷新，关闭页面操作
+                     //获得父页面的webview
+                     var list = plus.webview.currentWebview().opener();
+                     //触发父页面的自定义事件(refresh),从而进行刷新
+                     mui.fire(list, 'refresh');
+                     //返回true,继续页面关闭逻辑
+                     return true;
+                 }
+                 /*subpages:[{
+                 //id:'addNew.html',
+                 styles:{
+                     top:'45px',//mui标题栏默认高度为45px；
+                     bottom:'0px'//默认为0px，可不定义；
+                 }
+             }]*/
+             });
+
+    //关闭页面操作
+    //备份mui.back，mui.back已将窗口关闭逻辑封装的比较完善（预加载及父子窗口），因此最好复用mui.back
+    var old_back = mui.back;
+    mui.back = function () {
+        var btn = ["确定", "取消"];
+        mui.confirm('确认关闭当前窗口？', 'Hello MUI', btn, function (e) {
+            if (e.index == 0) {
+                //执行mui封装好的窗口关闭逻辑；
+                old_back();
+            }
+        });
+    }
+
+    var vm = new Vue({
+                         el: '#news',
+                         data: {
+                             news: {}
+                         },
+                         methods: {
+                             save: function () {
+                                 console.log(vm.news);
+
+                                 mui.ajax(mainUrl + '/newsC/saveNews', {
+                                     data: vm.news,
+                                     dataType: 'json',//服务器返回json格式数据
+                                     type: 'post',//HTTP请求类型
+                                     timeout: 100000,//超时时间设置为100秒；
+                                     headers: {'Content-Type': 'application/json'},
+                                     success: function (data) {
+                                         mui.toast(data.message);
+                                         mui.back();
+                                     },
+                                     error: function (xhr, type, errorThrown) {
+                                         //异常处理；
+                                         console.log(type);
+                                     }
+                                 });
+
+                             }
+                         }
+                     });
+
+    (function ($) {
+
+        $("#cretime")[0].addEventListener('tap', function () {
+            var _self = this;
+            if (_self.picker) {
+                _self.picker.show(function (rs) {
+                    //result.innerText = '选择结果: ' + rs.text;
+                    _self.picker.dispose();
+                    _self.picker = null;
                 });
-                           			
-                           			
-                           		}
-                           }
-                       });
-			
-			(function($) {
-				
-					$("#cretime")[0].addEventListener('tap', function() {
-						var _self = this;
-						if(_self.picker) {
-							_self.picker.show(function (rs) {
-								//result.innerText = '选择结果: ' + rs.text;
-								_self.picker.dispose();
-								_self.picker = null;
-							});
-						} else {
-							var optionsJson = this.getAttribute('data-options') || '{}';
-							var options = JSON.parse(optionsJson);
-							var id = this.getAttribute('id');
-							/*
-							 * 首次显示时实例化组件
-							 * 示例为了简洁，将 options 放在了按钮的 dom 上
-							 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
-							 */
-							_self.picker = new $.DtPicker(options);
-							_self.picker.show(function(rs) {
-								/*
-								 * rs.value 拼合后的 value
-								 * rs.text 拼合后的 text
-								 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
-								 * rs.m 月，用法同年
-								 * rs.d 日，用法同年
-								 * rs.h 时，用法同年
-								 * rs.i 分（minutes 的第二个字母），用法同年
-								 */
-								//result.innerText = '选择结果: ' + rs.text;
-								console.log(rs.text);
-								vm.news.cretime = rs.text;
-								/* 
-								 * 返回 false 可以阻止选择框的关闭
-								 * return false;
-								 */
-								/*
-								 * 释放组件资源，释放后将将不能再操作组件
-								 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
-								 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
-								 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
-								 */
-								_self.picker.dispose();
-								_self.picker = null;
-							});
-						}
-						
-					}, false);
-			})(mui);
-			
-			(function($) {
-				/*初始化页面,清除上传的文件*/
-				$("#file-6").attr('data-upload-url',mainUrl + '/newsC/uploadTemp');
-				//{{mainUrl}} + /newsC/uploadTemp
-				$("#file-6").fileInputCleared;
-				$('.file').on('fileuploaded', function(event, data, previewId, index) {
-					var response = data.response;
-					if (response.success) {
-						file = true;
-						console.log("file:" + file);
-						fileUrl = data.response.fileUrl;
-                        console.log("fileUrl:" + fileUrl);
-                        vm.news.href = fileUrl;
-			
-					}
-				});
-							
-				})(jQuery);
-			
-			
-			/*上传原生*/
-			
-			
-			var server= mainUrl + '/newsC/uploadTemp';
-			var files=[];
-			// 上传文件
-			function upload(){
-				if(files.length<=0){
-					plus.nativeUI.alert("没有添加上传文件！");
-					return;
-				}
-				//outSet("开始上传：")
-				var wt=plus.nativeUI.showWaiting();
-				var task=plus.uploader.createUpload(server,
-					{method:"POST"},
-					function(t,status){ //上传完成
-						if(status==200){
-							//outLine("上传成功："+t.responseText);
-							//plus.storage.setItem("uploader",t.responseText);
-							wt.close();
-							plus.nativeUI.alert("上传文件成功！");
-							/*var w=plus.webview.create("uploader_ret.html","uploader_ret.html",{scrollIndicator:'none',scalable:false});
-							w.addEventListener("loaded",function(){
-								wt.close();
-								w.show("slide-in-right",300);
-							},false);*/
-						}else{
-							//outLine("上传失败："+status);
-							wt.close();
-						}
-					}
-				);
-				task.addData("client","HelloH5+");
-				task.addData("uid",getUid());
-				for(var i=0;i<files.length;i++){
-					var f=files[i];
-					//task.addFile(f.path,{key:f.name});
-					task.addFile(f.path,{key:"imgs"});
-				}
-				task.start();
-			}
-			// 拍照添加文件
-			function appendByCamera(){
-				plus.camera.getCamera().captureImage(function(p){
-					appendFile(p);
-				});	
-			}
-			// 从相册添加文件
-			function appendByGallery(){
-				plus.gallery.pick(function(p){
-			        appendFile(p);
-			    });
-			}
-			// 添加文件
-			var index=1;
-			function appendFile(p){
-				var fe=document.getElementById("files");
-				var li=document.createElement("li");
-				var n=p.substr(p.lastIndexOf('/')+1);
-				li.innerText=n;
-				fe.appendChild(li);
-				files.push({name:"uploadkey"+index,path:p});
-				index++;
-				empty.style.display="none";
-			}
-			// 产生一个随机数
-			function getUid(){
-				return Math.floor(Math.random()*100000000+10000000).toString();
-			}
-			
-			
-		</script>
-	</body>
+            } else {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var id = this.getAttribute('id');
+                /*
+                 * 首次显示时实例化组件
+                 * 示例为了简洁，将 options 放在了按钮的 dom 上
+                 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+                 */
+                _self.picker = new $.DtPicker(options);
+                _self.picker.show(function (rs) {
+                    /*
+                     * rs.value 拼合后的 value
+                     * rs.text 拼合后的 text
+                     * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+                     * rs.m 月，用法同年
+                     * rs.d 日，用法同年
+                     * rs.h 时，用法同年
+                     * rs.i 分（minutes 的第二个字母），用法同年
+                     */
+                    //result.innerText = '选择结果: ' + rs.text;
+                    console.log(rs.text);
+                    vm.news.cretime = rs.text;
+                    /*
+                     * 返回 false 可以阻止选择框的关闭
+                     * return false;
+                     */
+                    /*
+                     * 释放组件资源，释放后将将不能再操作组件
+                     * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+                     * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                     * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                     */
+                    _self.picker.dispose();
+                    _self.picker = null;
+                });
+            }
+
+        }, false);
+    })(mui);
+
+    (function ($) {
+        /*初始化页面,清除上传的文件*/
+        $("#file-6").attr('data-upload-url', mainUrl + '/newsC/uploadTemp');
+        //{{mainUrl}} + /newsC/uploadTemp
+        $("#file-6").fileInputCleared;
+        $('.file').on('fileuploaded', function (event, data, previewId, index) {
+            var response = data.response;
+            if (response.success) {
+                file = true;
+                console.log("file:" + file);
+                fileUrl = data.response.fileUrl;
+                console.log("fileUrl:" + fileUrl);
+                vm.news.href = fileUrl;
+
+            }
+        });
+
+    })(jQuery);
+
+    /*上传原生*/
+
+    var server = mainUrl + '/newsC/uploadTemp';
+    var files = [];
+
+    // 上传文件
+    function upload() {
+        if (files.length <= 0) {
+            plus.nativeUI.alert("没有添加上传文件！");
+            return;
+        }
+        //outSet("开始上传：")
+        var wt = plus.nativeUI.showWaiting();
+        var task = plus.uploader.createUpload(server,
+                                              {method: "POST"},
+                                              function (t, status) { //上传完成
+                                                  if (status == 200) {
+                                                      //outLine("上传成功："+t.responseText);
+                                                      //plus.storage.setItem("uploader",t.responseText);
+                                                      wt.close();
+                                                      plus.nativeUI.alert("上传文件成功！");
+                                                      /*var w=plus.webview.create("uploader_ret.html","uploader_ret.html",{scrollIndicator:'none',scalable:false});
+                                                      w.addEventListener("loaded",function(){
+                                                          wt.close();
+                                                          w.show("slide-in-right",300);
+                                                      },false);*/
+                                                  } else {
+                                                      //outLine("上传失败："+status);
+                                                      wt.close();
+                                                  }
+                                              }
+        );
+        task.addData("client", "HelloH5+");
+        task.addData("uid", getUid());
+        for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            //task.addFile(f.path,{key:f.name});
+            task.addFile(f.path, {key: "imgs"});
+        }
+        task.start();
+    }
+
+    // 拍照添加文件
+    function appendByCamera() {
+        plus.camera.getCamera().captureImage(function (p) {
+            appendFile(p);
+        });
+    }
+
+    // 从相册添加文件
+    function appendByGallery() {
+        plus.gallery.pick(function (p) {
+            appendFile(p);
+        });
+    }
+
+    // 添加文件
+    var index = 1;
+
+    function appendFile(p) {
+        var fe = document.getElementById("files");
+        var li = document.createElement("li");
+        var n = p.substr(p.lastIndexOf('/') + 1);
+        li.innerText = n;
+        fe.appendChild(li);
+        files.push({name: "uploadkey" + index, path: p});
+        index++;
+        empty.style.display = "none";
+    }
+
+    // 产生一个随机数
+    function getUid() {
+        return Math.floor(Math.random() * 100000000 + 10000000).toString();
+    }
+
+
+</script>
+</body>
 
 </html>

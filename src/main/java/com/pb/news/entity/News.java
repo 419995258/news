@@ -3,28 +3,44 @@ package com.pb.news.entity;
 import java.io.Serializable;
 
 public class News implements Serializable {
-    /* id*/
+    /**
+     * id
+     */
     private Integer id;
 
-    /* 标题*/
+    /**
+     * 标题
+     */
     private String title;
 
-    /* 链接*/
+    /**
+     * 链接
+     */
     private String href;
 
-    /* 来源*/
+    /**
+     * 来源
+     */
     private String source;
 
-    /* 创建时间*/
+    /**
+     * 创建时间
+     */
     private String cretime;
 
-    /* 排序*/
+    /**
+     * 排序
+     */
     private Integer orderSeq;
 
-    /* 内容*/
+    /**
+     * 内容
+     */
     private String content;
 
-    /* 删除标记*/
+    /**
+     * 删除标记
+     */
     private Integer delFlag;
 
     private static final long serialVersionUID = 1L;

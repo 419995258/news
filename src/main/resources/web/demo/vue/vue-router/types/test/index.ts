@@ -1,101 +1,103 @@
-import Vue, { ComponentOptions, AsyncComponent } from "vue";
+import Vue, {ComponentOptions, AsyncComponent} from "vue";
 
 import VueRouter from "../index";
-import { Route, RouteRecord, RedirectOption } from "../index";
+import {Route, RouteRecord, RedirectOption} from "../index";
 
 Vue.use(VueRouter);
 
-const Home = { template: "<div>home</div>" };
-const Foo = { template: "<div>foo</div>" };
-const Bar = { template: "<div>bar</div>" };
-const Async = () => Promise.resolve({ template: "<div>async</div>" })
+const Home = {template: "<div>home</div>"};
+const Foo = {template: "<div>foo</div>"};
+const Bar = {template: "<div>bar</div>"};
+const Async = () => Promise.resolve({template: "<div>async</div>"})
 
 const Hook: ComponentOptions<Vue> = {
-  template: "<div>hook</div>",
+    template: "<div>hook</div>",
 
-  beforeRouteEnter (to, from, next) {
-    route.params;
-    next("/");
-    next({ path: "/" });
-    next(vm => {
-      vm.$router;
-    });
-  },
+    beforeRouteEnter(to, from, next) {
+        route.params;
+        next("/");
+        next({path: "/"});
+        next(vm => {
+            vm.$router;
+        });
+    },
 
-  beforeRouteLeave (to, from, next) {
-    route.params;
-    next("/");
-    next({ path: "/" });
-    next();
-  },
+    beforeRouteLeave(to, from, next) {
+        route.params;
+        next("/");
+        next({path: "/"});
+        next();
+    },
 
-  beforeRouteUpdate (to, from, next) {
-    route.params;
-    next("/");
-    next({ path: "/" });
-    next();
-  }
+    beforeRouteUpdate(to, from, next) {
+        route.params;
+        next("/");
+        next({path: "/"});
+        next();
+    }
 };
 
 const router = new VueRouter({
-  mode: "history",
-  base: "/",
-  fallback: false,
-  linkActiveClass: "active",
-  linkExactActiveClass: "exact-active",
-  scrollBehavior: (to, from, savedPosition) => {
-    if (from.path === "/") {
-      return { selector: "#app" };
-    }
+    mode: "history",
+    base: "/",
+    fallback: false,
+    linkActiveClass: "active",
+    linkExactActiveClass: "exact-active",
+    scrollBehavior: (to, from, savedPosition) => {
+        if (from.path === "/") {
+            return {selector: "#app"};
+        }
 
-    if (from.path === "/offset") {
-      return { selector: '#foo', offset: { x: 0, y: 100 }}
-    }
+        if (from.path === "/offset") {
+            return {selector: '#foo', offset: {x: 0, y: 100}}
+        }
 
-    if (to.path === "/child") {
-      return;
-    }
+        if (to.path === "/child") {
+            return;
+        }
 
-    if (savedPosition) {
-      return savedPosition;
-    }
+        if (savedPosition) {
+            return savedPosition;
+        }
 
-    return Promise.resolve({
-      x: 0,
-      y: 0
-    })
-  },
-  routes: [
-    { path: "/", name: "home", component: Home, children: [
-      {
-        path: "child",
-        components: {
-          default: Foo,
-          bar: Bar,
-          asyncComponent: Async,
+        return Promise.resolve({
+            x: 0,
+            y: 0
+        })
+    },
+    routes: [
+        {
+            path: "/", name: "home", component: Home, children: [
+                {
+                    path: "child",
+                    components: {
+                        default: Foo,
+                        bar: Bar,
+                        asyncComponent: Async,
+                    },
+                    meta: {auth: true},
+                    beforeEnter(to, from, next) {
+                        to.params;
+                        from.params;
+                        next({name: "home"});
+                        next();
+                    }
+                },
+                {
+                    path: "children",
+                    redirect: to => {
+                        to.params;
+                        return "/child";
+                    }
+                }
+            ]
         },
-        meta: { auth: true },
-        beforeEnter (to, from, next) {
-          to.params;
-          from.params;
-          next({ name: "home" });
-          next();
-        }
-      },
-      {
-        path: "children",
-        redirect: to => {
-          to.params;
-          return "/child";
-        }
-      }
-    ]},
-    { path: "/home", alias: "/" },
-    { path: "/foo", props: true },
-    { path: "/bar", props: { id: 123 }},
-    { path: "/baz", props: (route: Route) => route.params },
-    { path: "*", redirect: "/" }
-  ]
+        {path: "/home", alias: "/"},
+        {path: "/foo", props: true},
+        {path: "/bar", props: {id: 123}},
+        {path: "/baz", props: (route: Route) => route.params},
+        {path: "*", redirect: "/"}
+    ]
 });
 
 const App: Vue = router.app;
@@ -113,55 +115,60 @@ const meta: any = route.meta;
 const matched: RouteRecord[] = route.matched;
 
 matched.forEach(m => {
-  const path: string = m.path;
-  const components: {
-    [key: string]: ComponentOptions<Vue> | typeof Vue | AsyncComponent
-  } = m.components;
-  const instances: { [key: string]: Vue } = m.instances;
-  const name: string | undefined = m.name;
-  const parant: RouteRecord | undefined = m.parent;
-  const redirect: RedirectOption | undefined = m.redirect;
+    const path: string = m.path;
+    const components: {
+        [key: string]: ComponentOptions<Vue> | typeof Vue | AsyncComponent
+    } = m.components;
+    const instances: { [key: string]: Vue } = m.instances;
+    const name: string | undefined = m.name;
+    const parant: RouteRecord | undefined = m.parent;
+    const redirect: RedirectOption | undefined = m.redirect;
 });
 
 const unregister = router.beforeEach((to, from, next) => {
-  to.params;
-  next("/");
-  next();
+    to.params;
+    next("/");
+    next();
 });
 
 unregister();
 
 router.beforeResolve((to, from, next) => {
-  to.params;
-  from.params;
-  next()
+    to.params;
+    from.params;
+    next()
 });
 
 router.afterEach((to, from) => {
-  to.params;
-  from.params;
+    to.params;
+    from.params;
 });
 
 router.push({
-  path: "/",
-  params: {
-    foo: "foo"
-  },
-  query: {
-    bar: "bar",
-    foo: ["foo1", "foo2"]
-  },
-  hash: "hash"
+    path: "/",
+    params: {
+        foo: "foo"
+    },
+    query: {
+        bar: "bar",
+        foo: ["foo1", "foo2"]
+    },
+    hash: "hash"
 });
-router.replace({ name: "home" });
+router.replace({name: "home"});
 
-router.push('/', () => {}, () => {})
-router.replace('/foo', () => {}, () => {});
+router.push('/', () => {
+}, () => {
+})
+router.replace('/foo', () => {
+}, () => {
+});
 
-router.onReady(() => {});
+router.onReady(() => {
+});
 
 router.addRoutes([
-  { path: '/more' }
+    {path: '/more'}
 ]);
 
 router.go(-1);
@@ -171,8 +178,8 @@ router.forward();
 const Components: (ComponentOptions<Vue> | typeof Vue | AsyncComponent)[] = router.getMatchedComponents();
 
 const vm = new Vue({
-  router,
-  template: `
+    router,
+    template: `
     <div id="app">
       <h1>Basic</h1>
       <ul>

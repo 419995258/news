@@ -1,42 +1,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 
-<script type="text/javascript">
-var a = 0;
- function add() {
-				++a;
-                var tr = "<tr>"; 
-                tr += "<td><input id=\"Name_0"+a+"\" type=\"text\"></td>"; 
-                tr += "<td> <select id=\"Gender_0" + a + "\"><option value=\"ÄĞ\">ÄĞ</option><option value=\"Å®\" >Å®</option></td>"; 
-                tr += "<td><input id=\"Birthday_0" + a + "\" type=\"text\"  class=\"Wdate\" onclick=\"WdatePicker({ dateFmt: 'yyyy/MM/dd' })\" style=\"cursor: pointer;\"></td>"; 
-                tr += "<td><input id=\"HuKouXingZhi__0" + a + "\" type=\"text\"></td>"; 
-                tr += "<td><input id=\"ZiNvShuXing_0" + a + "\"  type=\"text\"></td>"; 
-                tr += "<td><input  id=\"ZhengCe_0" + a + "\" type=\"text\"></td>"; 
-                tr += "<td><input id=\"ZhengCeLeiXing_0" + a + "\" type=\"text\"></td>"; 
-                tr += "</tr>";
-                $("#addChidren").append(tr); 
-            };
-			
-			
-</script>
+    <script type="text/javascript">
+        var a = 0;
+
+        function add() {
+            ++a;
+            var tr = "<tr>";
+            tr += "<td><input id=\"Name_0" + a + "\" type=\"text\"></td>";
+            tr +=
+                "<td> <select id=\"Gender_0" + a
+                + "\"><option value=\"ï¿½ï¿½\">ï¿½ï¿½</option><option value=\"Å®\" >Å®</option></td>";
+            tr +=
+                "<td><input id=\"Birthday_0" + a
+                + "\" type=\"text\"  class=\"Wdate\" onclick=\"WdatePicker({ dateFmt: 'yyyy/MM/dd' })\" style=\"cursor: pointer;\"></td>";
+            tr += "<td><input id=\"HuKouXingZhi__0" + a + "\" type=\"text\"></td>";
+            tr += "<td><input id=\"ZiNvShuXing_0" + a + "\"  type=\"text\"></td>";
+            tr += "<td><input  id=\"ZhengCe_0" + a + "\" type=\"text\"></td>";
+            tr += "<td><input id=\"ZhengCeLeiXing_0" + a + "\" type=\"text\"></td>";
+            tr += "</tr>";
+            $("#addChidren").append(tr);
+        };
+
+
+    </script>
 </head>
-<body >
-    <button type="button" value="add" id="addTable" onclick="add()">add</button>
-	 
-                        <table id="addChidren" class="addChidren" border="0" cellpadding="0" cellspacing="1"> 
-                            <tr id="trTop"> 
-                                <th>1</th> 
-                                <th>2</th> 
-                                <th>3</th> 
-                                <th>4</th> 
-                                <th>5</th> 
-                                <th>6</th> 
-                                <th>7</th> 
-                            </tr> 
-                        </table>
+<body>
+<button type="button" value="add" id="addTable" onclick="add()">add</button>
+
+<table id="addChidren" class="addChidren" border="0" cellpadding="0" cellspacing="1">
+    <tr id="trTop">
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+    </tr>
+</table>
 </form>
 </body>
 </html>

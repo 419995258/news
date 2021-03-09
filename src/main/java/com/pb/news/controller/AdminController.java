@@ -50,19 +50,14 @@ public class AdminController {
     private AdminService adminService;
 
 
-
-
-
     /**
-     *
-     * @Description: TODO 查询项目属性组
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/11/6 14:48
+     * @Description: TODO 查询项目属性组
+     * @author pengbin <pengbin> 2018/11/6 14:48
      */
-    @RequestMapping(value="/queryPropertyGroup",method = RequestMethod.POST)
+    @RequestMapping(value = "/queryPropertyGroup", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询项目属性组")
     //@ApiImplicitParam(paramType = "query",name= "username" ,value = "用户名",dataType = "string")
@@ -72,7 +67,7 @@ public class AdminController {
     })*/
     /*public  void userLogin(@RequestParam(value = "username" , required = false) String username,
                            @RequestParam(value = "password" , required = false) String password)*/
-    public Message queryPropertyGroup(){
+    public Message queryPropertyGroup() {
         Message message = new Message();
         List<PropertyGroup> propertyGroupList = adminService.selectAllPropertyGroup();
         message.setSuccess(true);
@@ -83,27 +78,25 @@ public class AdminController {
 
 
     /**
-     *
-     * @Description: TODO 通过属性组id查询属性
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/11/6 14:51
+     * @Description: TODO 通过属性组id查询属性
+     * @author pengbin <pengbin> 2018/11/6 14:51
      */
-    @RequestMapping(value="/queryProperty",method = RequestMethod.POST)
+    @RequestMapping(value = "/queryProperty", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询属性")
-    @ApiImplicitParam(paramType = "query",name= "groupKey" ,value = "属性组groupKey",dataType = "string")
-    public Message queryProperty(@RequestParam(value = "groupKey" , required = true) String groupKey){
+    @ApiImplicitParam(paramType = "query", name = "groupKey", value = "属性组groupKey", dataType = "string")
+    public Message queryProperty(@RequestParam(value = "groupKey", required = true) String groupKey) {
         Message message = new Message();
-        if(StringUtils.isNoneBlank(groupKey)){
+        if (StringUtils.isNoneBlank(groupKey)) {
 
             List<Property> propertyList = adminService.selectPropertyByPropertyGroupId(groupKey);
             message.setSuccess(true);
             message.setObj(propertyList);
 
-        }else{
+        } else {
             message.setMessage("groupKey不能为空");
         }
         return message;
@@ -111,30 +104,28 @@ public class AdminController {
     }
 
     /**
-     *
-     * @Description: TODO 通过属性id删除某个属性（dle_flag = 1）
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/11/7 10:50
+     * @Description: TODO 通过属性id删除某个属性（dle_flag = 1）
+     * @author pengbin <pengbin> 2018/11/7 10:50
      */
-    @RequestMapping(value="/delProperty",method = RequestMethod.POST)
+    @RequestMapping(value = "/delProperty", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "删除属性")
-    @ApiImplicitParam(paramType = "query",name= "gid" ,value = "属性id",dataType = "string")
-    public Message delProperty(@RequestParam(value = "gid" , required = true) String gid){
+    @ApiImplicitParam(paramType = "query", name = "gid", value = "属性id", dataType = "string")
+    public Message delProperty(@RequestParam(value = "gid", required = true) String gid) {
         Message message = new Message();
-        if(StringUtils.isNoneBlank(gid)){
+        if (StringUtils.isNoneBlank(gid)) {
 
             Integer success = adminService.delPropertyById(gid);
-            if(success == 1){
+            if (success == 1) {
                 message.setSuccess(true);
-            }else{
+            } else {
                 message.setMessage("删除失败");
             }
 
-        }else{
+        } else {
             message.setMessage("id不能为空");
         }
         return message;
@@ -143,18 +134,16 @@ public class AdminController {
 
 
     /**
-     *
-     * @Description: TODO 添加或修改属性
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/11/7 17:39
+     * @Description: TODO 添加或修改属性
+     * @author pengbin <pengbin> 2018/11/7 17:39
      */
-    @RequestMapping(value="/addorUpdateProperty",method = RequestMethod.POST)
+    @RequestMapping(value = "/addorUpdateProperty", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "添加或修改属性")
-    public Message addorUpdateProperty(@RequestBody Property property){
+    public Message addorUpdateProperty(@RequestBody Property property) {
         Message message = new Message();
         message = adminService.addorUpdateProperty(property);
         return message;
@@ -162,20 +151,17 @@ public class AdminController {
     }
 
 
-
     /**
-     *
-     * @Description: TODO 删除属性组
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/11/7 17:40
+     * @Description: TODO 删除属性组
+     * @author pengbin <pengbin> 2018/11/7 17:40
      */
-    @RequestMapping(value="/delPropertyGroup",method = RequestMethod.POST)
+    @RequestMapping(value = "/delPropertyGroup", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "删除属性组")
-    public Message delPropertyGroup(@RequestBody PropertyGroup PropertyGroup){
+    public Message delPropertyGroup(@RequestBody PropertyGroup PropertyGroup) {
         Message message = new Message();
         message = adminService.delPropertyGroup(PropertyGroup);
         return message;
@@ -184,18 +170,16 @@ public class AdminController {
 
 
     /**
-     *
-     * @Description: TODO 添加或修改属性组
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/11/7 17:39
+     * @Description: TODO 添加或修改属性组
+     * @author pengbin <pengbin> 2018/11/7 17:39
      */
-    @RequestMapping(value="/addorUpdatePropertyGroup",method = RequestMethod.POST)
+    @RequestMapping(value = "/addorUpdatePropertyGroup", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "添加或修改属性组")
-    public Message addorUpdatePropertyGroup(@RequestBody PropertyGroup propertyGroup){
+    public Message addorUpdatePropertyGroup(@RequestBody PropertyGroup propertyGroup) {
         Message message = new Message();
         message = adminService.addorUpdatePropertyGroup(propertyGroup);
         return message;
@@ -203,41 +187,41 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value="/setPropertyRedis",method = RequestMethod.POST)
+    @RequestMapping(value = "/setPropertyRedis", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "重置属性的redis缓存")
-    public Message setPropertyRedis(){
+    public Message setPropertyRedis() {
         Message message = new Message();
         message = adminService.setPropertyRedis();
         return message;
 
     }
 
-    @RequestMapping(value="/testShiroP3",method = RequestMethod.POST)
+    @RequestMapping(value = "/testShiroP3", method = RequestMethod.POST)
     @RequiresPermissions("p3")
     @ResponseBody
     @ApiOperation(value = "测试shiro")
-    public void testShiroP3(){
+    public void testShiroP3() {
         System.out.println("p3");
     }
 
-    @RequestMapping(value="/testShiroP1",method = RequestMethod.POST)
+    @RequestMapping(value = "/testShiroP1", method = RequestMethod.POST)
     @RequiresPermissions("p1")
     @ResponseBody
     @ApiOperation(value = "测试shirotestShiroP1")
-    public void testShiroP1(){
+    public void testShiroP1() {
         System.out.println("p1");
     }
 
 
-    @RequestMapping(value="/clearShiro",method = RequestMethod.POST)
+    @RequestMapping(value = "/clearShiro", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "测试clearShiro")
-    public void clearShiro(){
+    public void clearShiro() {
         Subject subject = SecurityUtils.getSubject();
         RealmSecurityManager securityManager =
                 (RealmSecurityManager) SecurityUtils.getSecurityManager();
-        ShiroRealm shiroRealm = (ShiroRealm)securityManager.getRealms().iterator().next();
+        ShiroRealm shiroRealm = (ShiroRealm) securityManager.getRealms().iterator().next();
         //删除登陆人
         shiroRealm.getAuthorizationCache().remove(subject.getPrincipal());
         //删除登陆人对应的缓存
@@ -251,16 +235,16 @@ public class AdminController {
      * 权限异常
      */
 //    配置权限异常返回json，否则跳转至在shiro.xml配置的路径
-    @ExceptionHandler({ UnauthorizedException.class, AuthorizationException.class })
+    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public void authorizationException(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println( SecurityUtils.getSubject().getPrincipal());
+        System.out.println(SecurityUtils.getSubject().getPrincipal());
         PrintWriter out = null;
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
             out = response.getWriter();
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("msg","没有权限");
+            jsonObject.put("msg", "没有权限");
             out.write(jsonObject.toString());
         } catch (IOException e) {
             e.printStackTrace();

@@ -31,7 +31,7 @@ import java.util.Map;
  */
 
 @Service
-public class NewsServiceImpl  extends Basic implements NewsService {
+public class NewsServiceImpl extends Basic implements NewsService {
 
 
     @Autowired
@@ -58,9 +58,9 @@ public class NewsServiceImpl  extends Basic implements NewsService {
                 Message m = FileOperationUtil.saveFileToDisk(f1, fileName,
                         diskFileName, "/static/file/img");
 
-				/*
-				 * 返回文件url地址
-				 */
+                /*
+                 * 返回文件url地址
+                 */
 
                 if (m.getSuccess()) {
                     try {
@@ -97,45 +97,45 @@ public class NewsServiceImpl  extends Basic implements NewsService {
 
         String pageNum = param.getPageNum();
         String pageSize = param.getPageSize();
-        if(StringUtils.isNotBlank(pageNum)){
+        if (StringUtils.isNotBlank(pageNum)) {
             pNum = Integer.valueOf(pageNum);
         }
-        if(StringUtils.isNotBlank(pageSize)){
+        if (StringUtils.isNotBlank(pageSize)) {
             pSize = Integer.valueOf(pageSize);
         }
         //使用分页插件,核心代码就这一行
         //PageHelper.startPage(pNum, pSize);
-        this.setPageInfo(pSize,pNum);
+        this.setPageInfo(pSize, pNum);
 
         NewsExample newsExample = new NewsExample();
         newsExample.setOrderByClause("id desc");
         NewsExample.Criteria cr = newsExample.createCriteria();
 
         //其他条件
-        Map<String,Object> query = (HashMap<String,Object>) param.getOther();
-        if(query == null){
-            query = new HashMap<String,Object>();
+        Map<String, Object> query = (HashMap<String, Object>) param.getOther();
+        if (query == null) {
+            query = new HashMap<String, Object>();
         }
         //删除
-        if(StringUtils.isNoneBlank((String) query.get("isDeleted"))){
+        if (StringUtils.isNoneBlank((String) query.get("isDeleted"))) {
             cr.andDelFlagEqualTo(Integer.valueOf((String) query.get("isDeleted")));
-        }else{
+        } else {
             cr.andDelFlagEqualTo(0);
         }
         //titile
-        if(StringUtils.isNoneBlank((String) query.get("title"))) {
+        if (StringUtils.isNoneBlank((String) query.get("title"))) {
             cr.andTitleLike("%" + query.get("title") + "%");
         }
         //作者
-        if(StringUtils.isNoneBlank((String) query.get("source"))){
-            cr.andSourceLike("%"+ query.get("source")+"%");
+        if (StringUtils.isNoneBlank((String) query.get("source"))) {
+            cr.andSourceLike("%" + query.get("source") + "%");
         }
 
 
         List<News> newsList = new ArrayList<News>();
         newsList = newsMapper.selectByExample(newsExample);
 
-        this.setReturnPageInfo(pSize,pNum,newsList,resultVo);
+        this.setReturnPageInfo(pSize, pNum, newsList, resultVo);
         resultVo.setRows(newsList);
 
         return resultVo;
@@ -146,7 +146,7 @@ public class NewsServiceImpl  extends Basic implements NewsService {
         Message message = new Message();
 
         Integer result = newsMapper.insertSelective(news);
-        if(result > 0){
+        if (result > 0) {
             message.setSuccess(true);
             message.setMessage("保存成功！");
         }
@@ -159,7 +159,7 @@ public class NewsServiceImpl  extends Basic implements NewsService {
 
         news.setDelFlag(1);
         Integer result = newsMapper.updateByPrimaryKeySelective(news);
-        if(result > 0){
+        if (result > 0) {
             message.setSuccess(true);
             message.setMessage("删除成功！");
         }

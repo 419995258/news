@@ -2,65 +2,66 @@ package com.pb.news.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
-@ApiModel(value="com.pb.news.entity.User")
+@ApiModel(value = "com.pb.news.entity.User")
 public class User implements Serializable {
     /* */
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value = "")
     private Integer id;
 
     /* 用户名*/
-    @ApiModelProperty(value="用户名")
+    @ApiModelProperty(value = "用户名")
     private String username;
 
     /* 密码*/
-    @ApiModelProperty(value="密码")
+    @ApiModelProperty(value = "密码")
     private String password;
 
     /* 家庭住址*/
-    @ApiModelProperty(value="家庭住址")
+    @ApiModelProperty(value = "家庭住址")
     private String address;
 
     /* 手机号*/
-    @ApiModelProperty(value="手机号")
+    @ApiModelProperty(value = "手机号")
     private String tel;
 
     /* 昵称*/
-    @ApiModelProperty(value="昵称")
+    @ApiModelProperty(value = "昵称")
     private String name;
 
     /* 注册时间*/
-    @ApiModelProperty(value="注册时间")
+    @ApiModelProperty(value = "注册时间")
     private Date register;
 
     /* 订单总金额*/
-    @ApiModelProperty(value="订单总金额")
+    @ApiModelProperty(value = "订单总金额")
     private Integer money;
 
     /* 1:普通用户 2：管理员*/
-    @ApiModelProperty(value="1:普通用户 2：管理员")
+    @ApiModelProperty(value = "1:普通用户 2：管理员")
     private Integer type;
 
     /* 创建人*/
-    @ApiModelProperty(value="创建人")
+    @ApiModelProperty(value = "创建人")
     private String creUser;
 
     /* 创建时间*/
-    @ApiModelProperty(value="创建时间")
+    @ApiModelProperty(value = "创建时间")
     private String creTime;
 
     /* 修改人*/
-    @ApiModelProperty(value="修改人")
+    @ApiModelProperty(value = "修改人")
     private String modUser;
 
     /* 修改时间*/
-    @ApiModelProperty(value="修改时间")
+    @ApiModelProperty(value = "修改时间")
     private String modTime;
 
     /* 是否删除：1：删除*/
-    @ApiModelProperty(value="是否删除：1：删除")
+    @ApiModelProperty(value = "是否删除：1：删除")
     private Integer delFlag;
 
     private static final long serialVersionUID = 1L;

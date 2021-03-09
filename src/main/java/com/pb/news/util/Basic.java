@@ -8,50 +8,52 @@ import com.pb.news.entity.vo.ResultVo;
 import java.util.List;
 
 public class Basic {
-	/**
+    /**
      * 设置分页初始信息
+     *
      * @param pagesize
      * @param currentpage
      */
-	public void setPageInfo(Integer pagesize, Integer currentpage) {
-		// TODO 设置分页初始信息
-		if (pagesize != null || currentpage != null) {// 分页信息设置
-			if (pagesize == null) {
-				pagesize = 10;
-			}
-			if (currentpage == null) {
-				currentpage = 1;
-			}
-			PageHelper.startPage(currentpage, pagesize);
-		}
-		
-	}
-	
-	 /**
+    public void setPageInfo(Integer pagesize, Integer currentpage) {
+        // TODO 设置分页初始信息
+        if (pagesize != null || currentpage != null) {// 分页信息设置
+            if (pagesize == null) {
+                pagesize = 10;
+            }
+            if (currentpage == null) {
+                currentpage = 1;
+            }
+            PageHelper.startPage(currentpage, pagesize);
+        }
+
+    }
+
+    /**
      * 设置返回的分页信息
+     *
      * @param pagesize
      * @param currentpage
      * @param pos
      * @param resultVo
      */
-	public void setReturnPageInfo(Integer pagesize, Integer currentpage,
-			List pos, ResultVo resultVo) throws Exception {
-		// TODO 设置返回的分页信息
-		
-		if (pagesize != null || currentpage != null) {
-			// 分页信息设置
-			Page p = (Page) pos;
+    public void setReturnPageInfo(Integer pagesize, Integer currentpage,
+                                  List pos, ResultVo resultVo) throws Exception {
+        // TODO 设置返回的分页信息
 
-			resultVo.setCurrentpage(ObjectUtil.convToString(p.getPageNum()));
-			resultVo.setTotal(ObjectUtil.convToString(p.getTotal()));
+        if (pagesize != null || currentpage != null) {
+            // 分页信息设置
+            Page p = (Page) pos;
 
-			resultVo.setPageNum(ObjectUtil.convToString(p.getPageNum()));
+            resultVo.setCurrentpage(ObjectUtil.convToString(p.getPageNum()));
+            resultVo.setTotal(ObjectUtil.convToString(p.getTotal()));
 
-			resultVo.setPageSize(ObjectUtil.convToString(p.getPageSize()));
+            resultVo.setPageNum(ObjectUtil.convToString(p.getPageNum()));
 
-			int pages = p.getPages();
-			resultVo.setPages(ObjectUtil.convToString(pages));
-		}
-		
-	}
+            resultVo.setPageSize(ObjectUtil.convToString(p.getPageSize()));
+
+            int pages = p.getPages();
+            resultVo.setPages(ObjectUtil.convToString(pages));
+        }
+
+    }
 }

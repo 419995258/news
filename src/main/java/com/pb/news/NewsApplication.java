@@ -20,31 +20,29 @@ import java.util.List;
 @MapperScan("com.pb.news.dao") //搜索该目录下的mapper接口，与mapper接口的@Mapper二选一使用
 public class NewsApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-	    SpringApplication.run(NewsApplication.class, args);
-	}
-
-
-	/**
-	 * 跨域过滤器,解决ajax访问请求跨域
-	 *
-	 * @return
-	 */
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedOrigin("*");
-		corsConfiguration.addAllowedHeader("*");
-		corsConfiguration.addAllowedMethod("*");
-		corsConfiguration.addExposedHeader("x-auth-token");
-		corsConfiguration.addExposedHeader("x-total-count");
-		source.registerCorsConfiguration("/**", corsConfiguration); // 4
-		return new CorsFilter(source);
-	}
+        SpringApplication.run(NewsApplication.class, args);
+    }
 
 
+    /**
+     * 跨域过滤器,解决ajax访问请求跨域
+     *
+     * @return
+     */
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addExposedHeader("x-auth-token");
+        corsConfiguration.addExposedHeader("x-total-count");
+        source.registerCorsConfiguration("/**", corsConfiguration); // 4
+        return new CorsFilter(source);
+    }
 
 
 }

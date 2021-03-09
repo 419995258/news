@@ -32,8 +32,7 @@ import javax.servlet.Filter;
 public class ShiroConfig {
     /**
      * LifecycleBeanPostProcessor，这是个DestructionAwareBeanPostProcessor的子类，
-     * 负责org.apache.shiro.util.Initializable类型bean的生命周期的，初始化和销毁。
-     * 主要是AuthorizingRealm类的子类，以及EhCacheManager类。
+     * 负责org.apache.shiro.util.Initializable类型bean的生命周期的，初始化和销毁。 主要是AuthorizingRealm类的子类，以及EhCacheManager类。
      */
 
     @Autowired
@@ -46,9 +45,7 @@ public class ShiroConfig {
     }
 
     /**
-     * HashedCredentialsMatcher，这个类是为了对密码进行编码的，
-     * 防止密码在数据库里明码保存，当然在登陆认证的时候，
-     * 这个类也负责对form里输入的密码进行编码。
+     * HashedCredentialsMatcher，这个类是为了对密码进行编码的， 防止密码在数据库里明码保存，当然在登陆认证的时候， 这个类也负责对form里输入的密码进行编码。
      */
     @Bean(name = "hashedCredentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
@@ -60,8 +57,7 @@ public class ShiroConfig {
     }
 
     /**
-     * ShiroRealm，这是个自定义的认证类，继承自AuthorizingRealm，
-     * 负责用户的认证和权限的处理，可以参考JdbcRealm的实现。
+     * ShiroRealm，这是个自定义的认证类，继承自AuthorizingRealm， 负责用户的认证和权限的处理，可以参考JdbcRealm的实现。
      */
     @Bean(name = "shiroRealm")
     @DependsOn("lifecycleBeanPostProcessor")
@@ -82,8 +78,7 @@ public class ShiroConfig {
 //    }
 
     /**
-     * SecurityManager，权限管理，这个类组合了登陆，登出，权限，session的处理，是个比较重要的类。
-     * //
+     * SecurityManager，权限管理，这个类组合了登陆，登出，权限，session的处理，是个比较重要的类。 //
      */
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager() {
@@ -99,8 +94,7 @@ public class ShiroConfig {
     }
 
     /**
-     * ShiroFilterFactoryBean，是个factorybean，为了生成ShiroFilter。
-     * 它主要保持了三项数据，securityManager，filters，filterChainDefinitionManager。
+     * ShiroFilterFactoryBean，是个factorybean，为了生成ShiroFilter。 它主要保持了三项数据，securityManager，filters，filterChainDefinitionManager。
      */
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
@@ -139,8 +133,7 @@ public class ShiroConfig {
     }
 
     /**
-     * AuthorizationAttributeSourceAdvisor，shiro里实现的Advisor类，
-     * 内部使用AopAllianceAnnotationsAuthorizingMethodInterceptor来拦截用以下注解的方法。
+     * AuthorizationAttributeSourceAdvisor，shiro里实现的Advisor类， 内部使用AopAllianceAnnotationsAuthorizingMethodInterceptor来拦截用以下注解的方法。
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
@@ -151,8 +144,7 @@ public class ShiroConfig {
 
 
     /**
-     * cacheManager 缓存 redis实现
-     * 使用的是shiro-redis开源插件
+     * cacheManager 缓存 redis实现 使用的是shiro-redis开源插件
      *
      * @return
      */
@@ -163,8 +155,7 @@ public class ShiroConfig {
     }
 
     /**
-     * 配置shiro redisManager
-     * 使用的是shiro-redis开源插件
+     * 配置shiro redisManager 使用的是shiro-redis开源插件
      *
      * @return
      */
@@ -180,8 +171,7 @@ public class ShiroConfig {
     }
 
     /**
-     * Session Manager
-     * 使用的是shiro-redis开源插件
+     * Session Manager 使用的是shiro-redis开源插件
      */
     @Bean
     public DefaultWebSessionManager sessionManager() {
@@ -191,8 +181,7 @@ public class ShiroConfig {
     }
 
     /**
-     * RedisSessionDAO shiro sessionDao层的实现 通过redis
-     * 使用的是shiro-redis开源插件
+     * RedisSessionDAO shiro sessionDao层的实现 通过redis 使用的是shiro-redis开源插件
      */
     @Bean
     public RedisSessionDAO redisSessionDAO() {
@@ -200,8 +189,6 @@ public class ShiroConfig {
         redisSessionDAO.setRedisManager(redisManager());
         return redisSessionDAO;
     }
-
-
 
 
 }

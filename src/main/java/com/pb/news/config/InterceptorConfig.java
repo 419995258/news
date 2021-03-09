@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class InterceptorConfig  implements HandlerInterceptor {
+public class InterceptorConfig implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(InterceptorConfig.class);
 
     /**
      * 进入controller层之前拦截请求
+     *
      * @param httpServletRequest
      * @param httpServletResponse
      * @param o
@@ -31,16 +32,15 @@ public class InterceptorConfig  implements HandlerInterceptor {
 
         log.info("---------------------开始进入请求地址拦截----------------------------");
         HttpSession session = httpServletRequest.getSession();
-        if(!StringUtils.isEmpty((String) session.getAttribute("username"))){
+        if (!StringUtils.isEmpty((String) session.getAttribute("username"))) {
             return true;
-        }
-        else{
+        } else {
             httpServletResponse.setCharacterEncoding("UTF-8");
             httpServletResponse.setContentType("application/json; charset=utf-8");
             PrintWriter printWriter = httpServletResponse.getWriter();
             JSONObject json = new JSONObject();
-            json.put("success",false);
-            json.put("message","login first!");
+            json.put("success", false);
+            json.put("message", "login first!");
             printWriter.write(json.toJSONString());
             //httpServletResponse.sendRedirect("/web/base/login.html");
             return false;

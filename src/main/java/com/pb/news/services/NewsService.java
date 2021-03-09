@@ -14,6 +14,7 @@ public interface NewsService {
 
     /**
      * 保存临时文件
+     *
      * @param file
      * @return
      * @throws Exception
@@ -21,36 +22,30 @@ public interface NewsService {
     Message saveTempFiles(MultipartFile[] file) throws Exception;
 
     /**
-     *
-     * @Description: TODO 查询新闻数据
-     * @param    
-     * @return 
+     * @param
+     * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/5/22 17:13
+     * @Description: TODO 查询新闻数据
+     * @author pengbin <pengbin> 2018/5/22 17:13
      */
     ResultVo queryNews(ResultVo param) throws Exception;
 
 
     /**
-     * 
-     * @Description: TODO 添加新闻
-     * @param    
-     * @return 
+     * @param
+     * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/5/28 18:19
+     * @Description: TODO 添加新闻
+     * @author pengbin <pengbin> 2018/5/28 18:19
      */
     Message saveNews(News news) throws Exception;
 
     /**
-     *
-     * @Description: TODO 删除新闻
      * @param
      * @return
      * @throws
-     * @author pengbin <pengbin>
-     * 2018/5/28 18:19
+     * @Description: TODO 删除新闻
+     * @author pengbin <pengbin> 2018/5/28 18:19
      */
     Message delNews(News news) throws Exception;
 

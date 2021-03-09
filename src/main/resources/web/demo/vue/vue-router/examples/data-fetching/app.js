@@ -4,20 +4,20 @@ import Post from './Post.vue'
 
 Vue.use(VueRouter)
 
-const Home = { template: '<div>home</div>' }
+const Home = {template: '<div>home</div>'}
 
 const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
-  routes: [
-    { path: '/', component: Home },
-    { path: '/post/:id', component: Post }
-  ]
-})
+                                 mode: 'history',
+                                 base: __dirname,
+                                 routes: [
+                                     {path: '/', component: Home},
+                                     {path: '/post/:id', component: Post}
+                                 ]
+                             })
 
 new Vue({
-  router,
-  template: `
+            router,
+            template: `
     <div id="app">
       <h1>Data Fetching</h1>
       <ul>
@@ -29,4 +29,4 @@ new Vue({
       <router-view class="view"></router-view>
     </div>
   `
-}).$mount('#app')
+        }).$mount('#app')
