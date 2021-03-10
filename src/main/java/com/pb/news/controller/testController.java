@@ -9,6 +9,7 @@ import com.pb.news.entity.vo.Message;
 import com.pb.news.services.vo.RedisService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +28,7 @@ public class testController {
     private RedisService redisService;
 
 
-    @RequestMapping("/index")
+    @PostMapping("/index")
     public Message index() {
         Message message = new Message();
        /* Student student = new Student();
@@ -39,6 +40,10 @@ public class testController {
         List<Student> list = studentMapper.selectByExample(studentExample);
         message.setSuccess(true);
         message.setMessage(String.valueOf(list.size()));*/
+        News news = new News();
+        news.setHref("1");
+        newsMapper.insertSelective(news);
+
         return message;
     }
 

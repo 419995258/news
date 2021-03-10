@@ -31,7 +31,8 @@ public class InterceptorConfig implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
         log.info("---------------------开始进入请求地址拦截----------------------------");
-        HttpSession session = httpServletRequest.getSession();
+        return true;
+        /*HttpSession session = httpServletRequest.getSession();
         if (!StringUtils.isEmpty((String) session.getAttribute("username"))) {
             return true;
         } else {
@@ -44,7 +45,7 @@ public class InterceptorConfig implements HandlerInterceptor {
             printWriter.write(json.toJSONString());
             //httpServletResponse.sendRedirect("/web/base/login.html");
             return false;
-        }
+        }*/
 
     }
 
