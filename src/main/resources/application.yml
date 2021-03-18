@@ -90,3 +90,11 @@ canal:
   destination: example
   username:
   password:
+
+#canal:
+#  host: 127.0.0.1
+#  port: 11111
+#  zkHost: 172.24.29.253:2181
+#  destination: example
+#  username: canal
+#  password: E3619321C1A937C46A0D8BD1DAC39F93B27D4458

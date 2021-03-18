@@ -21,6 +21,8 @@ public class CanalClient implements InitializingBean {
 
     @Value("${canal.host}")
     private String canalHost;
+    @Value("${canal.zkHost}")
+    private String zkHost;
     @Value("${canal.port}")
     private Integer canalPort;
     @Value("${canal.destination}")
@@ -35,8 +37,10 @@ public class CanalClient implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        // 创建链接
+        // 创建链接,单机
         CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(canalHost, canalPort), canalDestination, canalUsername, canalPassword);
+        // 集群
+//        CanalConnector connector = CanalConnectors.newClusterConnector(zkHost, canalDestination, canalUsername, canalPassword);
         try {
             //打开连接
             connector.connect();
