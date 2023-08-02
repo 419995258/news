@@ -47,13 +47,11 @@ public class testController {
         return message;
     }
 
-    /*@RequestMapping("/get")
-    public Student getStudent(Integer id){
-        Student student = new Student();
-        student = studentMapper.selectByPrimaryKey(id);
+    @RequestMapping("/get")
+    public String get(){
 
-        return  student;
-    }*/
+        return  "1";
+    }
 
     @RequestMapping(value = "/getAjax", method = RequestMethod.POST)
     @ResponseBody
